@@ -49,8 +49,10 @@ playLevel.prototype = {
 		game.load.spritesheet('convergeButton','res/converge_button.png',50,50);
 		game.load.spritesheet('pauseButton','res/pause_button.png',30,20);
 		game.load.spritesheet('confuseButton','res/confuse_button.png',50,50);
+		game.load.spritesheet('stunButton','res/stun_button.png',50,50);
 		game.load.spritesheet('healthbar','res/healthbar.png',10,3);
 		game.load.image('confuse','res/confuse_sprite.png');
+		game.load.image('stun','res/stun_sprite.png');
 	},
 
 	create: function() {
@@ -58,10 +60,12 @@ playLevel.prototype = {
 		maxRocks = 5;
 		maxConverge = 1;
 		maxConfuse = 2;
+		maxStun = 2;
 		numKills = 0;
 		rocksLeft = maxRocks;
 		convergeLeft = maxConverge;
 		confuseLeft = maxConfuse;
+		stunLeft = maxStun;
 		wave = 0;
 		rockAnchor.x = 0;
 		rockAnchor.y = 0;
@@ -116,6 +120,7 @@ playLevel.prototype = {
 		rockButton = game.add.button(20,gameHeight-70,'rockButton',buttonClick,this,2,0,1,1);
 		convergeButton = game.add.button(80,gameHeight-70,'convergeButton',convergeRocks,this,2,0,1,1);
 		confuseButton = game.add.button(140,gameHeight-70,'confuseButton',confuseShips,this,2,0,1,1);
+		stunButton = game.add.button(200,gameHeight-70,'stunButton',stunShips,this,2,0,1,1);
 
 		pauseButton = game.add.button(gameWidth-35,5,'pauseButton',pauseGame,this,2,0,1,1);
 
@@ -123,6 +128,7 @@ playLevel.prototype = {
 		rocksLeftText = game.add.text(35,gameHeight-60,""+rocksLeft,rocksLeftStyle);
 		convergeLeftText = game.add.text(95,gameHeight-60,""+convergeLeft,rocksLeftStyle);
 		confuseLeftText = game.add.text(155,gameHeight-60,""+confuseLeft,rocksLeftStyle);
+		stunLeftText = game.add.text(215,gameHeight-60,""+stunLeft,rocksLeftStyle);
 		//TODO: Anchor text and center
 
 		game.rockLoaded = null;
@@ -139,6 +145,9 @@ playLevel.prototype = {
 
     	keyE = game.input.keyboard.addKey(Phaser.Keyboard.E);
     	keyE.onDown.add(confuseShips,this);
+
+    	keyR = game.input.keyboard.addKey(Phaser.Keyboard.R);
+    	keyR.onDown.add(stunShips,this);
 
     	game.input.onDown.add(unpauseGame, self);
 	},
@@ -244,6 +253,7 @@ playLevel.prototype = {
 			rocksLeftText.text = ""+rocksLeft;
 			convergeLeftText.text = ""+convergeLeft;
 			confuseLeftText.text = ""+confuseLeft;
+			stunLeftText.text = ""+stunLeft;
 
 			if (rocks.getFirstAlive() == null && rocksLeft == 0 && game.rockLoaded === null)
 			{
@@ -361,10 +371,24 @@ function convergeRocks()
 
 function confuseShips()
 {
-	confuseLeft--;
-	ships.forEachAlive(function(ship){
-		ship.confused = 3000;
-	})
+	if (confuseLeft>0)
+	{
+		confuseLeft--;
+		ships.forEachAlive(function(ship){
+			ship.confused = 3000;
+		});
+	}
+}
+
+function stunShips()
+{
+	if (stunLeft>0)
+	{
+		stunLeft--;
+		ships.forEachAlive(function(ship){
+			ship.stunned = 3000;
+		});
+	}
 }
 
 function addMouseSprite(level,killIt)
@@ -420,6 +444,7 @@ function createShip(shipData,x,y)
 	ship.aliveTime = 0;
 
 	ship.confused = 0;
+	ship.stunned = 0;
 
 	ship.circle = new Phaser.Circle(ship.x, ship.y, safeRadius);
 	ship.circle.alpha = 0.7;
@@ -442,7 +467,15 @@ function createShip(shipData,x,y)
 	ship.confusedSprite.height = ship.height + 2;
 	ship.addChild(ship.confusedSprite);
 	ship.confusedSprite.kill();
-	
+
+	ship.stunnedSprite = game.add.sprite(0,0,'stun');
+	ship.stunnedSprite.anchor.x = 0.5;
+	ship.stunnedSprite.anchor.y = 0.5;
+	ship.stunnedSprite.alpha = 0.4;
+	ship.stunnedSprite.width = ship.width+2;
+	ship.stunnedSprite.height = ship.height+2;
+	ship.addChild(ship.stunnedSprite);
+	ship.stunnedSprite.kill();
 }
 
 function createRock(rocks,level,x,y,xVel,yVel,directHit)
@@ -504,9 +537,17 @@ function moveShip(ship) {
 			throttle(ship,Math.round(Math.random()));
 		}
 	}
+	else if (ship.stunned>0)
+	{
+		ship.stunnedSprite.revive();
+		ship.stunned = ship.stunned - game.time.physicsElapsedMS;
+		throttle(ship,0);
+		ship.body.angularVelocity = 0;
+	}
 	else
 	{
 		ship.confusedSprite.kill();
+		ship.stunnedSprite.kill();
 		var angleToTarget = getFiringSolution(ship);
 
 		var action = '';
@@ -761,6 +802,8 @@ function addBullet(ship)
 {
 	var bulletVelocity = ship.bulletVelocity;
 
+	if (ship.stunned <= 0)
+	{
 		ship.bulletTimer = ship.bulletTimer - game.time.physicsElapsedMS;
 		ship.aliveTime = ship.aliveTime + game.time.physicsElapsedMS;
 
@@ -773,6 +816,7 @@ function addBullet(ship)
 			bullet.body.rotation = ship.body.rotation;
 			bullet.body.mass = .1;
 		}
+	}
 }
 
 
