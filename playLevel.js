@@ -50,6 +50,7 @@ playLevel.prototype = {
 		game.load.spritesheet('pauseButton','res/pause_button.png',30,20);
 		game.load.spritesheet('confuseButton','res/confuse_button.png',50,50);
 		game.load.spritesheet('healthbar','res/healthbar.png',10,3);
+		game.load.image('confuse','res/confuse_sprite.png');
 	},
 
 	create: function() {
@@ -77,7 +78,6 @@ playLevel.prototype = {
 		})
 		.fail(function(jqxhr, textStatus, error){
 			var err = textStatus + ", " + error;
-    		console.log( "Request Failed: " + err );
 		});
 
 		//var numRocks = 20;
@@ -108,15 +108,10 @@ playLevel.prototype = {
 		bullets = game.add.group();
 		bullets.enableBody = true;
 		bullets.allowRotation = true;
-	
-		//createShip();
 
 		var text = getScoreLine();
 		var style = { font: "15px Arial", fill: "#ffffff", align: "left" };
 		scoreText = game.add.text(10,20,text,style);
-
-		//var instructionsStyle = {font: "16px Arial", fill: "#ffffff", align: "center"};
-		//game.add.text(80,gameHeight-60,"<-- Click here (or press Q) to grab a rock. Then click and drag to fling it at the evil little spaceship \n Click and hold on floating rocks to relaunch.",instructionsStyle);
 
 		rockButton = game.add.button(20,gameHeight-70,'rockButton',buttonClick,this,2,0,1,1);
 		convergeButton = game.add.button(80,gameHeight-70,'convergeButton',convergeRocks,this,2,0,1,1);
@@ -439,6 +434,15 @@ function createShip(shipData,x,y)
 		ship.shieldBar.alpha = 0.7;
 	}
 
+	ship.confusedSprite = game.add.sprite(0,0,'confuse');
+	ship.confusedSprite.anchor.x = 0.5;
+	ship.confusedSprite.anchor.y = 0.5;
+	ship.confusedSprite.alpha = 0.4;
+	ship.confusedSprite.width = ship.width + 2;
+	ship.confusedSprite.height = ship.height + 2;
+	ship.addChild(ship.confusedSprite);
+	ship.confusedSprite.kill();
+	
 }
 
 function createRock(rocks,level,x,y,xVel,yVel,directHit)
@@ -492,6 +496,7 @@ function moveShip(ship) {
 
 	if (ship.confused>0)
 	{
+		ship.confusedSprite.revive();
 		ship.confused = ship.confused - game.time.physicsElapsedMS;
 		if (Math.random()<0.05)
 		{
@@ -501,6 +506,7 @@ function moveShip(ship) {
 	}
 	else
 	{
+		ship.confusedSprite.kill();
 		var angleToTarget = getFiringSolution(ship);
 
 		var action = '';
@@ -576,7 +582,6 @@ function throttle(ship,throttlePos)
 	ship.body.acceleration.x = throttlePos * ship.enginePower * Math.cos(ship.body.rotation*Math.PI/180);
 	ship.body.acceleration.y = throttlePos * ship.enginePower * Math.sin(ship.body.rotation*Math.PI/180);
 	if (throttlePos>0) {ship.frame = 1;} else {ship.frame = 0;}
-	//console.log('burn!');
 }
 
 function evaluateThreat(threat)
@@ -690,9 +695,6 @@ function shipHit(rock,ship)
 	(Math.pow(rock.body.velocity.x,2) + Math.pow(rock.body.velocity.y,2)) * .001;
 	ship.shields = ship.shields - damage;
 	var hitAngle = game.physics.arcade.angleBetween(ship,rock);
-	console.log(rock.level);
-	console.log(rock.body.velocity.x,rock.body.velocity.y);
-	console.log(damage);
 	breakRock(rock);
 
 	if (ship.shields<=0)
@@ -874,7 +876,6 @@ function rockClick(pointer) {
 				addMouseSprite(rock.level,false);
 				game.mouseSprite.x = pointer.x;
 				game.mouseSprite.y = pointer.y;
-				console.log("LEVEL "+rock.level);
 				game.rockLoaded = rock.level;
 				rock.kill();
 				drawLine = true;
