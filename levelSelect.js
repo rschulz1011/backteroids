@@ -46,10 +46,12 @@ levelSelect.prototype = {
 
 		levelInfoNameStyle = {font: "24px Arial", stroke: "bold", fill: "#eeeeee"};
 		levelParameterStyle = {font: "12px Arial", stroke: "bold", fill: "#eeeeee"};
-		levelValueStyle = {font: "12px Arial", fill: "#eeeeee"};
+		levelValueStyle = {font: "bold 14px Arial", fill: "#eeeeee"};
 
 		populateLevelInfo(null);
 
+
+		displayTotalScore();
 	},
 }
 

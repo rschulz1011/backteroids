@@ -29,7 +29,28 @@
 
 	var playerData = {};
 	playerData.levelScores = {};
+	playerData.totalScore = 0;
 	
+	var calculateTotalScore = function() {
+		var totalScore = 0;
+		$.each(playerData.levelScores,function(index,levelScore){
+			totalScore = totalScore + levelScore.bestScore;
+		});
+		playerData.totalScore = totalScore;
+	};
+
+	var displayTotalScore = function() {
+		calculateTotalScore();
+		var graphics = game.add.graphics(0, 0);
+		graphics.lineStyle(2, 0x888888, 1);
+		graphics.beginFill(0x444444, 1);
+    	graphics.drawRect(0,0,gameWidth,26);
+
+		var scoreTextStyle = {font: "bold 16px Arial", fill: "#ffff00"};
+		var scoreText = game.add.text(20,5,"Total Score: "+playerData.totalScore,scoreTextStyle);
+		scoreText.anchor.x = 0;
+		scoreText.anchor.y = 0
+	};
 
 </script>
 

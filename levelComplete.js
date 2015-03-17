@@ -41,6 +41,8 @@ levelComplete.prototype = {
 			bestScore: Math.max(this.performanceData.score,oldScore)		
 		};
 
+		displayTotalScore();
+
 	},
 
 	playButtonClick: function() {
