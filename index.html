@@ -1,0 +1,47 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+	<title>Backteroids!</title>
+	<script type="text/javascript" src="phaser.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="playLevel.js"></script>
+	<script type="text/javascript" src="levelComplete.js"></script>
+	<script type="text/javascript" src="splashScreen.js"></script>
+	<script type="text/javascript" src="levelSelect.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+
+<script type="text/javascript">
+
+	var gameWidth = 800;
+	var gameHeight = 600;
+
+	var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO);
+	game.state.add("PlayLevel",playLevel);
+	game.state.add("LevelComplete",levelComplete);
+	game.state.add("SplashScreen",splashScreen);
+	game.state.add("LevelSelect",levelSelect);
+	game.state.start("SplashScreen");
+
+	var playerData = {};
+	playerData.levelScores = {};
+	
+
+</script>
+
+
+</head>
+<body>
+
+<h1> Backteroids </h1>
+
+
+
+<p> By Ryan Schulz </p>
+
+</body>
+</html>

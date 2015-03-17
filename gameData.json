@@ -1,0 +1,593 @@
+{
+	"shipTypes":
+	{
+		"e1": 
+		{
+			"name": "Explorer I",
+			"imageKey": "ship_e1",
+			"fireRate": 800,
+			"maxTurnRate" : 250,
+			"bulletVelocity" : 250,
+			"enginePower" : 30,
+			"warps": 0,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 5
+		},
+		"e2": 
+		{
+			"name": "Explorer II",
+			"imageKey": "ship_e2",
+			"fireRate": 700,
+			"maxTurnRate" : 300,
+			"bulletVelocity" : 300,
+			"enginePower" : 40,
+			"warps": 0,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 7
+		},
+		"e3": 
+		{
+			"name": "Explorer III",
+			"imageKey": "ship_e3",
+			"fireRate": 650,
+			"maxTurnRate" : 350,
+			"bulletVelocity" : 325,
+			"enginePower" : 50,
+			"warps": 0,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 9
+		},
+		"e4": 
+		{
+			"name": "Explorer IV",
+			"imageKey": "ship_e4",
+			"fireRate": 600,
+			"maxTurnRate" : 400,
+			"bulletVelocity" : 350,
+			"enginePower" : 60,
+			"warps": 1,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 12
+		},
+		"e5": 
+		{
+			"name": "Explorer V",
+			"imageKey": "ship_e5",
+			"fireRate": 550,
+			"maxTurnRate" : 450,
+			"bulletVelocity" : 400,
+			"enginePower" : 70,
+			"warps": 1,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 15
+		},
+		"e6": 
+		{
+			"name": "Explorer VI",
+			"imageKey": "ship_e6",
+			"fireRate": 475,
+			"maxTurnRate" : 500,
+			"bulletVelocity" : 450,
+			"enginePower" : 80,
+			"warps": 2,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 20
+		},
+		"e7": 
+		{
+			"name": "Explorer VII",
+			"imageKey": "ship_e7",
+			"fireRate": 400,
+			"maxTurnRate" : 650,
+			"bulletVelocity" : 550,
+			"enginePower" : 120,
+			"warps": 3,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 30
+		},
+		"c1":
+		{
+			"name": "Cruiser I",
+			"imageKey": "ship_c1",
+			"fireRate": 1000,
+			"maxTurnRate" : 125,
+			"bulletVelocity" : 300,
+			"enginePower" : 50,
+			"warps": 0,
+			"maxShields" : 200,
+			"shieldRecharge" : 0, 
+			"basePoints" : 20
+		},
+		"c2":
+		{
+			"name": "Cruiser II",
+			"imageKey": "ship_c2",
+			"fireRate": 900,
+			"maxTurnRate" : 150,
+			"bulletVelocity" : 350,
+			"enginePower" : 70,
+			"warps": 0,
+			"maxShields" : 250,
+			"shieldRecharge" : 20, 
+			"basePoints" : 25
+		}
+	},
+
+	"levels": 
+	{
+		"main1" :
+		{
+			"name": "Level 1",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"main2" :
+		{
+			"name": "Level 2",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.45,
+							"y" : 0.55
+						},
+						{
+							"type": "e2",
+							"x" : 0.55,
+							"y" : 0.55
+						}
+					]
+				},
+				{	
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.4
+						},
+						{
+							"type": "e2",
+							"x" : 0.5,
+							"y" : 0.5
+						},
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.6
+						}
+					]
+				}
+			]
+		},
+		"main3" :
+		{
+			"name": "Level 3",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.3,
+							"y" : 0.5
+						},
+						{
+							"type": "e1",
+							"x" : 0.7,
+							"y" : 0.5
+						},
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.4
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.1,
+							"y" : 0.1
+						},
+						{
+							"type": "e2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.4,
+							"y" : 0.4
+						},
+						{
+							"type": "e3",
+							"x" : 0.3,
+							"y" : 0.3
+						},
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e3",
+							"x" : 0.5,
+							"y" : 0.4
+						},
+						{
+							"type": "e3",
+							"x" : 0.4,
+							"y" : 0.55
+						},
+						{
+							"type": "e3",
+							"x" : 0.6,
+							"y" : 0.55
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e3",
+							"x" : 0.1,
+							"y" : 0.7
+						},
+						{
+							"type": "e3",
+							"x" : 0.9,
+							"y" : 0.7
+						}
+					]
+				}
+			]
+		},
+		"main4" :
+		{
+			"name": "Level 4",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.4,
+							"y" : 0.5
+						},
+						{
+							"type": "e1",
+							"x" : 0.6,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e2",
+							"x" : 0.4,
+							"y" : 0.5
+						},
+						{
+							"type": "e2",
+							"x" : 0.6,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.45,
+							"y" : 0.55
+						},
+						{
+							"type": "e2",
+							"x" : 0.55,
+							"y" : 0.55
+						},
+						{
+							"type": "e1",
+							"x" : 0.5,
+							"y" : 0.45
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "e2",
+							"x" : 0.45,
+							"y" : 0.55
+						},
+						{
+							"type": "e3",
+							"x" : 0.55,
+							"y" : 0.55
+						},
+						{
+							"type": "e2",
+							"x" : 0.5,
+							"y" : 0.45
+						}
+					]
+				},
+				{	
+					"ships" : 
+					[
+						{
+							"type": "e1",
+							"x" : 0.35,
+							"y" : 0.5
+						},
+						{
+							"type": "e1",
+							"x" : 0.65,
+							"y" : 0.5
+						},
+						{
+							"type": "e2",
+							"x" : 0.5,
+							"y" : 0.35
+						},
+						{
+							"type": "e2",
+							"x" : 0.5,
+							"y" : 0.65
+						},
+						{
+							"type": "e3",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"main5" :
+		{
+			"name": "Level 5",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "c1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"main6" :
+		{
+			"name": "Level 6",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "c2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		}
+	}
+}
