@@ -28,19 +28,11 @@ playLevel.prototype = {
 	},
 
 	preload: function() {
+		loadShipSprites();
 		game.load.image('space','res/space.png');
 		game.load.image('rockMedium','res/medium_rock.png');
 		game.load.image('rockSmall','res/small_rock.png');
 		game.load.image('rockLarge','res/large_rock.png');
-		game.load.spritesheet('ship_e1','res/ship_e1.png',30,30);
-		game.load.spritesheet('ship_e2','res/ship_e2.png',30,30);
-		game.load.spritesheet('ship_e3','res/ship_e3.png',30,30);
-		game.load.spritesheet('ship_e4','res/ship_e4.png',30,30);
-		game.load.spritesheet('ship_e5','res/ship_e5.png',30,30);
-		game.load.spritesheet('ship_e6','res/ship_e6.png',30,30);
-		game.load.spritesheet('ship_e7','res/ship_e7.png',30,30);
-		game.load.spritesheet('ship_c1','res/ship_c1.png',40,40);
-		game.load.spritesheet('ship_c2','res/ship_c2.png',40,40);
 		game.load.spritesheet('kaboom', 'res/explode.png', 128,128);
 		game.load.spritesheet('ion_kaboom','res/ion_explosion.png',100,100);
 		game.load.spritesheet('warp','res/warp.png',50,50);

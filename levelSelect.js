@@ -11,16 +11,7 @@ levelSelect.prototype = {
 		game.load.spritesheet('levelButton', 'res/levelButton.png',70,70);
 		game.load.image('playButton','res/playButton.png');
 
-		//TODO - put ship sprite loading in global function
-		game.load.spritesheet('ship_e1','res/ship_e1.png',30,30);
-		game.load.spritesheet('ship_e2','res/ship_e2.png',30,30);
-		game.load.spritesheet('ship_e3','res/ship_e3.png',30,30);
-		game.load.spritesheet('ship_e4','res/ship_e4.png',30,30);
-		game.load.spritesheet('ship_e5','res/ship_e5.png',30,30);
-		game.load.spritesheet('ship_e6','res/ship_e6.png',30,30);
-		game.load.spritesheet('ship_e7','res/ship_e7.png',30,30);
-		game.load.spritesheet('ship_c1','res/ship_c1.png',40,40);
-		game.load.spritesheet('ship_c2','res/ship_c2.png',40,40);
+		loadShipSprites();
 
 		game.load.image('star','res/levelStar.png');
 	},

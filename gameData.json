@@ -101,26 +101,91 @@
 			"name": "Cruiser I",
 			"imageKey": "ship_c1",
 			"fireRate": 1000,
-			"maxTurnRate" : 125,
+			"maxTurnRate" : 100,
 			"bulletVelocity" : 300,
 			"enginePower" : 50,
 			"warps": 0,
-			"maxShields" : 200,
+			"maxShields" : 125,
 			"shieldRecharge" : 0, 
-			"basePoints" : 20
+			"basePoints" : 15
 		},
 		"c2":
 		{
 			"name": "Cruiser II",
 			"imageKey": "ship_c2",
 			"fireRate": 900,
-			"maxTurnRate" : 150,
-			"bulletVelocity" : 350,
-			"enginePower" : 70,
+			"maxTurnRate" : 120,
+			"bulletVelocity" : 300,
+			"enginePower" : 55,
 			"warps": 0,
-			"maxShields" : 250,
-			"shieldRecharge" : 20, 
+			"maxShields" : 150,
+			"shieldRecharge" : 0, 
+			"basePoints" : 20
+		},
+		"c3":
+		{
+			"name": "Cruiser III",
+			"imageKey": "ship_c3",
+			"fireRate": 850,
+			"maxTurnRate" : 140,
+			"bulletVelocity" : 350,
+			"enginePower" : 60,
+			"warps": 0,
+			"maxShields" : 175,
+			"shieldRecharge" : 0, 
 			"basePoints" : 25
+		},
+		"c4":
+		{
+			"name": "Cruiser IV",
+			"imageKey": "ship_c4",
+			"fireRate": 800,
+			"maxTurnRate" : 160,
+			"bulletVelocity" : 350,
+			"enginePower" : 65,
+			"warps": 0,
+			"maxShields" : 200,
+			"shieldRecharge" : 5, 
+			"basePoints" : 30
+		},
+		"c5":
+		{
+			"name": "Cruiser V",
+			"imageKey": "ship_c5",
+			"fireRate": 750,
+			"maxTurnRate" : 200,
+			"bulletVelocity" : 400,
+			"enginePower" : 75,
+			"warps": 1,
+			"maxShields" : 250,
+			"shieldRecharge" : 10, 
+			"basePoints" : 40
+		},
+		"c6":
+		{
+			"name": "Cruiser VI",
+			"imageKey": "ship_c6",
+			"fireRate": 650,
+			"maxTurnRate" : 250,
+			"bulletVelocity" : 450,
+			"enginePower" : 95,
+			"warps": 1,
+			"maxShields" : 300,
+			"shieldRecharge" : 15, 
+			"basePoints" : 50
+		},
+		"c7":
+		{
+			"name": "Cruiser VII",
+			"imageKey": "ship_c7",
+			"fireRate": 550,
+			"maxTurnRate" : 350,
+			"bulletVelocity" : 550,
+			"enginePower" : 110,
+			"warps": 2,
+			"maxShields" : 350,
+			"shieldRecharge" : 25, 
+			"basePoints" : 70
 		}
 	},
 
@@ -586,6 +651,63 @@
 					[
 						{
 							"type": "c2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"main7" :
+		{
+			"name": "Level 7",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "c3",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c4",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c5",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c6",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "c7",
 							"x" : 0.5,
 							"y" : 0.5
 						}
