@@ -17,7 +17,7 @@ levelComplete.prototype = {
 
 		if (this.performanceData.success === true)
 		{
-			levelResult = "Level Complete!";
+			levelResult = "Level Complete";
 		}
 		else
 		{
@@ -42,10 +42,23 @@ levelComplete.prototype = {
 		};
 
 		displayTotalScore();
+		var prevLevel = playerData.level;
+		calculatePlayerLevel(gameData);
+		if (playerData.level > prevLevel)
+		{
+			setTimeout(function(){displayLevelUp(playerData.level);},1000);
+		}
+		displayPlayerLevel();
 
 	},
 
 	playButtonClick: function() {
 		this.game.state.start("LevelSelect",true,false);
-	}
+	},
+}
+
+function displayLevelUp(newLevel) {
+	var levelUpStyle = {font: "Italic 22px Arial", fill: "#FFFF00"};
+	var levelUpText = game.add.text(850,35,"LEVEL UP!",levelUpStyle);
+	game.add.tween(levelUpText).to({x: 560},500,"Linear",true);	
 }

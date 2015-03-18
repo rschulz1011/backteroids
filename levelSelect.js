@@ -30,6 +30,8 @@ levelSelect.prototype = {
 		$.getJSON( "gameData.json", function( data ) {
 			gameData = data;
 			drawLevelButtons();
+			calculatePlayerLevel(gameData);
+			displayPlayerLevel();
 		})
 		.fail(function(jqxhr, textStatus, error){
 			var err = textStatus + ", " + error;
@@ -50,8 +52,8 @@ levelSelect.prototype = {
 
 		populateLevelInfo(null);
 
-
 		displayTotalScore();
+
 	},
 }
 
