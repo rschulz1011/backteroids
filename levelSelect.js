@@ -18,6 +18,8 @@ levelSelect.prototype = {
 
 	create: function() {
 
+		loadSounds();
+
 		$.getJSON( "gameData.json", function( data ) {
 			gameData = data;
 			drawLevelButtons();
@@ -44,7 +46,6 @@ levelSelect.prototype = {
 		populateLevelInfo(null);
 
 		displayTotalScore();
-
 	},
 }
 
@@ -174,7 +175,8 @@ var getUniqueShipTypes = function(level){
 };
 
 var clickPlayButton = function(){
-	this.game.state.start("PlayLevel",true,false,selectedLevel);
+	menuMusic.fadeOut(1000);
+	setTimeout(function(){this.game.state.start("PlayLevel",true,false,selectedLevel);},1000);
 };
 
 var drawLevelParameter = function(parameterId, parameterTitle,ypos) {

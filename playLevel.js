@@ -849,6 +849,11 @@ function deadShip(ship,directHit) {
 	explosion.position.y = ship.position.y;
 	explosion.animations.play('kaboom',20,false);
 
+	var explosionSound = game.add.audio('battle_explosion');
+	explosionSound.play('',0,1,false);
+	setTimeout(function(){explosionSound.fadeOut(500);},750);
+	setTimeout(function(){explosionSound.destroy()},4000);
+
     if (ships.countLiving()==0)
     {	
     	wave++;

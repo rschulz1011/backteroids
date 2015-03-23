@@ -4,6 +4,7 @@ splashScreen.prototype = {
 
 	preload: function() {
 		game.load.image('playButton','res/playButton.png');
+		preLoadSounds();
 	},
 
 	create: function() {

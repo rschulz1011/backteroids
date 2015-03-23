@@ -50,6 +50,8 @@ levelComplete.prototype = {
 		}
 		displayPlayerLevel();
 
+		menuMusic.fadeIn(4000,true);
+
 	},
 
 	playButtonClick: function() {

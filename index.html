@@ -31,7 +31,8 @@
 	playerData.levelScores = {};
 	playerData.totalScore = 0;
 	playerData.level = 1;
-	
+	var menuMusic = null;
+
 	var calculateTotalScore = function() {
 		var totalScore = 0;
 		$.each(playerData.levelScores,function(index,levelScore){
@@ -99,6 +100,25 @@
 		game.load.spritesheet('ship_c6','res/ship_c6.png',40,40);
 		game.load.spritesheet('ship_c7','res/ship_c7.png',40,40);
 	};
+
+	var preLoadSounds = function() {
+		game.load.audio('menu_music','res/sounds/menu_music.ogg');
+		game.load.audio('battle_explosion','res/sounds/battle_explosion.ogg');
+	}
+
+	var loadSounds = function() {
+		if (menuMusic === null)
+		{
+			menuMusic = game.add.audio('menu_music');
+			menuMusic.onDecoded.add(startMusic,this);
+		}
+	}
+
+	var startMusic = function() {
+		menuMusic.fadeIn(2000,true);
+	}
+
+
 
 </script>
 
