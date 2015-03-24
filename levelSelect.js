@@ -12,6 +12,7 @@ levelSelect.prototype = {
 		game.load.image('playButton','res/playButton.png');
 
 		loadShipSprites();
+		preLoadButtons();
 
 		game.load.image('star','res/levelStar.png');
 	},
@@ -19,6 +20,7 @@ levelSelect.prototype = {
 	create: function() {
 
 		loadSounds();
+		preLoadButtons();
 
 		$.getJSON( "gameData.json", function( data ) {
 			gameData = data;
@@ -46,6 +48,7 @@ levelSelect.prototype = {
 		populateLevelInfo(null);
 
 		displayTotalScore();
+		createNavigationButtons();
 	},
 }
 

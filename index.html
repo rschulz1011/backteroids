@@ -9,6 +9,11 @@
 	<script type="text/javascript" src="levelComplete.js"></script>
 	<script type="text/javascript" src="splashScreen.js"></script>
 	<script type="text/javascript" src="levelSelect.js"></script>
+	<script type="text/javascript" src="buyUpgrades.js"></script>
+	<script type="text/javascript" src="viewStats.js"></script>
+	<script type="text/javascript" src="viewAchievements.js"></script>
+	<script type="text/javascript" src="beastiary.js"></script>
+	<script type="text/javascript" src="credits.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -25,6 +30,11 @@
 	game.state.add("LevelComplete",levelComplete);
 	game.state.add("SplashScreen",splashScreen);
 	game.state.add("LevelSelect",levelSelect);
+	game.state.add("BuyUpgrades",buyUpgrades);
+	game.state.add("ViewStats",viewStats);
+	game.state.add("ViewAchievements",viewAchievements);
+	game.state.add("Beastiary",beastiary);
+	game.state.add("Credits",credits);
 	game.state.start("SplashScreen");
 
 	var playerData = {};
@@ -101,6 +111,10 @@
 		game.load.spritesheet('ship_c7','res/ship_c7.png',40,40);
 	};
 
+	var preLoadButtons = function() {
+		game.load.spritesheet('button_blank','res/button_blank.png',110,35);
+	}
+
 	var preLoadSounds = function() {
 		game.load.audio('menu_music','res/sounds/menu_music.ogg');
 		game.load.audio('battle_explosion','res/sounds/battle_explosion.ogg');
@@ -118,6 +132,29 @@
 		menuMusic.fadeIn(2000,true);
 	}
 
+	var createNavigationButtons = function()
+	{
+		drawNavButton("LevelSelect","Select Level",20,"bold 14px Arial");
+		drawNavButton("BuyUpgrades","Upgrades",150,"bold 16px Arial");
+		drawNavButton("ViewStats","Statistics",280,"bold 16px Arial");
+		drawNavButton("ViewAchievements","Achievements",410,"bold 15px Arial");
+		drawNavButton("Beastiary","Beastiary",540,"bold 16px Arial");
+		drawNavButton("Credits","Credits",670,"bold 16px Arial");
+	}
+
+	var drawNavButton = function(key,text,x,font)
+	{
+		var navButton = this.game.add.button(x,550,"button_blank",clickNavButton,this,1,0,1,0);
+		navButton.stateKey = key;	
+		var buttonText = game.add.text(x+55,569,text,{font:font, fill: "#ffffff"});
+		buttonText.anchor.x = 0.5;
+		buttonText.anchor.y = 0.5;
+	}
+
+	var clickNavButton = function(navButton)
+	{
+		game.state.start(navButton.stateKey);
+	}
 
 
 </script>
