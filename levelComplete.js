@@ -1,10 +1,13 @@
 var levelComplete = function(game){};
 
+var gameState;
+
 levelComplete.prototype = {
 
 	init: function(gameData,performanceData) {
 		this.gameData = gameData;
 		this.performanceData = performanceData;
+		gameState = this;
 	},
 
 	preload: function() {
@@ -12,10 +15,81 @@ levelComplete.prototype = {
 	},
 
 	create: function() {
-		var playButton = this.game.add.button(400,500,'nextLevel',this.playButtonClick,this);
-		playButton.anchor.setTo(0.5,0.5);
 
-		if (this.performanceData.success === true)
+		var oldScore;
+
+		$.getJSON( "gameData.json", function( data ) {
+
+			if (playerData.levelScores[gameState.performanceData.level])
+			{
+				oldScore = playerData.levelScores[gameState.performanceData.level].bestScore;
+			}
+			else
+			{
+				oldScore = 0;
+			}
+
+			gameData = data;
+			displayTotalScore();
+			calculatePlayerLevel(gameData);
+			displayPlayerLevel();
+
+						displayScoreLine(1,"Total Kills",gameState.performanceData.detailedScore.totalKills.toFixed(0),gameState.performanceData.detailedScore.basePoints.toFixed(0));
+			displayScoreLine(2,"Direct Hits",gameState.performanceData.detailedScore.directHits.toFixed(0),Math.round(gameState.performanceData.detailedScore.directHitPoints).toFixed(0));
+			displayScoreLine(3,"Instant Kills",gameState.performanceData.detailedScore.instantKills.toFixed(0),Math.round(gameState.performanceData.detailedScore.instantKillPoints).toFixed(0));
+			displayScoreLine(4,"Quick Kills",gameState.performanceData.detailedScore.quickKills.toFixed(0),Math.round(gameState.performanceData.detailedScore.quickKillPoints).toFixed(0));
+			displayScoreLine(5,"Kill Points","",gameState.performanceData.score.toFixed(0));
+			displayScoreLine(6,"Difficulty Multiplier","x "+gameState.performanceData.difficultyMultiplier.toFixed(2),"",'multiplier');
+			displayScoreLine(7,"Bonus Multiplier","x "+gameState.performanceData.bonusMultiplier.toFixed(2),"",'multiplier');
+
+			if (gameState.performanceData.success === false)
+			{
+				rowShift = 1;
+				passMultiplier = 0.30;
+				displayScoreLine(8,"Level Failed","x 0.30","","levelFailed");
+			}
+			else
+			{
+				rowShift = 0;
+				passMultiplier = 1.00;
+			}
+
+			totalScore = Math.round(gameState.performanceData.score*gameState.performanceData.difficultyMultiplier*gameState.performanceData.bonusMultiplier*passMultiplier);
+
+			displayScoreLine(8+rowShift,"Total Score","",totalScore.toFixed(0),"totalScore");
+			displayScoreLine(10+rowShift,"Previous Best","",oldScore.toFixed(0));
+			displayScoreLine(11+rowShift,"New Points Earned","",Math.max(0,totalScore-oldScore).toFixed(0));
+
+			playerData.levelScores[gameState.performanceData.level] = {
+				passed: gameState.performanceData.success,
+				bestScore: Math.max(totalScore,oldScore)		
+			};
+
+			var prevLevel = playerData.level;
+		
+			calculateTotalScore();
+			calculatePlayerLevel(gameData);
+
+			if (playerData.level > prevLevel)
+			{
+				setTimeout(function(){
+					displayLevelUp(playerData.level);
+				},3500);
+
+			}
+
+			setTimeout(function(){
+				displayTotalScore();
+				displayPlayerLevel();
+			},4000);
+
+
+		})
+		.fail(function(jqxhr, textStatus, error){
+			var err = textStatus + ", " + error;
+		});
+
+		if (gameState.performanceData.success === true)
 		{
 			levelResult = "Level Complete";
 		}
@@ -26,37 +100,64 @@ levelComplete.prototype = {
 
 		var levelResultText = game.add.text(400,80,levelResult,{font:"24px Arial",fill:"#ffffff"});
 		levelResultText.anchor.set(0.5);
-
-		if (playerData.levelScores[this.performanceData.level])
-		{
-			oldScore = playerData.levelScores[this.performanceData.level].bestScore;
-		}
-		else
-		{
-			oldScore = 0;
-		}
-			
-		playerData.levelScores[this.performanceData.level] = {
-			passed: this.performanceData.success,
-			bestScore: Math.max(this.performanceData.score,oldScore)		
-		};
-
-		displayTotalScore();
-		var prevLevel = playerData.level;
-		calculatePlayerLevel(gameData);
-		if (playerData.level > prevLevel)
-		{
-			setTimeout(function(){displayLevelUp(playerData.level);},1000);
-		}
-		displayPlayerLevel();
+		
+		createNavigationButtons();
 
 		menuMusic.fadeIn(4000,true);
+		//console.log(gameState.performanceData);
 
 	},
 
-	playButtonClick: function() {
-		this.game.state.start("LevelSelect",true,false);
-	},
+}
+
+function displayScoreLine(index,label,value1,value2,specialType)
+{
+	var xloc = 200;
+	var yloc = 100 + 30*index;
+
+	if (specialType !== "levelFailed")
+	{
+		var labelTextStyle = {font:"18px Arial", fill:"#FFFFFF"};
+		var value1TextStyle = {font:"16px Arial", fill:"#FFFFFF"};
+	}
+	else
+	{
+		var labelTextStyle = {font: "18px Arial", fill: "#EE0000"};
+		var value1TextStyle = {font:"16px Arial", fill:"#EE0000"};
+	}
+	
+	if (specialType !== "totalScore")
+	{
+		var value2TextStyle = {font: "bold 18px Arial", fill: "#FFFF00"};
+	}
+	else
+	{
+		var value2TextStyle = {font: "bold 24px Arial", fill: "#FFFF00"};
+	}
+
+	var labelText = game.add.text(xloc,yloc,label,labelTextStyle);
+	var value1Text = game.add.text(900,yloc,value1,value1TextStyle);
+	var value2Text = game.add.text(990,yloc,value2,value2TextStyle);
+
+	labelText.anchor.x = 1;
+	labelText.anchor.y = 0.5;
+	if (specialType !== "multiplier" & specialType !== "levelFailed")
+	{
+		value1Text.anchor.x = 1;
+	}
+	else
+	{
+		value1Text.anchor.x = 0;
+	}
+	value1Text.anchor.y = 0.5;
+	value2Text.anchor.x = 1;
+	value2Text.anchor.y = 0.5;
+
+	setTimeout(function(){
+		game.add.tween(value1Text).to({x:xloc+90},800,Phaser.Easing.Quadratic.Out,true);
+		game.add.tween(value2Text).to({x:xloc+180},800,Phaser.Easing.Quadratic.Out,true);
+	},500+200*index);
+
 }
 
 function displayLevelUp(newLevel) {

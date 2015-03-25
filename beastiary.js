@@ -7,7 +7,7 @@ beastiary.prototype = {
 	},
 
 	create: function() {
-		createNavigationButtons();
+		createNavigationButtons("Beastiary");
 		thisText = game.add.text(400,300,"Coming Soon!",{fill:"#ffffff"});
 		thisText.anchor.x = 0.5;
 		thisText.anchor.y = 0.5;

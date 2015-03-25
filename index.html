@@ -132,20 +132,28 @@
 		menuMusic.fadeIn(2000,true);
 	}
 
-	var createNavigationButtons = function()
+	var createNavigationButtons = function(currentFrame)
 	{
-		drawNavButton("LevelSelect","Select Level",20,"bold 14px Arial");
-		drawNavButton("BuyUpgrades","Upgrades",150,"bold 16px Arial");
-		drawNavButton("ViewStats","Statistics",280,"bold 16px Arial");
-		drawNavButton("ViewAchievements","Achievements",410,"bold 15px Arial");
-		drawNavButton("Beastiary","Beastiary",540,"bold 16px Arial");
-		drawNavButton("Credits","Credits",670,"bold 16px Arial");
+		drawNavButton("LevelSelect","Select Level",20,"bold 14px Arial",currentFrame);
+		drawNavButton("BuyUpgrades","Upgrades",150,"bold 16px Arial",currentFrame);
+		drawNavButton("ViewStats","Statistics",280,"bold 16px Arial",currentFrame);
+		drawNavButton("ViewAchievements","Achievements",410,"bold 15px Arial",currentFrame);
+		drawNavButton("Beastiary","Beastiary",540,"bold 16px Arial",currentFrame);
+		drawNavButton("Credits","Credits",670,"bold 16px Arial",currentFrame);
 	}
 
-	var drawNavButton = function(key,text,x,font)
+	var drawNavButton = function(key,text,x,font,currentFrame)
 	{
-		var navButton = this.game.add.button(x,550,"button_blank",clickNavButton,this,1,0,1,0);
-		navButton.stateKey = key;	
+		if (key!==currentFrame)
+		{
+			var navButton = this.game.add.button(x,550,"button_blank",clickNavButton,this,1,0,1,0);
+			navButton.stateKey = key;	
+		}
+		else
+		{
+			var currentButton = this.game.add.sprite(x,550,"button_blank");
+			currentButton.frame = 2;
+		}
 		var buttonText = game.add.text(x+55,569,text,{font:font, fill: "#ffffff"});
 		buttonText.anchor.x = 0.5;
 		buttonText.anchor.y = 0.5;

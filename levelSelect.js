@@ -48,7 +48,7 @@ levelSelect.prototype = {
 		populateLevelInfo(null);
 
 		displayTotalScore();
-		createNavigationButtons();
+		createNavigationButtons("LevelSelect");
 	},
 }
 

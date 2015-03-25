@@ -19,6 +19,18 @@ var playLevel = function(game) {
 	numWaves = null;
 
 	levelScore = 0;
+	detailedScore = {};
+	detailedScore.totalKills = 0;
+	detailedScore.quickKills = 0;
+	detailedScore.instantKills = 0;
+	detailedScore.directHits = 0;
+	detailedScore.basePoints = 0;
+	detailedScore.quickKillPoints = 0;
+	detailedScore.instantKillPoints = 0;
+	detailedScore.directHitPoints = 0;
+
+	difficultyMultiplier = 1.0;
+	bonusMultiplier = 1.0;
 }
 
 playLevel.prototype = {
@@ -64,6 +76,16 @@ playLevel.prototype = {
 		drawLine = false;
 
 		levelScore = 0;
+
+		detailedScore = {};
+		detailedScore.totalKills = 0;
+		detailedScore.quickKills = 0;
+		detailedScore.instantKills = 0;
+		detailedScore.directHits = 0;
+		detailedScore.basePoints = 0;
+		detailedScore.quickKillPoints = 0;
+		detailedScore.instantKillPoints = 0;
+		detailedScore.directHitPoints = 0;
 
 		game.add.sprite(0,0,'space');
 
@@ -254,6 +276,9 @@ playLevel.prototype = {
 				performanceData.success = false;
 				performanceData.level = level;
 				performanceData.score = Math.round(levelScore); 
+				performanceData.detailedScore = detailedScore;
+				performanceData.difficultyMultiplier = difficultyMultiplier;
+				performanceData.bonusMultiplier = bonusMultiplier;
 				setTimeout(function(){
 					this.game.state.start("LevelComplete",true,false,gameData,performanceData);
 				},1000);
@@ -815,18 +840,27 @@ function addBullet(ship)
 function deadShip(ship,directHit) {
 
 	var pointsScored = ship.basePoints;
+	detailedScore.basePoints = detailedScore.basePoints + ship.basePoints;
+	detailedScore.totalKills++;
+
 	if(directHit)
 	{
 		scoreBlip(ship.x,ship.y-25,"Direct Hit!","#ffff00");
 		pointsScored = pointsScored * 1.25;
+		detailedScore.directHitPoints = detailedScore.directHitPoints + pointsScored*0.25;
+		detailedScore.directHits++;
 	}
 	if (ship.aliveTime<500) {
 		pointsScored = pointsScored * 1.5;
 		scoreBlip(ship.x,ship.y,"Instant Kill\n"+Math.round(pointsScored),"#6666ff");
+		detailedScore.instantKillPoints = detailedScore.instantKillPoints + pointsScored*0.5;
+		detailedScore.instantKills++;
 	}
 	else if (ship.aliveTime<1500) {
 		pointsScored = pointsScored * 1.25;
 		scoreBlip(ship.x,ship.y,"Quick Kill\n"+Math.round(pointsScored),"#00ff00");
+		detailedScore.quickKillPoints = detailedScore.quickKillPoints + pointsScored*0.25;
+		detailedScore.quickKills++;
 	}
 	else if (directHit)
 	{
@@ -872,9 +906,13 @@ function deadShip(ship,directHit) {
 			performanceData.success = true;
 			performanceData.level = level;
 			performanceData.score = Math.round(levelScore);
+			performanceData.detailedScore = detailedScore;
+			performanceData.difficultyMultiplier = difficultyMultiplier;
+			performanceData.bonusMultiplier = bonusMultiplier;
+
 			setTimeout(function(){
 				this.game.state.start("LevelComplete",true,false,gameData,performanceData);
-			},1000);
+			},2000);
 			
 		}
 	}
