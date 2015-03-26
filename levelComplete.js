@@ -83,7 +83,7 @@ levelComplete.prototype = {
 				displayPlayerLevel();
 			},4000);
 
-
+			savePlayerData();
 		})
 		.fail(function(jqxhr, textStatus, error){
 			var err = textStatus + ", " + error;

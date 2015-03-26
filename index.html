@@ -14,6 +14,7 @@
 	<script type="text/javascript" src="viewAchievements.js"></script>
 	<script type="text/javascript" src="beastiary.js"></script>
 	<script type="text/javascript" src="credits.js"></script>
+	<script type="text/javascript" src="jquery.cookie.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -35,12 +36,26 @@
 	game.state.add("ViewAchievements",viewAchievements);
 	game.state.add("Beastiary",beastiary);
 	game.state.add("Credits",credits);
+
+
+	$.cookie.json = true;
+	if ($.cookie("playerData")===undefined)
+	{
+		var playerData = {};
+		playerData.levelScores = {};
+		playerData.totalScore = 0;
+		playerData.level = 1;
+	}
+	else
+	{
+		playerData = $.cookie("playerData");
+	}
+
 	game.state.start("SplashScreen");
 
-	var playerData = {};
-	playerData.levelScores = {};
-	playerData.totalScore = 0;
-	playerData.level = 1;
+
+
+
 	var menuMusic = null;
 
 	var calculateTotalScore = function() {
@@ -162,6 +177,11 @@
 	var clickNavButton = function(navButton)
 	{
 		game.state.start(navButton.stateKey);
+	}
+
+	var savePlayerData = function()
+	{
+		$.cookie("playerData",playerData);
 	}
 
 
