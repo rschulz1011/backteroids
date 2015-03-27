@@ -46,6 +46,10 @@
 		playerData.levelScores = {};
 		playerData.totalScore = 0;
 		playerData.level = 1;
+		playerData.upgradeLevels = {};
+		$.each(upgrades,function(index,upgrade){
+			playerData.upgradeLevels[index] = 0;
+		});
 	}
 	else
 	{
@@ -183,6 +187,13 @@
 	var savePlayerData = function()
 	{
 		$.cookie("playerData",playerData);
+	}
+
+	var setUpgrades = function(playerData)
+	{
+		$.each(upgrades,function(index,upgrade){
+			upgrade.setUpgrade(playerData,playerData.upgradeLevels[index]);
+		});
 	}
 
 

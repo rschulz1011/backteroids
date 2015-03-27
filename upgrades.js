@@ -25,17 +25,17 @@ var upgrades = {
 		x: 400,
 		y: 200,
 		prereq: ["rockSpeed"],
-		minLevel: 2,
+		minLevel: 3,
 		imageFrame: 1,
 		cost: function(level) {
-			return 2;
+			return 1+level;
 		},
 		value: function(level) {
 			return level+3;
 		},
 		setUpgrade: function(playerData,level)
 		{
-			playerData.maxNumRocks = this.value(level);
+			playerData.maxRocks = this.value(level);
 		},
 		description: "Start level with {} rocks",
 		maxUpgrade: 12,

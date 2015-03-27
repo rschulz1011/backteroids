@@ -61,7 +61,8 @@ playLevel.prototype = {
 
 	create: function() {
 
-		maxRocks = 5;
+		setUpgrades(playerData);
+		maxRocks = playerData.maxRocks;
 		maxConverge = 1;
 		maxConfuse = 2;
 		maxStun = 2;
@@ -498,7 +499,7 @@ function createShip(shipData,x,y)
 function createRock(rocks,level,x,y,xVel,yVel,directHit)
 {
 
-	var vMax = 100;
+	var vMax = playerData.maxRockSpeed;
 
 	var v = Math.sqrt( Math.pow(xVel,2) + Math.pow(yVel,2));
 
