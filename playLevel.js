@@ -64,7 +64,7 @@ playLevel.prototype = {
 		setUpgrades(playerData);
 		maxRocks = playerData.maxRocks;
 		maxConverge = 1;
-		maxConfuse = 2;
+		maxConfuse = playerData.maxConfuse;
 		maxStun = playerData.maxStuns;
 		numKills = 0;
 		rocksLeft = maxRocks;
@@ -134,7 +134,7 @@ playLevel.prototype = {
 
 		rockButton = game.add.button(20,gameHeight-70,'rockButton',buttonClick,this,2,0,1,1);
 		convergeButton = game.add.button(80,gameHeight-70,'convergeButton',convergeRocks,this,2,0,1,1);
-		confuseButton = game.add.button(140,gameHeight-70,'confuseButton',confuseShips,this,2,0,1,1);
+		
 		
 
 		pauseButton = game.add.button(gameWidth-35,5,'pauseButton',pauseGame,this,2,0,1,1);
@@ -142,7 +142,16 @@ playLevel.prototype = {
 		var rocksLeftStyle = {font: "30px Arial", fill: "#ffffff", align: "center"};
 		rocksLeftText = game.add.text(35,gameHeight-60,""+rocksLeft,rocksLeftStyle);
 		convergeLeftText = game.add.text(95,gameHeight-60,""+convergeLeft,rocksLeftStyle);
-		confuseLeftText = game.add.text(155,gameHeight-60,""+confuseLeft,rocksLeftStyle);
+		
+
+		if (maxConfuse>0)
+		{
+			confuseButton = game.add.button(140,gameHeight-70,'confuseButton',confuseShips,this,2,0,1,1);
+			confuseLeftText = game.add.text(155,gameHeight-60,""+confuseLeft,rocksLeftStyle);
+			keyE = game.input.keyboard.addKey(Phaser.Keyboard.E);
+    		keyE.onDown.add(confuseShips,this);
+		}
+
 		if (maxStun>0)
 		{
 			stunButton = game.add.button(200,gameHeight-70,'stunButton',stunShips,this,2,0,1,1);
@@ -164,8 +173,7 @@ playLevel.prototype = {
     	keyW = game.input.keyboard.addKey(Phaser.Keyboard.W);
     	keyW.onDown.add(convergeRocks,this);
 
-    	keyE = game.input.keyboard.addKey(Phaser.Keyboard.E);
-    	keyE.onDown.add(confuseShips,this);
+
 
 
 
@@ -272,8 +280,11 @@ playLevel.prototype = {
 			scoreText.text = getScoreLine();
 			rocksLeftText.text = ""+rocksLeft;
 			convergeLeftText.text = ""+convergeLeft;
-			confuseLeftText.text = ""+confuseLeft;
-
+			
+			if (maxConfuse>0)
+			{
+				confuseLeftText.text = ""+confuseLeft;
+			}
 			if (maxStun>0)
 			{
 				stunLeftText.text = ""+stunLeft;

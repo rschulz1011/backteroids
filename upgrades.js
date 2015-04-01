@@ -41,7 +41,7 @@ var upgrades = {
 		maxUpgrade: 12,
 	},
 	numStuns : {
-		name: "Number of Stuns",
+		name: "Stun Powers",
 		x: 300,
 		y: 275,
 		prereq: [],
@@ -58,6 +58,25 @@ var upgrades = {
 			playerData.maxStuns = level;
 		},
 		description: "Start level with {} Stun Powers",
+		maxUpgrade: 9,
+	},
+	numConfuse : {
+		name: "Confuse Powers",
+		x: 300,
+		y: 350,
+		prereq: [],
+		minLevel: 5,
+		imageFrame: 3,
+		cost: function(level) {
+			return 2 + Math.floor(level/2);
+		},
+		value: function(level) {
+			return level;
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.maxConfuse = level;
+		},
+		description: "Start level with {} Confuse Powers",
 		maxUpgrade: 9,
 	},
 

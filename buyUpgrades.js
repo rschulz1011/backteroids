@@ -20,7 +20,7 @@ buyUpgrades.prototype = {
 		graphics.beginFill(0x333333, 1);
     	graphics.drawRect(5,33,205,315);
 
-		var upgradeTextStyle = {font:"24px Arial",fill: "#FFFFFF"};
+		var upgradeTextStyle = {font:"22px Arial",fill: "#FFFFFF"};
 		upgradeNameText = this.game.add.text(100,50,"Select Upgrade",upgradeTextStyle);
 		upgradeNameText.anchor.x = 0.5;
 
