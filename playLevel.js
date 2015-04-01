@@ -65,7 +65,7 @@ playLevel.prototype = {
 		maxRocks = playerData.maxRocks;
 		maxConverge = 1;
 		maxConfuse = 2;
-		maxStun = 2;
+		maxStun = playerData.maxStuns;
 		numKills = 0;
 		rocksLeft = maxRocks;
 		convergeLeft = maxConverge;
@@ -135,7 +135,7 @@ playLevel.prototype = {
 		rockButton = game.add.button(20,gameHeight-70,'rockButton',buttonClick,this,2,0,1,1);
 		convergeButton = game.add.button(80,gameHeight-70,'convergeButton',convergeRocks,this,2,0,1,1);
 		confuseButton = game.add.button(140,gameHeight-70,'confuseButton',confuseShips,this,2,0,1,1);
-		stunButton = game.add.button(200,gameHeight-70,'stunButton',stunShips,this,2,0,1,1);
+		
 
 		pauseButton = game.add.button(gameWidth-35,5,'pauseButton',pauseGame,this,2,0,1,1);
 
@@ -143,7 +143,13 @@ playLevel.prototype = {
 		rocksLeftText = game.add.text(35,gameHeight-60,""+rocksLeft,rocksLeftStyle);
 		convergeLeftText = game.add.text(95,gameHeight-60,""+convergeLeft,rocksLeftStyle);
 		confuseLeftText = game.add.text(155,gameHeight-60,""+confuseLeft,rocksLeftStyle);
-		stunLeftText = game.add.text(215,gameHeight-60,""+stunLeft,rocksLeftStyle);
+		if (maxStun>0)
+		{
+			stunButton = game.add.button(200,gameHeight-70,'stunButton',stunShips,this,2,0,1,1);
+			stunLeftText = game.add.text(215,gameHeight-60,""+stunLeft,rocksLeftStyle);
+			keyR = game.input.keyboard.addKey(Phaser.Keyboard.R);
+    		keyR.onDown.add(stunShips,this);
+		}
 		//TODO: Anchor text and center
 
 		game.rockLoaded = null;
@@ -161,8 +167,7 @@ playLevel.prototype = {
     	keyE = game.input.keyboard.addKey(Phaser.Keyboard.E);
     	keyE.onDown.add(confuseShips,this);
 
-    	keyR = game.input.keyboard.addKey(Phaser.Keyboard.R);
-    	keyR.onDown.add(stunShips,this);
+
 
     	game.input.onDown.add(unpauseGame, self);
 	},
@@ -268,7 +273,11 @@ playLevel.prototype = {
 			rocksLeftText.text = ""+rocksLeft;
 			convergeLeftText.text = ""+convergeLeft;
 			confuseLeftText.text = ""+confuseLeft;
-			stunLeftText.text = ""+stunLeft;
+
+			if (maxStun>0)
+			{
+				stunLeftText.text = ""+stunLeft;
+			}
 
 			if (rocks.getFirstAlive() == null && rocksLeft == 0 && game.rockLoaded === null)
 			{
