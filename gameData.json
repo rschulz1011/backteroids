@@ -277,6 +277,111 @@
 			"maxShields" : 50,
 			"shieldRecharge" : 0, 
 			"basePoints" : 15
+		},
+		"f1": 
+		{
+			"name": "Fighter I",
+			"imageKey": "ship_f1",
+			"fireRate": 900,
+			"maxTurnRate" : 175,
+			"bulletVelocity" : 500,
+			"enginePower" : 60,
+			"warps": 0,
+			"maxShields" : 75,
+			"shieldRecharge" : 0, 
+			"basePoints" : 20,
+			"extraWeapons" : [
+				{
+					"xOffset" : 14,
+					"yOffset" : -6,
+					"type" : "bullet",
+					"recharge" : 3000,
+				},
+				{
+					"xOffset" : 14,
+					"yOffset" : 6,
+					"type" : "bullet",
+					"recharge" : 3000,
+				}
+			]
+		},
+		"f2": 
+		{
+			"name": "Fighter II",
+			"imageKey": "ship_f2",
+			"fireRate": 800,
+			"maxTurnRate" : 200,
+			"bulletVelocity" : 500,
+			"enginePower" : 70,
+			"warps": 0,
+			"maxShields" : 125,
+			"shieldRecharge" : 0, 
+			"basePoints" : 25
+		},
+		"f3": 
+		{
+			"name": "Fighter III",
+			"imageKey": "ship_f3",
+			"fireRate": 750,
+			"maxTurnRate" : 225,
+			"bulletVelocity" : 550,
+			"enginePower" : 70,
+			"warps": 0,
+			"maxShields" : 175,
+			"shieldRecharge" : 0, 
+			"basePoints" : 30
+		},
+		"f4": 
+		{
+			"name": "Fighter IV",
+			"imageKey": "ship_f4",
+			"fireRate": 650,
+			"maxTurnRate" : 250,
+			"bulletVelocity" : 600,
+			"enginePower" : 80,
+			"warps": 0,
+			"maxShields" : 250,
+			"shieldRecharge" : 0, 
+			"basePoints" : 35
+		},
+		"f5": 
+		{
+			"name": "Fighter V",
+			"imageKey": "ship_f5",
+			"fireRate": 600,
+			"maxTurnRate" : 300,
+			"bulletVelocity" : 700,
+			"enginePower" : 80,
+			"warps": 0,
+			"maxShields" : 350,
+			"shieldRecharge" : 10, 
+			"basePoints" : 45
+		},
+		"f6": 
+		{
+			"name": "Fighter VI",
+			"imageKey": "ship_f6",
+			"fireRate": 500,
+			"maxTurnRate" : 350,
+			"bulletVelocity" : 700,
+			"enginePower" : 100,
+			"warps": 0,
+			"maxShields" : 500,
+			"shieldRecharge" : 10, 
+			"basePoints" : 55
+		},
+		"f7": 
+		{
+			"name": "Fighter VII",
+			"imageKey": "ship_f7",
+			"fireRate": 400,
+			"maxTurnRate" : 400,
+			"bulletVelocity" : 700,
+			"enginePower" : 100,
+			"warps": 1,
+			"maxShields" : 1000,
+			"shieldRecharge" : 20, 
+			"basePoints" : 80
 		}
 	},
 
@@ -819,6 +924,83 @@
 		"main8" :
 		{
 			"name": "Level 8",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "f1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "f2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "f3",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "f4",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "f5",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "f6",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "f7",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"main9" :
+		{
+			"name": "Level 9",
 			"waves": 
 			[
 				{
