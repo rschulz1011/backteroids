@@ -57,13 +57,14 @@ playLevel.prototype = {
 		game.load.spritesheet('healthbar','res/healthbar.png',10,3);
 		game.load.image('confuse','res/confuse_sprite.png');
 		game.load.image('stun','res/stun_sprite.png');
+		game.load.spritesheet('muteButton','res/mute_button.png',30,20);
 	},
 
 	create: function() {
 
 		setUpgrades(playerData);
 		maxRocks = playerData.maxRocks;
-		maxConverge = 1;
+		maxConverge = playerData.maxConverge;
 		maxConfuse = playerData.maxConfuse;
 		maxStun = playerData.maxStuns;
 		numKills = 0;
@@ -133,16 +134,21 @@ playLevel.prototype = {
 		scoreText = game.add.text(10,20,text,style);
 
 		rockButton = game.add.button(20,gameHeight-70,'rockButton',buttonClick,this,2,0,1,1);
-		convergeButton = game.add.button(80,gameHeight-70,'convergeButton',convergeRocks,this,2,0,1,1);
-		
 		
 
 		pauseButton = game.add.button(gameWidth-35,5,'pauseButton',pauseGame,this,2,0,1,1);
+		addMuteButton(gameWidth-70,5);
 
 		var rocksLeftStyle = {font: "30px Arial", fill: "#ffffff", align: "center"};
 		rocksLeftText = game.add.text(35,gameHeight-60,""+rocksLeft,rocksLeftStyle);
-		convergeLeftText = game.add.text(95,gameHeight-60,""+convergeLeft,rocksLeftStyle);
 		
+		if (maxConverge>0)
+		{
+			convergeButton = game.add.button(80,gameHeight-70,'convergeButton',convergeRocks,this,2,0,1,1);
+			convergeLeftText = game.add.text(95,gameHeight-60,""+convergeLeft,rocksLeftStyle);
+			keyW = game.input.keyboard.addKey(Phaser.Keyboard.W);
+    		keyW.onDown.add(convergeRocks,this);
+		}
 
 		if (maxConfuse>0)
 		{
@@ -159,7 +165,7 @@ playLevel.prototype = {
 			keyR = game.input.keyboard.addKey(Phaser.Keyboard.R);
     		keyR.onDown.add(stunShips,this);
 		}
-		//TODO: Anchor text and center
+		//TODO: Anchor text and center and add alpha
 
 		game.rockLoaded = null;
 		game.mouseSprite = null;
@@ -169,13 +175,6 @@ playLevel.prototype = {
 
     	keyP = game.input.keyboard.addKey(Phaser.Keyboard.P);
     	keyP.onDown.add(pauseGame, this);
-
-    	keyW = game.input.keyboard.addKey(Phaser.Keyboard.W);
-    	keyW.onDown.add(convergeRocks,this);
-
-
-
-
 
     	game.input.onDown.add(unpauseGame, self);
 	},
@@ -279,8 +278,11 @@ playLevel.prototype = {
 	
 			scoreText.text = getScoreLine();
 			rocksLeftText.text = ""+rocksLeft;
-			convergeLeftText.text = ""+convergeLeft;
-			
+
+			if (maxConverge>0)
+			{
+				convergeLeftText.text = ""+convergeLeft;
+			}
 			if (maxConfuse>0)
 			{
 				confuseLeftText.text = ""+confuseLeft;

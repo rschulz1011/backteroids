@@ -12,12 +12,13 @@ levelComplete.prototype = {
 
 	preload: function() {
 		game.load.image('nextLevel','res/nextLevel.png');
+		game.load.spritesheet('muteButton','res/mute_button.png',30,20);
 	},
 
 	create: function() {
 
 		var oldScore;
-
+		addMuteButton(765,30);
 		$.getJSON( "gameData.json", function( data ) {
 
 			if (playerData.levelScores[gameState.performanceData.level])

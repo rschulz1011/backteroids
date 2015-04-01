@@ -79,6 +79,25 @@ var upgrades = {
 		description: "Start level with {} Confuse Powers",
 		maxUpgrade: 9,
 	},
+	numConverge : {
+		name: "Converge Powers",
+		x: 300,
+		y: 425,
+		prereq: [],
+		minLevel: 7,
+		imageFrame: 4,
+		cost: function(level) {
+			return 4 + Math.floor(level/2);
+		},
+		value: function(level) {
+			return level;
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.maxConverge = level;
+		},
+		description: "Start level with {} Converge Powers",
+		maxUpgrade: 9,
+	}
 
 };
 

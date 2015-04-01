@@ -6,6 +6,7 @@ buyUpgrades.prototype = {
 		preLoadButtons();
 		game.load.spritesheet('upgradeBlank','res/upgrade_blank.png',50,50);
 		game.load.spritesheet('upgradeGraphics','res/upgrade_graphics.png',40,40);
+		game.load.spritesheet('muteButton','res/mute_button.png',30,20);
 	},
 
 	create: function() {
@@ -13,6 +14,7 @@ buyUpgrades.prototype = {
 		upgradePointsAvailable = countAvailableUpgradePoints();
 
 		buttons = this.game.add.group();
+		addMuteButton(765,30);
 		var currentUpgrade;
 
 		var graphics = game.add.graphics(0, 0);

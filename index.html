@@ -38,7 +38,6 @@
 	game.state.add("Beastiary",beastiary);
 	game.state.add("Credits",credits);
 
-
 	$.cookie.json = true;
 	if ($.cookie("playerData")===undefined)
 	{
@@ -129,6 +128,13 @@
 		game.load.spritesheet('ship_c5','res/ship_c5.png',40,40);
 		game.load.spritesheet('ship_c6','res/ship_c6.png',40,40);
 		game.load.spritesheet('ship_c7','res/ship_c7.png',40,40);
+		game.load.spritesheet('ship_r1','res/ship_r1.png',25,25);
+		game.load.spritesheet('ship_r2','res/ship_r2.png',25,25);
+		game.load.spritesheet('ship_r3','res/ship_r3.png',25,25);
+		game.load.spritesheet('ship_r4','res/ship_r4.png',25,25);
+		game.load.spritesheet('ship_r5','res/ship_r5.png',25,25);
+		game.load.spritesheet('ship_r6','res/ship_r6.png',25,25);
+		game.load.spritesheet('ship_r7','res/ship_r7.png',25,25);
 	};
 
 	var preLoadButtons = function() {
@@ -150,6 +156,27 @@
 
 	var startMusic = function() {
 		menuMusic.fadeIn(2000,true);
+		if (game.muted) {menuMusic.volume = 0;} else {menuMusic.volume = 1;}
+	}
+
+	var addMuteButton = function(x,y) {
+		muteButton = game.add.button(x,y,'muteButton',muteGame,this);
+		keyM = game.input.keyboard.addKey(Phaser.Keyboard.M);
+    	keyM.onDown.add(muteGame,this);
+		if (game.sound.mute) {muteButton.frame = 1;} else {muteButton.frame = 0;}
+	}
+
+	var muteGame = function() {
+		if (game.sound.mute===true)
+		{
+			game.sound.mute = false;
+			muteButton.frame = 0;
+		}
+		else
+		{
+			game.sound.mute = true;
+			muteButton.frame = 1;
+		}
 	}
 
 	var createNavigationButtons = function(currentFrame)

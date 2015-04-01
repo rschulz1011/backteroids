@@ -186,6 +186,97 @@
 			"maxShields" : 350,
 			"shieldRecharge" : 25, 
 			"basePoints" : 70
+		},
+		"r1": 
+		{
+			"name": "Recon I",
+			"imageKey": "ship_r1",
+			"fireRate": 2000,
+			"maxTurnRate" : 400,
+			"bulletVelocity" : 250,
+			"enginePower" : 80,
+			"warps": 0,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 3
+		},
+		"r2": 
+		{
+			"name": "Recon II",
+			"imageKey": "ship_r2",
+			"fireRate": 1800,
+			"maxTurnRate" : 450,
+			"bulletVelocity" : 250,
+			"enginePower" : 90,
+			"warps": 1,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 4
+		},
+		"r3": 
+		{
+			"name": "Recon III",
+			"imageKey": "ship_r3",
+			"fireRate": 1700,
+			"maxTurnRate" : 500,
+			"bulletVelocity" : 275,
+			"enginePower" : 100,
+			"warps": 1,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 5
+		},
+		"r4": 
+		{
+			"name": "Recon IV",
+			"imageKey": "ship_r4",
+			"fireRate": 1500,
+			"maxTurnRate" : 600,
+			"bulletVelocity" : 300,
+			"enginePower" : 120,
+			"warps": 2,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 7
+		},
+		"r5": 
+		{
+			"name": "Recon V",
+			"imageKey": "ship_r5",
+			"fireRate": 1200,
+			"maxTurnRate" : 700,
+			"bulletVelocity" : 350,
+			"enginePower" : 140,
+			"warps": 3,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 9
+		},
+		"r6": 
+		{
+			"name": "Recon VI",
+			"imageKey": "ship_r6",
+			"fireRate": 1000,
+			"maxTurnRate" : 800,
+			"bulletVelocity" : 400,
+			"enginePower" : 160,
+			"warps": 5,
+			"maxShields" : 0,
+			"shieldRecharge" : 0, 
+			"basePoints" : 12
+		},
+		"r7": 
+		{
+			"name": "Recon VII",
+			"imageKey": "ship_r7",
+			"fireRate": 800,
+			"maxTurnRate" : 1000,
+			"bulletVelocity" : 500,
+			"enginePower" : 180,
+			"warps": 6,
+			"maxShields" : 50,
+			"shieldRecharge" : 0, 
+			"basePoints" : 15
 		}
 	},
 
@@ -196,6 +287,16 @@
 			"name": "Level 1",
 			"waves": 
 			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "r1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
 				{
 					"ships" : 
 					[
@@ -708,6 +809,108 @@
 					[
 						{
 							"type": "c7",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"main8" :
+		{
+			"name": "Level 8",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "r1",
+							"x" : 0.4,
+							"y" : 0.5
+						},
+						{
+							"type": "r1",
+							"x" : 0.5,
+							"y" : 0.6
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "r2",
+							"x" : 0.3,
+							"y" : 0.3
+						},
+						{
+							"type": "r2",
+							"x" : 0.8,
+							"y" : 0.7
+						},
+						{
+							"type": "r2",
+							"x" : 0.5,
+							"y" : 0.8
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "r3",
+							"x" : 0.5,
+							"y" : 0.42
+						},
+						{
+							"type": "r4",
+							"x" : 0.42,
+							"y" : 0.5
+						},
+						{
+							"type": "r4",
+							"x" : 0.58,
+							"y" : 0.5
+						},
+						{
+							"type": "r3",
+							"x" : 0.5,
+							"y" : 0.58
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "r5",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "r6",
+							"x" : 0.6,
+							"y" : 0.5
+						},
+						{
+							"type": "r6",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "r7",
 							"x" : 0.5,
 							"y" : 0.5
 						}

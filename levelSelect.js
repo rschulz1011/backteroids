@@ -1,7 +1,7 @@
 var levelSelect = function(game){
 	gameData = null;
 	levelTileSize = 70;
-	levelTileMargin = 20;
+	levelTileMargin = 30;
 	selectedLevel = null;
 };
 
@@ -10,6 +10,7 @@ levelSelect.prototype = {
 	preload: function() {
 		game.load.spritesheet('levelButton', 'res/levelButton.png',70,70);
 		game.load.image('playButton','res/playButton.png');
+		game.load.spritesheet('muteButton','res/mute_button.png',30,20);
 
 		loadShipSprites();
 		preLoadButtons();
@@ -21,6 +22,7 @@ levelSelect.prototype = {
 
 		loadSounds();
 		preLoadButtons();
+		addMuteButton(765,30);
 
 		$.getJSON( "gameData.json", function( data ) {
 			gameData = data;
