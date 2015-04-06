@@ -31,6 +31,8 @@ var playLevel = function(game) {
 
 	difficultyMultiplier = 1.0;
 	bonusMultiplier = 1.0;
+
+	waveGroup = [];
 }
 
 playLevel.prototype = {
@@ -58,6 +60,7 @@ playLevel.prototype = {
 		game.load.image('confuse','res/confuse_sprite.png');
 		game.load.image('stun','res/stun_sprite.png');
 		game.load.spritesheet('muteButton','res/mute_button.png',30,20);
+		game.load.image('waveIndicator','res/wave_indicator.png');
 	},
 
 	create: function() {
@@ -97,6 +100,7 @@ playLevel.prototype = {
 			gameData = data;
 			numWaves = gameData.levels[level].waves.length;
 			setWave(gameData,level,wave);
+			drawWaveIndicators(gameData,level);
 		})
 		.fail(function(jqxhr, textStatus, error){
 			var err = textStatus + ", " + error;
@@ -533,6 +537,61 @@ function createShip(shipData,x,y)
 	ship.stunnedSprite.kill();
 }
 
+function drawWaveIndicators(gameData,level) {
+	var xpos = 100;
+	for (var index=0; index<gameData.levels[level].waves.length; index++)
+	{
+		xpos = xpos + drawWaveIndicator(gameData.levels[level].waves[index],xpos,index);
+	}
+
+}
+
+function drawWaveIndicator(waveData,xpos,index) {
+
+	waveGroup[index] = game.add.group();
+
+	var waveSprite = game.add.sprite(xpos,3,'waveIndicator');
+
+	var spriteWidth = 30 + waveData.ships.length * 16;
+	waveSprite.width = spriteWidth;
+	waveGroup[index].spriteWidth = spriteWidth;
+
+	var waveTextStyle = {font: "bold 14px Arial", fill : "#CCCCCC"};
+	var waveText = game.add.text(xpos+3,4,index+1,waveTextStyle);
+	
+	waveGroup[index].add(waveSprite);
+	waveGroup[index].add(waveText);
+	waveGroup[index].alpha = 0.5;
+
+	for (var shipIndex=0; shipIndex<waveData.ships.length; shipIndex++)
+	{
+		var shipSprite = game.add.sprite(xpos+27+shipIndex*16,11,gameData.shipTypes[waveData.ships[shipIndex].type].imageKey);
+		shipSprite.rotation = 90;
+		shipSprite.width = 14;
+		shipSprite.height = 14;
+		shipSprite.anchor.x = 0.5;
+		shipSprite.anchor.y = 0.5;
+		waveGroup[index].add(shipSprite);
+	}
+
+	return spriteWidth;
+}
+
+function removeWaveIndicator(wave) {
+	
+	var spriteWidth = waveGroup[wave].spriteWidth;
+	waveGroup[wave].destroy();
+
+	for (var index=wave; index<waveGroup.length; index++)
+	{
+		for (var jindex=0; jindex<waveGroup[index].children.length; jindex++)
+		{
+			game.add.tween(waveGroup[index].children[jindex]).to({x: waveGroup[index].children[jindex].x-spriteWidth},500,"Linear",true);
+		}
+	}
+
+}
+
 function createRock(rocks,level,x,y,xVel,yVel,directHit)
 {
 
@@ -953,6 +1012,7 @@ function deadShip(ship,directHit) {
 
     if (ships.countLiving()==0)
     {	
+    	removeWaveIndicator(wave);
     	wave++;
 		
 		if (wave<numWaves)
