@@ -293,15 +293,15 @@
 			"extraWeapons" : [
 				{
 					"xOffset" : 14,
-					"yOffset" : -6,
+					"yOffset" : -10,
 					"type" : "bullet",
-					"recharge" : 3000,
+					"recharge" : 3000
 				},
 				{
 					"xOffset" : 14,
-					"yOffset" : 6,
+					"yOffset" : 10,
 					"type" : "bullet",
-					"recharge" : 3000,
+					"recharge" : 3000
 				}
 			]
 		},

@@ -479,7 +479,20 @@ function createShip(shipData,x,y)
 	ship.shieldBar = null;
 	ship.body.mass = 1;
 	ship.body.bounce = 0;
-	//ship.animations.add('test',[0,1],10,false);
+
+
+	ship.extraWeaponsRate = [];
+	ship.extraWeaponsTimer = [];
+	if (shipData.extraWeapons !== undefined)
+	{
+		ship.extraWeapons = shipData.extraWeapons;
+		for (var index=0; index<shipData.extraWeapons.length; index++)
+		{
+			ship.extraWeaponsRate[index] = shipData.extraWeapons[index].recharge;
+			ship.extraWeaponsTimer[index] = shipData.extraWeapons[index].recharge;
+		}
+	}
+
 	ship.frame = 0;
 	ship.aliveTime = 0;
 
@@ -855,6 +868,31 @@ function addBullet(ship)
 			bullet.body.velocity.x = bulletVelocity * Math.cos(ship.body.rotation*Math.PI/180);
 			bullet.body.rotation = ship.body.rotation;
 			bullet.body.mass = .1;
+			bullet.anchor.x = 0.5;
+			bullet.anchor.y = 0.5;
+		}
+
+		for (var index=0; index< ship.extraWeaponsTimer.length; index++)
+		{
+			ship.extraWeaponsTimer[index] = ship.extraWeaponsTimer[index] - game.time.physicsElapsedMS;
+
+			if (ship.extraWeaponsTimer[index] < 0)
+			{
+				ship.extraWeaponsTimer[index] = ship.extraWeaponsRate[index];
+				var xBulletPosition = ship.position.x + Math.cos(ship.body.rotation*Math.PI/180)*ship.extraWeapons[index].xOffset 
+					- Math.sin(ship.body.rotation*Math.PI/180) * ship.extraWeapons[index].yOffset;
+				var yBulletPosition = ship.position.y + Math.sin(ship.body.rotation*Math.PI/180)*ship.extraWeapons[index].xOffset 
+					+ Math.cos(ship.body.rotation*Math.PI/180) * ship.extraWeapons[index].yOffset;
+
+				var bullet = bullets.create(xBulletPosition,yBulletPosition,'bullet');
+				bullet.body.velocity.y = bulletVelocity * Math.sin(ship.body.rotation*Math.PI/180);
+				bullet.body.velocity.x = bulletVelocity * Math.cos(ship.body.rotation*Math.PI/180);
+				bullet.body.rotation = ship.body.rotation;
+				bullet.body.mass = .1;
+				bullet.anchor.x = 0.5;
+				bullet.anchor.y = 0.5;
+			}
+
 		}
 	}
 }
