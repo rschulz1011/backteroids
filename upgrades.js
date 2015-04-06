@@ -60,6 +60,25 @@ var upgrades = {
 		description: "Start level with {} Stun Powers",
 		maxUpgrade: 9,
 	},
+	stunTime : {
+		name: "StunDuration",
+		x: 375,
+		y: 275,
+		prereq: ["numStuns"],
+		minLevel: 4,
+		imageFrame: 6,
+		cost: function(level) {
+			return 1 + Math.floor(level/2);
+		},
+		value: function(level) {
+			return Math.round((1 + level * .1) * 10)/10;
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.stunTime = this.value(level) * 1000;
+		},
+		description: "Confuse Power lasts {} seconds",
+		maxUpgrade: 30,
+	},
 	numConfuse : {
 		name: "Confuse Powers",
 		x: 300,
@@ -78,6 +97,25 @@ var upgrades = {
 		},
 		description: "Start level with {} Confuse Powers",
 		maxUpgrade: 9,
+	},
+	confuseTime : {
+		name: "ConfuseDuration",
+		x: 375,
+		y: 350,
+		prereq: ["numConfuse"],
+		minLevel: 5,
+		imageFrame: 5,
+		cost: function(level) {
+			return 1 + Math.floor(level/3);
+		},
+		value: function(level) {
+			return Math.round((1.4 + level * .2) * 10)/10;
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.confuseTime = this.value(level) * 1000;
+		},
+		description: "Confuse Power lasts {} seconds",
+		maxUpgrade: 30,
 	},
 	numConverge : {
 		name: "Converge Powers",

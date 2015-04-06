@@ -67,10 +67,12 @@ playLevel.prototype = {
 		maxConverge = playerData.maxConverge;
 		maxConfuse = playerData.maxConfuse;
 		maxStun = playerData.maxStuns;
+		stunTime = playerData.stunTime;
 		numKills = 0;
 		rocksLeft = maxRocks;
 		convergeLeft = maxConverge;
 		confuseLeft = maxConfuse;
+		confuseTime = playerData.confuseTime;
 		stunLeft = maxStun;
 		wave = 0;
 		rockAnchor.x = 0;
@@ -415,7 +417,7 @@ function confuseShips()
 	{
 		confuseLeft--;
 		ships.forEachAlive(function(ship){
-			ship.confused = 3000;
+			ship.confused = confuseTime;
 		});
 	}
 }
@@ -426,7 +428,7 @@ function stunShips()
 	{
 		stunLeft--;
 		ships.forEachAlive(function(ship){
-			ship.stunned = 3000;
+			ship.stunned = stunTime;
 		});
 	}
 }
