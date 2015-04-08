@@ -198,8 +198,15 @@ var addDifficultyLevelControls = function(level) {
 		ypos = ypos +33;
 	})
 
+	var difficultySettingNameStyle = {font: "14px Arial", fill: "#FFFFFF"};
+	var totalDifficultySettingLabel = game.add.text(75,ypos+3,"Total Multiplier",difficultySettingNameStyle);
+	difficultyLevelControls.add(totalDifficultySettingLabel);
+
+	var difficultySettingMultiplierStyle = {font: "18px Arial", fill: "#FFFF00"};
+	totalDifficultyMultiplierText = game.add.text(200,ypos," ",difficultySettingMultiplierStyle);
+	difficultyLevelControls.add(totalDifficultyMultiplierText);
+
 	updateDifficultyControls(level);
-	
 };
 
 var addDifficultyControl = function(index,control,level,ypos) {
@@ -244,9 +251,14 @@ var resetDifficultyLevels = function() {
 };
 
 var updateDifficultyControls = function(level) {
+
+	var totalDifficultyMultiplier = 1.0;
+
 	$.each(difficultySetting,function(index,control){
 		difficultySettingValue[index].text = control.displayString(difficultyLevels[index]);
 		difficultySettingMultiplier[index].text = "x "+control.multiplier(difficultyLevels[index]).toFixed(2);
+
+		totalDifficultyMultiplier = totalDifficultyMultiplier * control.multiplier(difficultyLevels[index]);
 
 		if (difficultyLevels[index]<=0)
 		{
@@ -271,6 +283,8 @@ var updateDifficultyControls = function(level) {
 		}
 
 	});
+
+	totalDifficultyMultiplierText.text = "x "+totalDifficultyMultiplier.toFixed(2);
 }
 
 var calculateBasePoints = function(level){
@@ -302,7 +316,11 @@ var getUniqueShipTypes = function(level){
 
 var clickPlayButton = function(){
 	menuMusic.fadeOut(1000);
-	setTimeout(function(){this.game.state.start("PlayLevel",true,false,selectedLevel);},1000);
+	levelData = {
+		selectedLevel: selectedLevel,
+		difficultyValues: difficultyLevels,
+	};
+	setTimeout(function(){this.game.state.start("PlayLevel",true,false,levelData);},1000);
 };
 
 var drawLevelParameter = function(parameterId, parameterTitle,ypos) {

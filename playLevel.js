@@ -18,6 +18,8 @@ var playLevel = function(game) {
 	wave = 0;
 	numWaves = null;
 
+	
+
 	levelScore = 0;
 	detailedScore = {};
 	detailedScore.totalKills = 0;
@@ -29,6 +31,7 @@ var playLevel = function(game) {
 	detailedScore.instantKillPoints = 0;
 	detailedScore.directHitPoints = 0;
 
+	difficultyValues = null;
 	difficultyMultiplier = 1.0;
 	bonusMultiplier = 1.0;
 
@@ -37,8 +40,9 @@ var playLevel = function(game) {
 
 playLevel.prototype = {
 
-	init: function(levelIn) {
-		level = levelIn;
+	init: function(levelData) {
+		level = levelData.selectedLevel;
+		difficultyValues = levelData.difficultyValues;
 	},
 
 	preload: function() {
@@ -81,6 +85,8 @@ playLevel.prototype = {
 		rockAnchor.x = 0;
 		rockAnchor.y = 0;
 		drawLine = false;
+		shipFireMultiplier = 1 + difficultySetting.fireRate.value(difficultyValues.fireRate) * .01;
+		shipSpeedMultiplier = 1 + difficultySetting.shipSpeed.value(difficultyValues.shipSpeed) * .01;
 
 		levelScore = 0;
 
@@ -106,7 +112,11 @@ playLevel.prototype = {
 			var err = textStatus + ", " + error;
 		});
 
-		//var numRocks = 20;
+		difficultyMultiplier = 1.0;
+		$.each(difficultySetting,function(index,control){
+			difficultyMultiplier = difficultyMultiplier * control.multiplier(difficultyValues[index]);
+		})
+
 		rocks = game.add.group();
 		rocks.enableBody = true;
 		rocks.allowRotation = true;
@@ -469,14 +479,14 @@ function createShip(shipData,x,y)
 	ship.body.velocity.x = 0;
 	ship.body.velocity.y = 0;
 	ship.body.angularVelocity = 0;
-	ship.fireRate = shipData.fireRate;
-	ship.bulletTimer = shipData.fireRate;
+	ship.fireRate = shipData.fireRate / shipFireMultiplier;
+	ship.bulletTimer = shipData.fireRate / shipFireMultiplier;
 	ship.currentTarget = null;
-	ship.maxTurnRate = shipData.maxTurnRate;
+	ship.maxTurnRate = shipData.maxTurnRate * shipSpeedMultiplier;
 	ship.bulletVelocity = shipData.bulletVelocity;
-	ship.enginePower = shipData.enginePower;
-	ship.body.drag.x = shipData.enginePower/2;
-	ship.body.drag.y = shipData.enginePower/2;
+	ship.enginePower = shipData.enginePower * shipSpeedMultiplier;
+	ship.body.drag.x = shipData.enginePower/2 * shipSpeedMultiplier;
+	ship.body.drag.y = shipData.enginePower/2 * shipSpeedMultiplier;
 	ship.warpsLeft = shipData.warps;
 	ship.basePoints = shipData.basePoints;
 	ship.maxShields = shipData.maxShields;
@@ -494,8 +504,8 @@ function createShip(shipData,x,y)
 		ship.extraWeapons = shipData.extraWeapons;
 		for (var index=0; index<shipData.extraWeapons.length; index++)
 		{
-			ship.extraWeaponsRate[index] = shipData.extraWeapons[index].recharge;
-			ship.extraWeaponsTimer[index] = shipData.extraWeapons[index].recharge;
+			ship.extraWeaponsRate[index] = shipData.extraWeapons[index].recharge / shipFireMultiplier;
+			ship.extraWeaponsTimer[index] = shipData.extraWeapons[index].recharge / shipFireMultiplier;
 		}
 	}
 
