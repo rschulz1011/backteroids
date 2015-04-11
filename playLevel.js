@@ -36,6 +36,7 @@ var playLevel = function(game) {
 	bonusMultiplier = 1.0;
 
 	waveGroup = [];
+	adjustedWaves = [];
 }
 
 playLevel.prototype = {
@@ -105,8 +106,10 @@ playLevel.prototype = {
 		$.getJSON( "gameData.json", function( data ) {
 			gameData = data;
 			numWaves = gameData.levels[level].waves.length;
-			setWave(gameData,level,wave);
-			drawWaveIndicators(gameData,level);
+			adjustedWaves = addExtraWaves(gameData.levels[level].waves,difficultySetting.numWaves.value(difficultyValues.numWaves));
+			numWaves = adjustedWaves.length;
+			setWave(gameData,wave);
+			drawWaveIndicators(gameData,adjustedWaves);
 		})
 		.fail(function(jqxhr, textStatus, error){
 			var err = textStatus + ", " + error;
@@ -349,6 +352,30 @@ playLevel.prototype = {
 
 }
 
+function addExtraWaves(waves, numExtra)
+{
+	var wavesAdded = 0;
+	var newWaves = [];
+
+	for (var index=0; index<waves.length; index++)
+	{
+		newWaves[index] = waves[index];
+	}
+
+	var currentWaveId = 0;
+
+	while (wavesAdded<numExtra)
+	{
+		newWaves.splice(currentWaveId,0,newWaves[currentWaveId]);
+		wavesAdded++;
+		currentWaveId = currentWaveId +2;
+		if (currentWaveId>=newWaves.length) {currentWaveId = 0;}
+	}
+
+	return newWaves;
+
+}
+
 
 function unpauseGame()
 {
@@ -373,10 +400,9 @@ function pauseGame()
 	}
 }
 
-function setWave(gameData,level,wave)
+function setWave(gameData,wave)
 {
-	var levelData = gameData.levels[level];
-	var waveData = levelData.waves[wave];
+	var waveData = adjustedWaves[wave];
 
 	waveData.ships.forEach(function(shipParams,index){
 		shipData = gameData.shipTypes[shipParams.type];
@@ -547,11 +573,11 @@ function createShip(shipData,x,y)
 	ship.stunnedSprite.kill();
 }
 
-function drawWaveIndicators(gameData,level) {
+function drawWaveIndicators(gameData,waves) {
 	var xpos = 100;
-	for (var index=0; index<gameData.levels[level].waves.length; index++)
+	for (var index=0; index<waves.length; index++)
 	{
-		xpos = xpos + drawWaveIndicator(gameData.levels[level].waves[index],xpos,index);
+		xpos = xpos + drawWaveIndicator(waves[index],xpos,index);
 	}
 
 }
@@ -1028,7 +1054,7 @@ function deadShip(ship,directHit) {
 		if (wave<numWaves)
 		{
 			setTimeout(function(){
-				setWave(gameData,level,wave);
+				setWave(gameData,wave);
 				explosions.remove(explosion);
 			},2000);
 		}
