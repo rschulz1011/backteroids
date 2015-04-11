@@ -82,6 +82,7 @@ levelComplete.prototype = {
 			setTimeout(function(){
 				displayTotalScore();
 				displayPlayerLevel();
+				parent.kongregate.stats.submit("totalScore",playerData.totalScore);
 			},4000);
 
 			savePlayerData();

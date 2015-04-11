@@ -359,5 +359,20 @@ var difficultySetting = {
 			return 1 + level/10;
 		},
 		maxLevel: 20,
+	},
+	numWaves: {
+		name: "Extra Waves",
+		value: function(level) {
+			var extraWaves = [0,1,2,3,5,8,13,20,30]
+			return extraWaves[level];
+		},
+		displayString: function(level) {
+			return "+ "+this.value(level)+" waves";
+		},
+		multiplier: function(level){
+			var extraWavesMult = [1, 1.1, 1.2, 1.3, 1.4, 1.6, 1.8, 2.0, 2.5];
+			return extraWavesMult[level];
+		},
+		maxLevel: 8,
 	}
 };
