@@ -15,6 +15,7 @@ splashScreen.prototype = {
 	},
 
 	playButtonClick: function() {
+		playButtonClick();
 		this.game.state.start("LevelSelect");
 	}
 }

@@ -88,6 +88,7 @@ buyUpgrades.prototype = {
 }
 
 var	clickUpgradeButton = function(button) {
+	playButtonClick();
 	updateUpgradeButtons();
 	button.frame = 1;
 	fillUpgradeInfo(button.id);
@@ -122,6 +123,7 @@ var fillUpgradeInfo = function(id)
 
 var buyUpgradeButtonClick = function()
 {
+	playButtonClick();
 	playerData.upgradeLevels[currentUpgrade]++;
 	upgradePointsAvailable = countAvailableUpgradePoints();
 	fillUpgradeInfo(currentUpgrade);

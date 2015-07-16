@@ -107,7 +107,7 @@ var drawLevelButton = function(level,index,xLocation,yLocation) {
 };
 
 var clickLevelButton = function(button) {
-	
+	playButtonClick();
 	buttons.forEach(function(b){
 		b.frame=0;
 	});
@@ -244,6 +244,7 @@ var difficultyButtonClick = function(button) {
 	var direction = 0;
 	difficultyLevels[button.name] = difficultyLevels[button.name] + button.direction;
 	updateDifficultyControls(currentLevel);
+	playButtonClick();
 };
 
 var resetDifficultyLevels = function() {
@@ -317,6 +318,7 @@ var getUniqueShipTypes = function(level){
 };
 
 var clickPlayButton = function(){
+	playButtonClick();
 	menuMusic.fadeOut(1000);
 	levelData = {
 		selectedLevel: selectedLevel,

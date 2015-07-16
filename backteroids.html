@@ -152,7 +152,8 @@
 	var preLoadSounds = function() {
 		game.load.audio('menu_music',['res/sounds/menu_music.ogg','res/sounds/menu_music.mp3']);
 		game.load.audio('battle_explosion',['res/sounds/battle_explosion.ogg','res/sounds/battle_explosion.mp3']);
-		game.load.audio('bullet_fire',['res/sounds/bullet_fire.ogg','res/sounds/bullet_fire.mp3'])
+		game.load.audio('bullet_fire',['res/sounds/bullet_fire.ogg','res/sounds/bullet_fire.mp3']);
+		game.load.audio('button_click',['res/sounds/button_click.ogg','res/sounds/button_click.mp3']);
 	}
 
 	var loadSounds = function() {
@@ -281,6 +282,7 @@
 
 	var clickNavButton = function(navButton)
 	{
+		playButtonClick();
 		game.state.start(navButton.stateKey);
 	}
 
@@ -296,6 +298,12 @@
 		});
 	}
 
+	var playButtonClick = function()
+	{
+		var clickSound = game.add.audio('button_click');
+		clickSound.play('',0,0.5,false);
+		setTimeout(function(){clickSound.destroy()},1000);
+	}
 
 </script>
 
