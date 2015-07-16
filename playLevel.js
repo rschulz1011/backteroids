@@ -506,7 +506,7 @@ function createShip(shipData,x,y)
 	ship.body.velocity.y = 0;
 	ship.body.angularVelocity = 0;
 	ship.fireRate = shipData.fireRate / shipFireMultiplier;
-	ship.bulletTimer = shipData.fireRate / shipFireMultiplier;
+	ship.bulletTimer = Math.random() * (shipData.fireRate / shipFireMultiplier);
 	ship.currentTarget = null;
 	ship.maxTurnRate = shipData.maxTurnRate * shipSpeedMultiplier;
 	ship.bulletVelocity = shipData.bulletVelocity;
@@ -967,6 +967,12 @@ function addBullet(ship)
 			bullet.body.mass = .1;
 			bullet.anchor.x = 0.5;
 			bullet.anchor.y = 0.5;
+			
+			var bulletSound = game.add.audio('bullet_fire');
+			bulletSound.play('',0,0.15,false);
+			setTimeout(function(){bulletSound.fadeOut(200);},200);
+			setTimeout(function(){bulletSound.destroy()},1000);
+
 		}
 
 		for (var index=0; index< ship.extraWeaponsTimer.length; index++)
