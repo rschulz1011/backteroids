@@ -138,6 +138,8 @@ var populateLevelInfo = function(level) {
 		var difficultyLevelStyle = { font: "18px Arial", stroke: "bold", fill: "#eeeeee"};
 		var difficultyLevelText = game.add.text((game.width - 6*levelTileSize - levelTileMargin)/2,250,"Difficulty Settings",difficultyLevelStyle);
 		difficultyLevelText.anchor.x = 0.5;
+
+		resetDifficultyLevels();
 		
 	}
 	else

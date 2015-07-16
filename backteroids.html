@@ -59,7 +59,7 @@
 
 
 
-
+	var indicator;
 	var menuMusic = null;
 
 	var calculateTotalScore = function() {
@@ -146,6 +146,7 @@
 
 	var preLoadButtons = function() {
 		game.load.spritesheet('button_blank','res/button_blank.png',110,35);
+		game.load.image('upgrade_avialable','res/upgrade_available.png');
 	}
 
 	var preLoadSounds = function() {
@@ -194,6 +195,70 @@
 		drawNavButton("ViewAchievements","Achievements",410,"bold 15px Arial",currentFrame);
 		drawNavButton("Beastiary","Beastiary",540,"bold 16px Arial",currentFrame);
 		drawNavButton("Credits","Credits",670,"bold 16px Arial",currentFrame);
+		calculateUpgradeAvailability();
+	}
+
+	var calculateUpgradeAvailability = function()
+	{
+
+		if (typeof indicator == 'undefined')
+		{
+			indicator = game.add.sprite(155,555,'upgrade_avialable');
+			game.add.tween(indicator).to({y:545},200,Phaser.Easing.Bounce.InOut,true,100,-1,true);
+		}
+		else
+		{
+			indicator.kill();
+			indicator.destroy();
+			indicator = game.add.sprite(155,555,'upgrade_avialable');
+			game.add.tween(indicator).to({y:545},200,Phaser.Easing.Bounce.InOut,true,100,-1,true);
+		}
+
+		if (calculateNextUpgradePoints() > countAvailableUpgradePoints())
+		{
+			indicator.kill();
+		}
+	}
+
+	var calculateNextUpgradePoints = function()
+	{
+
+		var minUpgradePoints = 9999;
+
+		$.each(upgrades,function(index,upgrade){
+			var nextLevelPoints = upgrade.cost(playerData.upgradeLevels[index ]+1);
+			if (playerData.level >= upgrade.minLevel && (playerData.upgradeLevels[index] < upgrade.MaxLevel || upgrade.MaxLevel == undefined) && checkPrereqs(upgrade))
+			{
+				minUpgradePoints = Math.min(minUpgradePoints,nextLevelPoints);
+			}
+		});
+
+		return minUpgradePoints;
+	}
+
+	var countAvailableUpgradePoints = function()
+	{
+		var totalPlayerPoints = (playerData.level-1) * 2;
+		var pointsSpent = 0;
+		$.each(upgrades,function(index,upgrade){
+			for (i=1; i<=playerData.upgradeLevels[index]; i ++)
+			{
+				pointsSpent = pointsSpent + upgrades[index].cost(i);
+			}
+		});
+		return totalPlayerPoints - pointsSpent;
+	}
+
+	var checkPrereqs = function(upgrade)
+	{
+		reqsMet = true;
+		upgrade.prereq.forEach(function(pq,index){
+			if (playerData.upgradeLevels[pq]===0)
+			{
+				reqsMet = false;
+			}
+		});
+		return reqsMet;
 	}
 
 	var drawNavButton = function(key,text,x,font,currentFrame)

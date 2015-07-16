@@ -87,24 +87,12 @@ buyUpgrades.prototype = {
 
 }
 
-var countAvailableUpgradePoints = function()
-{
-	var totalPlayerPoints = (playerData.level-1) * 2;
-	var pointsSpent = 0;
-	$.each(upgrades,function(index,upgrade){
-		for (i=1; i<=playerData.upgradeLevels[index]; i ++)
-		{
-			pointsSpent = pointsSpent + upgrades[index].cost(i);
-		}
-	});
-	return totalPlayerPoints - pointsSpent;
-}
-
 var	clickUpgradeButton = function(button) {
 	updateUpgradeButtons();
 	button.frame = 1;
 	fillUpgradeInfo(button.id);
 	currentUpgrade = button.id;
+	calculateUpgradeAvailability();
 }
 
 var fillUpgradeInfo = function(id)
@@ -139,6 +127,7 @@ var buyUpgradeButtonClick = function()
 	fillUpgradeInfo(currentUpgrade);
 	updateUpgradeButtons();
 	savePlayerData();
+	calculateUpgradeAvailability();
 }
 
 var updateUpgradeButtons = function()
@@ -184,14 +173,3 @@ var updateUpgradeButtons = function()
 	upgradePointsAvailableText.text = "Upgrade Points: "+upgradePointsAvailable;
 }
 
-var checkPrereqs = function(upgrade)
-{
-	reqsMet = true;
-	upgrade.prereq.forEach(function(pq,index){
-		if (playerData.upgradeLevels[pq]===0)
-		{
-			reqsMet = false;
-		}
-	});
-	return reqsMet;
-}
