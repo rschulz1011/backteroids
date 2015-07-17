@@ -959,6 +959,10 @@ function bombHit(bullet)
 
 function breakRock(rock)
 {
+	var rockBreakSound = game.add.audio('rock_break');
+	
+
+
 	if(rock.level==3)
 	{
 		var numRocks = 2 + Math.round(Math.random());
@@ -968,6 +972,7 @@ function breakRock(rock)
 			createRock(rocks,2,rock.x,rock.y,rock.body.velocity.x + Math.random()*120-60,
 				rock.body.velocity.y + Math.random()*120-60,false);
 		}
+		rockBreakSound.play('',0,0.3,false);
 	}
 	else if (rock.level == 2)
 	{
@@ -977,9 +982,16 @@ function breakRock(rock)
 			createRock(rocks,1,rock.x,rock.y,rock.body.velocity.x + Math.random()*80-40,
 				rock.body.velocity.y + Math.random()*120-60,false);
 		}
+		rockBreakSound.play('',0,0.2,false);
+	}
+	else
+	{
+		rockBreakSound.play('',0,0.1,false);
 	}
 
 	rock.kill();
+	setTimeout(function(){rockBreakSound.fadeOut(200);},200);
+	setTimeout(function(){rockBreakSound.destroy()},1000);
 }
 
 function addBullet(ship)
