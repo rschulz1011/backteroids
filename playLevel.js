@@ -66,6 +66,8 @@ playLevel.prototype = {
 		game.load.image('stun','res/stun_sprite.png');
 		game.load.spritesheet('muteButton','res/mute_button.png',30,20);
 		game.load.image('waveIndicator','res/wave_indicator.png');
+		game.load.image('bomb','res/bomb.png')
+		game.load.spritesheet('bombExplosion','res/bomb_explosion.png',150,150);
 	},
 
 	create: function() {
@@ -141,6 +143,10 @@ playLevel.prototype = {
 		ionExplosion.animations.add('ion_kaboom');
 		ionExplosion.anchor.setTo(0.5,0.5);
 		explosions.remove(ionExplosion);
+		bombExplosion = explosions.create(0,0,'bombExplosion');
+		bombExplosion.animations.add('bombExplosion');
+		bombExplosion.anchor.setTo(0.5,0.5);
+		explosions.remove(bombExplosion);
 
 		warps = game.add.group();
 
@@ -911,16 +917,44 @@ function shipHit(rock,ship)
 
 function rockHit(rock,bullet)
 {
-	if (rock)
-	{
-
-		breakRock(rock);
-	}
 	if (bullet)
 	{
+		if (bullet.type == 'bomb')
+		{
+			bombHit(bullet);
+		}
 		bullet.kill();
 		bullets.remove(bullet);
 	}
+	if (rock && bullet.type !== 'bomb')
+	{
+		breakRock(rock);
+	}
+}
+
+function bombHit(bullet)
+{
+	explosions.add(bombExplosion);
+	bombExplosion.position.x = bullet.position.x;
+	bombExplosion.position.y = bullet.position.y;
+	bombExplosion.alpha = 0.7;
+	bombExplosion.width = 200;
+	bombExplosion.height = 200;
+	bombExplosion.animations.play('bombExplosion',30,false,false);
+	setTimeout(function(){
+		explosions.remove(bombExplosion);
+	},300);
+
+	$.each(rocks.children,function(index,rock)
+	{
+		var dist = Math.sqrt(Math.pow(rock.x-bullet.x,2)+Math.pow(rock.y-bullet.y,2));
+		if (dist<100 && rock.alive)
+		{
+			setTimeout(function(){
+				breakRock(rock);
+			},300*(dist/100));
+		}
+	});
 }
 
 function breakRock(rock)
@@ -987,10 +1021,24 @@ function addBullet(ship)
 				var yBulletPosition = ship.position.y + Math.sin(ship.body.rotation*Math.PI/180)*ship.extraWeapons[index].xOffset 
 					+ Math.cos(ship.body.rotation*Math.PI/180) * ship.extraWeapons[index].yOffset;
 
-				var bullet = bullets.create(xBulletPosition,yBulletPosition,'bullet');
-				bullet.body.velocity.y = bulletVelocity * Math.sin(ship.body.rotation*Math.PI/180);
-				bullet.body.velocity.x = bulletVelocity * Math.cos(ship.body.rotation*Math.PI/180);
-				bullet.body.rotation = ship.body.rotation;
+
+				var bullet;
+				if (ship.extraWeapons[index].type == "bomb")
+				{
+					bullet = bullets.create(xBulletPosition,yBulletPosition,'bomb');
+					bullet.type = 'bomb';
+					bullet.body.velocity.y = 120 * Math.sin(ship.body.rotation*Math.PI/180);
+					bullet.body.velocity.x = 120 * Math.cos(ship.body.rotation*Math.PI/180);
+					bullet.body.rotation = ship.body.rotation + 90;
+
+				}
+				else
+				{
+					bullet = bullets.create(xBulletPosition,yBulletPosition,'bullet');
+					bullet.body.velocity.y = bulletVelocity * Math.sin(ship.body.rotation*Math.PI/180);
+					bullet.body.velocity.x = bulletVelocity * Math.cos(ship.body.rotation*Math.PI/180);
+					bullet.body.rotation = ship.body.rotation;
+				}
 				bullet.body.mass = .1;
 				bullet.anchor.x = 0.5;
 				bullet.anchor.y = 0.5;

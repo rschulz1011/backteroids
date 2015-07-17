@@ -107,7 +107,15 @@
 			"warps": 0,
 			"maxShields" : 125,
 			"shieldRecharge" : 0, 
-			"basePoints" : 15
+			"basePoints" : 15,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "bomb",
+					"recharge" : 5000
+				}
+			]
 		},
 		"c2":
 		{
