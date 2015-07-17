@@ -165,5 +165,10 @@ function displayScoreLine(index,label,value1,value2,specialType)
 function displayLevelUp(newLevel) {
 	var levelUpStyle = {font: "Italic 22px Arial", fill: "#FFFF00"};
 	var levelUpText = game.add.text(850,35,"LEVEL UP!",levelUpStyle);
-	game.add.tween(levelUpText).to({x: 560},500,"Linear",true);	
+	game.add.tween(levelUpText).to({x: 560},500,"Linear",true);
+	setTimeout(function(){
+		var levelUpSound = game.add.audio('level_up');
+		levelUpSound.play('',0,1,false);
+		setTimeout(function(){levelUpSound.destroy()},1500);
+	},500);	
 }

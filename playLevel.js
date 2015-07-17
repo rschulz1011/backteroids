@@ -1015,7 +1015,7 @@ function addBullet(ship)
 			bullet.anchor.y = 0.5;
 			
 			var bulletSound = game.add.audio('bullet_fire');
-			bulletSound.play('',0,0.05,false);
+			bulletSound.play('',0,0.10,false);
 			setTimeout(function(){bulletSound.fadeOut(200);},200);
 			setTimeout(function(){bulletSound.destroy()},1000);
 
