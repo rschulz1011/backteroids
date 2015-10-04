@@ -390,6 +390,267 @@
 			"maxShields" : 1000,
 			"shieldRecharge" : 20, 
 			"basePoints" : 80
+		},
+		"b1":
+		{
+			"name": "Battleship I",
+			"imageKey": "ship_b1",
+			"fireRate": 1200,
+			"maxTurnRate" : 50,
+			"bulletVelocity" : 400,
+			"enginePower" : 5,
+			"warps": 0,
+			"maxShields" : 1000,
+			"shieldRecharge" : 0, 
+			"basePoints" : 60,
+			"extraWeapons" : [
+				{
+					"xOffset" : 29,
+					"yOffset" : -9,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 27,
+					"yOffset" : -14,
+					"type" : "bullet",
+					"recharge" : 1200
+				},
+				{
+					"xOffset" : 26,
+					"yOffset" : 10,
+					"type" : "bullet",
+					"recharge" : 700
+				}
+			]
+		},
+		"b2":
+		{
+			"name": "Battleship II",
+			"imageKey": "ship_b2",
+			"fireRate": 1000,
+			"maxTurnRate" : 60,
+			"bulletVelocity" : 400,
+			"enginePower" : 15,
+			"warps": 0,
+			"maxShields" : 1250,
+			"shieldRecharge" : 0, 
+			"basePoints" : 75,
+			"extraWeapons" : [
+				{
+					"xOffset" : 29,
+					"yOffset" : -9,
+					"type" : "bullet",
+					"recharge" : 900
+				},
+				{
+					"xOffset" : 27,
+					"yOffset" : -14,
+					"type" : "bullet",
+					"recharge" : 1100
+				},
+				{
+					"xOffset" : 26,
+					"yOffset" : 10,
+					"type" : "bullet",
+					"recharge" : 700
+				}
+			]
+		},
+		"b3":
+		{
+			"name": "Battleship III",
+			"imageKey": "ship_b3",
+			"fireRate": 900,
+			"maxTurnRate" : 75,
+			"bulletVelocity" : 450,
+			"enginePower" : 20,
+			"warps": 0,
+			"maxShields" : 1600,
+			"shieldRecharge" : 0, 
+			"basePoints" : 100,
+			"extraWeapons" : [
+				{
+					"xOffset" : 29,
+					"yOffset" : -9,
+					"type" : "bullet",
+					"recharge" : 900
+				},
+				{
+					"xOffset" : 27,
+					"yOffset" : -14,
+					"type" : "bullet",
+					"recharge" : 1100
+				},
+				{
+					"xOffset" : 26,
+					"yOffset" : 10,
+					"type" : "bullet",
+					"recharge" : 700
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 7,
+					"type" : "bomb",
+					"recharge" : 3000
+				}
+			]
+		},
+		"b4":
+		{
+			"name": "Battleship IV",
+			"imageKey": "ship_b4",
+			"fireRate": 850,
+			"maxTurnRate" :90,
+			"bulletVelocity" : 450,
+			"enginePower" : 30,
+			"warps": 0,
+			"maxShields" : 2400,
+			"shieldRecharge" : 5, 
+			"basePoints" : 120,
+			"extraWeapons" : [
+				{
+					"xOffset" : 29,
+					"yOffset" : -9,
+					"type" : "bullet",
+					"recharge" : 800
+				},
+				{
+					"xOffset" : 27,
+					"yOffset" : -14,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 26,
+					"yOffset" : 10,
+					"type" : "bullet",
+					"recharge" : 650
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 7,
+					"type" : "bomb",
+					"recharge" : 3000
+				}
+			]
+		},
+		"b5":
+		{
+			"name": "Battleship V",
+			"imageKey": "ship_b5",
+			"fireRate": 750,
+			"maxTurnRate" : 120,
+			"bulletVelocity" : 500,
+			"enginePower" : 50,
+			"warps": 0,
+			"maxShields" : 3600,
+			"shieldRecharge" : 10, 
+			"basePoints" : 150,
+			"extraWeapons" : [
+				{
+					"xOffset" : 29,
+					"yOffset" : -9,
+					"type" : "bullet",
+					"recharge" : 800
+				},
+				{
+					"xOffset" : 27,
+					"yOffset" : -14,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 26,
+					"yOffset" : 10,
+					"type" : "bullet",
+					"recharge" : 650
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 7,
+					"type" : "bomb",
+					"recharge" : 2000
+				}
+			]
+		},
+		"b6":
+		{
+			"name": "Battleship VI",
+			"imageKey": "ship_b6",
+			"fireRate": 650,
+			"maxTurnRate" : 180,
+			"bulletVelocity" : 500,
+			"enginePower" : 70,
+			"warps": 1,
+			"maxShields" : 6000,
+			"shieldRecharge" : 15, 
+			"basePoints" : 250,
+			"extraWeapons" : [
+				{
+					"xOffset" : 29,
+					"yOffset" : -9,
+					"type" : "bullet",
+					"recharge" : 700
+				},
+				{
+					"xOffset" : 27,
+					"yOffset" : -14,
+					"type" : "bullet",
+					"recharge" : 900
+				},
+				{
+					"xOffset" : 26,
+					"yOffset" : 10,
+					"type" : "bullet",
+					"recharge" : 550
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 7,
+					"type" : "bomb",
+					"recharge" : 1500
+				}
+			]
+		},
+		"b7":
+		{
+			"name": "Battleship VII",
+			"imageKey": "ship_b7",
+			"fireRate": 550,
+			"maxTurnRate" : 280,
+			"bulletVelocity" : 550,
+			"enginePower" : 100,
+			"warps": 2,
+			"maxShields" : 12000,
+			"shieldRecharge" : 30, 
+			"basePoints" : 500,
+			"extraWeapons" : [
+				{
+					"xOffset" : 29,
+					"yOffset" : -9,
+					"type" : "bullet",
+					"recharge" : 600
+				},
+				{
+					"xOffset" : 27,
+					"yOffset" : -14,
+					"type" : "bullet",
+					"recharge" : 800
+				},
+				{
+					"xOffset" : 26,
+					"yOffset" : 10,
+					"type" : "bullet",
+					"recharge" : 450
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 7,
+					"type" : "bomb",
+					"recharge" : 1000
+				}
+			]
 		}
 	},
 
@@ -1101,6 +1362,83 @@
 					[
 						{
 							"type": "r7",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"main10" :
+		{
+			"name": "Level 10",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "b1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "b2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "b3",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "b4",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "b5",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "b6",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "b7",
 							"x" : 0.5,
 							"y" : 0.5
 						}

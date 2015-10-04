@@ -52,6 +52,13 @@ levelSelect.prototype = {
 		levelParameterStyle = {font: "12px Arial", stroke: "bold", fill: "#eeeeee"};
 		levelValueStyle = {font: "bold 14px Arial", fill: "#eeeeee"};
 
+		difficultyLevelTooltip = new tooltip(game,20,280,250,60,function(group){
+			tooltipInfoTextStyle = {font: "13px Arial", stroke: "bold", fill: "#ffffff",wordWrap: true, wordWrapWidth: 250};
+			var infoText = group.addChild(game.add.text(125,30,"Complete the level to unlock difficulty modifiers",tooltipInfoTextStyle));
+			infoText.anchor.x = 0.5;
+			infoText.anchor.y = 0.5;
+		});
+
 		populateLevelInfo(null);
 
 		displayTotalScore();
@@ -60,6 +67,8 @@ levelSelect.prototype = {
 		difficultyLevelControls = game.add.group();
 		addDifficultyLevelControls(level);
 		difficultyLevelControls.alpha = 0;
+
+
 	},
 }
 
@@ -136,7 +145,7 @@ var populateLevelInfo = function(level) {
 		shipTypes = game.add.group();
 
 		var difficultyLevelStyle = { font: "18px Arial", stroke: "bold", fill: "#eeeeee"};
-		var difficultyLevelText = game.add.text((game.width - 6*levelTileSize - levelTileMargin)/2,250,"Difficulty Settings",difficultyLevelStyle);
+		difficultyLevelText = game.add.text((game.width - 6*levelTileSize - levelTileMargin)/2,250,"Difficulty Settings",difficultyLevelStyle);
 		difficultyLevelText.anchor.x = 0.5;
 
 		resetDifficultyLevels();
@@ -174,10 +183,12 @@ var populateLevelInfo = function(level) {
 		if (playerData.levelScores[level] !== undefined && playerData.levelScores[level].passed)
 		{
 			difficultyLevelControls.alpha = 1;
+			difficultyLevelTooltip.unlink(difficultyLevelText);
 		}
 		else
 		{
 			difficultyLevelControls.alpha = 0.3;
+			difficultyLevelTooltip.link(difficultyLevelText);
 		}
 		
 		updateDifficultyControls(level);
