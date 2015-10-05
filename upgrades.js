@@ -135,6 +135,25 @@ var upgrades = {
 		},
 		description: "Start level with {} Converge Powers",
 		maxUpgrade: 9,
+	},
+	safeRadius : {
+		name: "Safe Radius",
+		x: 600,
+		y: 120,
+		prereq: [],
+		minLevel: 15,
+		imageFrame: 7,
+		cost: function(level) { 
+			return 2+level;
+		},
+		value: function(level) {
+			return 5 * level;
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.safeRadius = 1 - this.value(level)/100;
+		},
+		description: "Ships safe radius shrinks by {} %",
+		maxUpgrade: 15,
 	}
 
 };

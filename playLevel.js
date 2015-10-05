@@ -90,6 +90,7 @@ playLevel.prototype = {
 		drawLine = false;
 		shipFireMultiplier = 1 + difficultySetting.fireRate.value(difficultyValues.fireRate) * .01;
 		shipSpeedMultiplier = 1 + difficultySetting.shipSpeed.value(difficultyValues.shipSpeed) * .01;
+		safeRadiusFactor = playerData.safeRadius;
 
 		levelScore = 0;
 
@@ -504,7 +505,7 @@ function getScoreLine()
 function createShip(shipData,x,y)
 {
 
-	safeRadius = 250;
+	safeRadius = 250 * safeRadiusFactor;
     ship = ships.create(gameWidth*x,gameHeight*y,shipData.imageKey);
 
 	ship.anchor.setTo(0.5,0.5);
