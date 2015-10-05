@@ -193,7 +193,15 @@
 			"warps": 2,
 			"maxShields" : 350,
 			"shieldRecharge" : 25, 
-			"basePoints" : 70
+			"basePoints" : 70,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "missile",
+					"recharge" : 4000
+				}
+			]
 		},
 		"r1": 
 		{
@@ -350,7 +358,15 @@
 			"warps": 0,
 			"maxShields" : 250,
 			"shieldRecharge" : 0, 
-			"basePoints" : 35
+			"basePoints" : 35,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "missile",
+					"recharge" : 3000
+				}
+			]
 		},
 		"f5": 
 		{
@@ -363,7 +379,15 @@
 			"warps": 0,
 			"maxShields" : 350,
 			"shieldRecharge" : 10, 
-			"basePoints" : 45
+			"basePoints" : 45,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "missile",
+					"recharge" : 2000
+				}
+			]
 		},
 		"f6": 
 		{
@@ -376,7 +400,15 @@
 			"warps": 0,
 			"maxShields" : 500,
 			"shieldRecharge" : 10, 
-			"basePoints" : 55
+			"basePoints" : 55,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "missile",
+					"recharge" : 1000
+				}
+			]
 		},
 		"f7": 
 		{
@@ -389,7 +421,15 @@
 			"warps": 1,
 			"maxShields" : 1000,
 			"shieldRecharge" : 20, 
-			"basePoints" : 80
+			"basePoints" : 80,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "missile",
+					"recharge" : 500
+				}
+			]
 		},
 		"b1":
 		{
@@ -454,6 +494,12 @@
 					"yOffset" : 10,
 					"type" : "bullet",
 					"recharge" : 700
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -9,
+					"type" : "missile",
+					"recharge" : 4000
 				}
 			]
 		},
@@ -493,6 +539,12 @@
 					"yOffset" : 7,
 					"type" : "bomb",
 					"recharge" : 3000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -9,
+					"type" : "missile",
+					"recharge" : 2500
 				}
 			]
 		},
@@ -532,6 +584,12 @@
 					"yOffset" : 7,
 					"type" : "bomb",
 					"recharge" : 3000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -9,
+					"type" : "missile",
+					"recharge" : 2000
 				}
 			]
 		},
@@ -571,6 +629,12 @@
 					"yOffset" : 7,
 					"type" : "bomb",
 					"recharge" : 2000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -9,
+					"type" : "missile",
+					"recharge" : 1500
 				}
 			]
 		},
@@ -610,6 +674,12 @@
 					"yOffset" : 7,
 					"type" : "bomb",
 					"recharge" : 1500
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -9,
+					"type" : "missile",
+					"recharge" : 1000
 				}
 			]
 		},
@@ -649,6 +719,12 @@
 					"yOffset" : 7,
 					"type" : "bomb",
 					"recharge" : 1000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -9,
+					"type" : "missile",
+					"recharge" : 500
 				}
 			]
 		}
@@ -1439,6 +1515,23 @@
 					[
 						{
 							"type": "b7",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"missile" :
+		{
+			"name": "Missile",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "f4",
 							"x" : 0.5,
 							"y" : 0.5
 						}

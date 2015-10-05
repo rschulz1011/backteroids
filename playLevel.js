@@ -66,7 +66,8 @@ playLevel.prototype = {
 		game.load.image('stun','res/stun_sprite.png');
 		game.load.spritesheet('muteButton','res/mute_button.png',30,20);
 		game.load.image('waveIndicator','res/wave_indicator.png');
-		game.load.image('bomb','res/bomb.png')
+		game.load.image('bomb','res/bomb.png');
+		game.load.image('missile','res/missile.png');
 		game.load.spritesheet('bombExplosion','res/bomb_explosion.png',150,150);
 	},
 
@@ -262,6 +263,15 @@ playLevel.prototype = {
 				bullets.remove(bullet);
 				bullet.kill();
 			}
+
+			if (bullet && bullet.type == 'missile')
+			{
+				if (bullet.target == null || !bullet.target.alive)
+				{
+					targetMissile(bullet);
+				}
+				steerMissile(bullet);
+			} 
 
 		});
 
@@ -920,7 +930,7 @@ function rockHit(rock,bullet)
 {
 	if (bullet)
 	{
-		if (bullet.type == 'bomb')
+		if (bullet.type == 'bomb' || bullet.type == 'missile')
 		{
 			bombHit(bullet);
 		}
@@ -1044,6 +1054,16 @@ function addBullet(ship)
 					bullet.body.velocity.x = 120 * Math.cos(ship.body.rotation*Math.PI/180);
 					bullet.body.rotation = ship.body.rotation + 90;
 
+				}
+				else if (ship.extraWeapons[index].type == "missile")
+				{
+					bullet = bullets.create(xBulletPosition,yBulletPosition,'missile');
+					bullet.type = 'missile';
+					bullet.body.velocity.y = 250 * Math.sin(ship.body.rotation*Math.PI/180);
+					bullet.body.velocity.x = 250 * Math.cos(ship.body.rotation*Math.PI/180);
+					bullet.body.maxVelocity = 250;
+					bullet.body.rotation = ship.body.rotation;
+					bullet.target = null;
 				}
 				else
 				{
@@ -1243,4 +1263,53 @@ function rockStretch(pointer) {
 			}
 		});
 	}
+}
+
+function targetMissile(missile) {
+	var minAngleDiff = 100;
+	var newTarget = null;
+	rocks.forEachAlive(function(rock){
+		angleDiff = Math.abs(missile.rotation - game.physics.arcade.angleBetween(missile,rock));
+		if (angleDiff && angleDiff < minAngleDiff)
+		{
+			minAngleDiff = angleDiff;
+			newTarget = rock;
+		}
+	});
+	missile.target = newTarget;
+}
+
+function steerMissile(missile) {
+	if (missile.target)
+	{
+		var angleDiff = missile.rotation - game.physics.arcade.angleBetween(missile,missile.target);
+	
+		if (angleDiff > 0) {
+			missile.body.angularVelocity = -200;
+		}
+		else { 
+			missile.body.angularVelocity = 200;
+		}
+		var degPerFrameEst = game.time.elapsed / 1000 * 200;
+		if (degPerFrameEst > Math.abs(angleDiff * 180 / Math.PI))
+		{
+			missile.body.angularVelocity = 0;
+			missile.rotation = game.physics.arcade.angleBetween(missile,missile.target);
+		}
+	}
+	else
+	{
+		missile.body.angularVelocity = 0;
+	}
+
+	missile.body.acceleration.x = 1000 * Math.cos(missile.rotation);
+	missile.body.acceleration.y = 1000 * Math.sin(missile.rotation);
+
+	if (missile.body.speed > missile.body.maxVelocity ) 
+	{
+		slowFactor = missile.body.speed / missile.body.maxVelocity;
+		missile.body.velocity.x = missile.body.velocity.x / slowFactor;
+		missile.body.velocity.y = missile.body.velocity.y / slowFactor;
+	}
+
 }
