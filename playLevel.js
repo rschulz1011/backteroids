@@ -914,8 +914,8 @@ function shipHit(rock,ship)
 		explosions.add(ionExplosion);
 		ionExplosion.position.x = ship.position.x;
 		ionExplosion.position.y = ship.position.y;
-		ionExplosion.width = ship.width*1.3;
-		ionExplosion.height = ship.height*1.3;
+		ionExplosion.width = Math.max(ship.width,ship.height)*1.3;
+		ionExplosion.height = Math.max(ship.width,ship.height)*1.3;
 		ionExplosion.alpha = 0.7;
 		ionExplosion.animations.play('ion_kaboom',20,false,false);
 		ionExplosion.rotation = hitAngle;
