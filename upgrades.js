@@ -144,7 +144,7 @@ var upgrades = {
 		minLevel: 15,
 		imageFrame: 7,
 		cost: function(level) { 
-			return 2+level;
+			return 1+level;
 		},
 		value: function(level) {
 			return 5 * level;
@@ -154,7 +154,26 @@ var upgrades = {
 		},
 		description: "Ships safe radius shrinks by {} %",
 		maxUpgrade: 15,
-	}
+	},
+	rockSplit : {
+		name: "Rock Splitting",
+		x: 520,
+		y: 120,
+		prereq: [],
+		minLevel: 5,
+		imageFrame: 8,
+		cost: function(level) { 
+			return Math.round(1+Math.floor(level/0.5);
+		},
+		value: function(level) {
+			return 2 + 0.1 * level;
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.rockSplit = this.value(level)
+		},
+		description: "Rocks create an average of {} smaller rocks",
+		maxUpgrade: 20,
+	},
 
 };
 

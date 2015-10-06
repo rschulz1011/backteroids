@@ -84,6 +84,7 @@ playLevel.prototype = {
 		convergeLeft = maxConverge;
 		confuseLeft = maxConfuse;
 		confuseTime = playerData.confuseTime;
+		rockSplit = playerData.rockSplit;
 		stunLeft = maxStun;
 		wave = 0;
 		rockAnchor.x = 0;
@@ -976,7 +977,10 @@ function breakRock(rock)
 
 	if(rock.level==3)
 	{
-		var numRocks = 2 + Math.round(Math.random());
+		var intRocks = Math.floor(rockSplit);
+		var partialRock = rockSplit - intRocks;
+
+		var numRocks = intRocks + (Math.random() <= partialRock);
 
 		for (var i=0; i<numRocks; i++)
 		{
