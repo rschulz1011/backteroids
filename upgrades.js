@@ -163,7 +163,7 @@ var upgrades = {
 		minLevel: 5,
 		imageFrame: 8,
 		cost: function(level) { 
-			return Math.round(1+Math.floor(level/0.5);
+			return Math.round(1+Math.floor(level/0.5));
 		},
 		value: function(level) {
 			return 2 + 0.1 * level;
@@ -172,6 +172,29 @@ var upgrades = {
 			playerData.rockSplit = this.value(level)
 		},
 		description: "Rocks create an average of {} smaller rocks",
+		maxUpgrade: 20,
+	},
+	rockRecharge : {
+		name: "Rock Recharge",
+		x: 420,
+		y: 120,
+		prereq: [],
+		minLevel: 15,
+		imageFrame: 9,
+		cost: function(level) { 
+			var levelCost = [8,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			
+			var rechargeTime = [null,60,50,45,40,35,30,25,22,20,18,16,14,12,10,9,8,7,6,5,4];
+			// must be null if level = 0
+			return rechargeTime[level];
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.recharge.rocks = this.value(level)
+		},
+		description: "Get a new rock every {} seconds",
 		maxUpgrade: 20,
 	},
 

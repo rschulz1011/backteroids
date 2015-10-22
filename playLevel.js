@@ -73,6 +73,9 @@ playLevel.prototype = {
 
 	create: function() {
 
+		playerData.recharge = {};
+		recharge = {};
+
 		setUpgrades(playerData);
 		maxRocks = playerData.maxRocks;
 		maxConverge = playerData.maxConverge;
@@ -86,6 +89,20 @@ playLevel.prototype = {
 		confuseTime = playerData.confuseTime;
 		rockSplit = playerData.rockSplit;
 		stunLeft = maxStun;
+
+		//set recharge timers
+		recharge.rocks = {};
+		if (playerData.recharge.rocks !== null)
+		{
+			recharge.rocks.max = playerData.recharge.rocks * 1000;
+			recharge.rocks.timer = playerData.recharge.rocks * 1000;
+		}
+		else
+		{
+			recharge.rocks.max = null;
+		}
+
+		
 		wave = 0;
 		rockAnchor.x = 0;
 		rockAnchor.y = 0;
@@ -162,7 +179,10 @@ playLevel.prototype = {
 		scoreText = game.add.text(10,20,text,style);
 
 		rockButton = game.add.button(20,gameHeight-70,'rockButton',buttonClick,this,2,0,1,1);
-		
+		//Add recharge timer
+		recharge.rocks.sprite =  game.add.sprite(20,gameHeight-18,'healthbar');
+		recharge.rocks.sprite.width = 0;
+		recharge.rocks.sprite.height = 5;
 
 		pauseButton = game.add.button(gameWidth-35,5,'pauseButton',pauseGame,this,2,0,1,1);
 		addMuteButton(gameWidth-70,5);
@@ -203,6 +223,10 @@ playLevel.prototype = {
 
     	keyP = game.input.keyboard.addKey(Phaser.Keyboard.P);
     	keyP.onDown.add(pauseGame, this);
+
+		//TODO: Remove world's easiest cheat code before release
+    	keyC = game.input.keyboard.addKey(Phaser.Keyboard.C);
+    	keyC.onDown.add(function(){maxRocks = 99; rocksLeft = 99;},this)
 
     	game.input.onDown.add(unpauseGame, self);
 	},
@@ -343,9 +367,12 @@ playLevel.prototype = {
 					this.game.state.start("LevelComplete",true,false,gameData,performanceData);
 				},1000);
 				
-				//var finalScoreStyle = {font: "36px Arial", fill: "#cccccc", align: "center"};
-				//game.add.text(100,gameHeight/2,"Level Failed.\nRefresh To Play Again",finalScoreStyle);
 			}
+
+			if (rocks.countLiving() > 1 || (rocks.countLiving()===1 && game.rockLoaded === null)) {
+				decrementRechargeTimers();
+			}
+
 		}
 	},
 
@@ -368,6 +395,23 @@ playLevel.prototype = {
 		}
 	},
 
+}
+
+function decrementRechargeTimers() {
+	if (recharge.rocks.max !== null && rocksLeft < maxRocks)
+	{
+		recharge.rocks.timer = recharge.rocks.timer - game.time.physicsElapsedMS;
+		if (recharge.rocks.timer < 0)
+		{
+			recharge.rocks.timer = recharge.rocks.max;
+			rocksLeft = Math.min(rocksLeft+1,maxRocks);
+		}
+		recharge.rocks.sprite.width = 50 * (1- recharge.rocks.timer / recharge.rocks.max);
+	}
+	else
+	{
+		recharge.rocks.sprite.width = 0;
+	}
 }
 
 function addExtraWaves(waves, numExtra)
