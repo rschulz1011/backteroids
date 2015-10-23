@@ -793,6 +793,10 @@ function moveShip(ship) {
 		{
 			ship.body.angularVelocity = (Math.random() * 2 - 1) * ship.maxTurnRate;
 			throttle(ship,Math.round(Math.random()));
+			if (Math.random() < (game.time.physicsElapsedMS/1000 * playerData.confuseWarps*10))
+			{
+				warpShip(ship);
+			}
 		}
 	}
 	else if (ship.stunned>0)

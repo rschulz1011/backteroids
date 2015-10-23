@@ -220,6 +220,27 @@ var upgrades = {
 		description: "A random rock appears every {} seconds",
 		maxUpgrade: 20,
 	},
+	confuseWarps : {
+		name: "Confuse Warps",
+		x: 400,
+		y: 425,
+		prereq: ["numConfuse"],
+		minLevel: 8,
+		imageFrame: 11,
+		cost: function(level) { 
+			return 3;
+		},
+		value: function(level) {
+			var useWarps = [0, 25, 50, 75, 100];
+			// must be null if level = 0
+			return useWarps[level];
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.confuseWarps = this.value(level) / 100;
+		},
+		description: "Confuse has {}% chance/sec to use warp",
+		maxUpgrade: 4,
+	},
 
 };
 
