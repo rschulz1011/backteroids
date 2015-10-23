@@ -677,6 +677,8 @@ function createShip(shipData,x,y)
 	ship.stunnedSprite.height = ship.height+2;
 	ship.addChild(ship.stunnedSprite);
 	ship.stunnedSprite.kill();
+
+	return ship;
 }
 
 function drawWaveIndicators(gameData,waves) {
@@ -1137,7 +1139,7 @@ function addBullet(ship)
 					+ Math.cos(ship.body.rotation*Math.PI/180) * ship.extraWeapons[index].yOffset;
 
 
-				var bullet;
+				var bullet = null;
 				if (ship.extraWeapons[index].type == "bomb")
 				{
 					bullet = bullets.create(xBulletPosition,yBulletPosition,'bomb');
@@ -1157,6 +1159,14 @@ function addBullet(ship)
 					bullet.body.rotation = ship.body.rotation;
 					bullet.target = null;
 				}
+				else if (ship.extraWeapons[index].type == 'fighterBay')
+				{
+					if (ship.extraWeapons[index].numWaves > 0)
+					{
+						deployFighterBay(ship,ship.extraWeapons[index]);
+						ship.extraWeapons[index].numWaves = ship.extraWeapons[index].numWaves - 1;
+					}
+				}
 				else
 				{
 					bullet = bullets.create(xBulletPosition,yBulletPosition,'bullet');
@@ -1164,15 +1174,33 @@ function addBullet(ship)
 					bullet.body.velocity.x = bulletVelocity * Math.cos(ship.body.rotation*Math.PI/180);
 					bullet.body.rotation = ship.body.rotation;
 				}
-				bullet.body.mass = .1;
-				bullet.anchor.x = 0.5;
-				bullet.anchor.y = 0.5;
+
+				if (bullet !== null)
+				{
+					bullet.body.mass = .1;
+					bullet.anchor.x = 0.5;
+					bullet.anchor.y = 0.5;
+				}
 			}
 
 		}
 	}
 }
 
+function deployFighterBay(ship,bay)
+{
+	var shipData = gameData.shipTypes[bay.shipType];
+	var angleOffset = Math.random();
+	for(var index=0; index<bay.shipCount; index ++)
+	{
+		var ship = createShip(shipData,ship.x/gameWidth,ship.y/gameHeight);
+		var launchAngle = angleOffset + index / bay.shipCount * 2 * Math.PI;
+		ship.body.velocity.x = Math.cos(launchAngle) * 75;
+		ship.body.velocity.y = Math.sin(launchAngle) * 75;
+		ship.rotation = launchAngle;
+	}
+	
+}
 
 function deadShip(ship,directHit) {
 
