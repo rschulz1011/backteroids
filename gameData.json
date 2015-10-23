@@ -727,6 +727,258 @@
 					"recharge" : 500
 				}
 			]
+		},
+		"m1":
+		{
+			"name": "Mothership I",
+			"imageKey": "ship_m1",
+			"fireRate": 1000,
+			"maxTurnRate" : 50,
+			"bulletVelocity" : 600,
+			"enginePower" : 10,
+			"warps": 0,
+			"maxShields" : 2500,
+			"shieldRecharge" : 0, 
+			"basePoints" : 100,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 40,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -40,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "fighterBay",
+					"shipType" : "e2",
+					"shipCount" : 3,
+					"numWaves" : 2,
+					"recharge" : 5000
+				}
+			]
+		},
+		"m2":
+		{
+			"name": "Mothership II",
+			"imageKey": "ship_m2",
+			"fireRate": 950,
+			"maxTurnRate" : 60,
+			"bulletVelocity" : 600,
+			"enginePower" : 15,
+			"warps": 0,
+			"maxShields" : 4000,
+			"shieldRecharge" : 10, 
+			"basePoints" : 150,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 40,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -40,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "fighterBay",
+					"shipType" : "e4",
+					"shipCount" : 4,
+					"numWaves" : 3,
+					"recharge" : 5000
+				}
+			]
+		},
+		"m3":
+		{
+			"name": "Mothership III",
+			"imageKey": "ship_m3",
+			"fireRate": 900,
+			"maxTurnRate" : 75,
+			"bulletVelocity" : 600,
+			"enginePower" : 20,
+			"warps": 0,
+			"maxShields" : 6000,
+			"shieldRecharge" : 10, 
+			"basePoints" : 225,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 40,
+					"type" : "bullet",
+					"recharge" : 950
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -40,
+					"type" : "bullet",
+					"recharge" : 950
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "fighterBay",
+					"shipType" : "e5",
+					"shipCount" : 4,
+					"numWaves" : 4,
+					"recharge" : 4000
+				}
+			]
+		},
+		"m4":
+		{
+			"name": "Mothership IV",
+			"imageKey": "ship_m4",
+			"fireRate": 900,
+			"maxTurnRate" : 85,
+			"bulletVelocity" : 600,
+			"enginePower" : 25,
+			"warps": 0,
+			"maxShields" : 9000,
+			"shieldRecharge" : 20, 
+			"basePoints" : 350,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 40,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -40,
+					"type" : "bullet",
+					"recharge" : 1000
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "fighterBay",
+					"shipType" : "e6",
+					"shipCount" : 4,
+					"numWaves" : 5,
+					"recharge" : 3500
+				}
+			]
+		},
+		"m5":
+		{
+			"name": "Mothership V",
+			"imageKey": "ship_m5",
+			"fireRate": 850,
+			"maxTurnRate" : 100,
+			"bulletVelocity" : 600,
+			"enginePower" : 35,
+			"warps": 0,
+			"maxShields" : 12000,
+			"shieldRecharge" : 20, 
+			"basePoints" : 500,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 40,
+					"type" : "bullet",
+					"recharge" : 850
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -40,
+					"type" : "bullet",
+					"recharge" : 850
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "fighterBay",
+					"shipType" : "f1",
+					"shipCount" : 4,
+					"numWaves" : 3,
+					"recharge" : 3500
+				}
+			]
+		},
+		"m6":
+		{
+			"name": "Mothership VI",
+			"imageKey": "ship_m6",
+			"fireRate": 800,
+			"maxTurnRate" : 125,
+			"bulletVelocity" : 600,
+			"enginePower" : 45,
+			"warps": 0,
+			"maxShields" : 12000,
+			"shieldRecharge" : 30, 
+			"basePoints" : 750,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 40,
+					"type" : "bullet",
+					"recharge" : 800
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -40,
+					"type" : "bullet",
+					"recharge" : 800
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "fighterBay",
+					"shipType" : "f3",
+					"shipCount" : 5,
+					"numWaves" : 3,
+					"recharge" : 5000
+				}
+			]
+		},
+		"m7":
+		{
+			"name": "Mothership VII",
+			"imageKey": "ship_m7",
+			"fireRate": 800,
+			"maxTurnRate" : 200,
+			"bulletVelocity" : 600,
+			"enginePower" : 55,
+			"warps": 0,
+			"maxShields" : 12500,
+			"shieldRecharge" : 40, 
+			"basePoints" : 1000,
+			"extraWeapons" : [
+				{
+					"xOffset" : 0,
+					"yOffset" : 40,
+					"type" : "bullet",
+					"recharge" : 800
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : -40,
+					"type" : "bullet",
+					"recharge" : 800
+				},
+				{
+					"xOffset" : 0,
+					"yOffset" : 0,
+					"type" : "fighterBay",
+					"shipType" : "f6",
+					"shipCount" : 6,
+					"numWaves" : 4,
+					"recharge" : 6000
+				}
+			]
 		}
 	},
 
@@ -1532,6 +1784,90 @@
 					[
 						{
 							"type": "f4",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"mother" :
+		{
+			"name": "Mother Of",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "m1",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "m2",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "m3",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				}
+			]
+		},
+		"mother2" :
+		{
+			"name": "Mama",
+			"waves": 
+			[
+				{
+					"ships" : 
+					[
+						{
+							"type": "m4",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "m5",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "m6",
+							"x" : 0.5,
+							"y" : 0.5
+						}
+					]
+				},
+				{
+					"ships" : 
+					[
+						{
+							"type": "m7",
 							"x" : 0.5,
 							"y" : 0.5
 						}
