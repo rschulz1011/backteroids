@@ -197,6 +197,29 @@ var upgrades = {
 		description: "Get a new rock every {} seconds",
 		maxUpgrade: 20,
 	},
+	randomRocks : {
+		name: "Random Rocks",
+		x: 320,
+		y: 120,
+		prereq: [],
+		minLevel: 10,
+		imageFrame: 10,
+		cost: function(level) { 
+			var levelCost = [8,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			
+			var rechargeTime = [null,60,50,45,40,35,30,25,22,20,18,16,14,12,10,9,8,7,6,5,4];
+			// must be null if level = 0
+			return rechargeTime[level];
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.recharge.randomRocks = this.value(level)
+		},
+		description: "A random rock appears every {} seconds",
+		maxUpgrade: 20,
+	},
 
 };
 

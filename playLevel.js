@@ -101,6 +101,16 @@ playLevel.prototype = {
 		{
 			recharge.rocks.max = null;
 		}
+		recharge.randomRocks = {};
+		if (playerData.recharge.randomRocks !== null)
+		{
+			recharge.randomRocks.max = playerData.recharge.randomRocks * 1000;
+			recharge.randomRocks.timer = recharge.randomRocks.max;
+		}
+		else
+		{
+			recharge.randomRocks.max = null;
+		}
 
 		
 		wave = 0;
@@ -412,6 +422,40 @@ function decrementRechargeTimers() {
 	{
 		recharge.rocks.sprite.width = 0;
 	}
+
+	recharge.randomRocks.timer = recharge.randomRocks.timer - game.time.physicsElapsedMS;
+	if (recharge.randomRocks.timer < 0)
+	{
+		createRandomRock();
+		recharge.randomRocks.timer = recharge.randomRocks.max;
+	}
+
+}
+
+function createRandomRock()
+{
+	var rockLevel = Math.ceil(Math.random()*3);
+
+	var horzVert = Math.round(Math.random());
+
+	var xlaunch;
+	var ylaunch;
+
+	if (horzVert)
+	{
+		ylaunch = Math.random() * gameHeight;
+		xlaunch = 0;
+	}
+	else 
+	{
+		xlaunch = Math.random() * gameWidth;
+		ylaunch = 0;
+	}
+
+	var xVelLaunch =  (Math.random() - 0.5 ) * playerData.maxRockSpeed * 2;
+	var yVelLaunch =  (Math.random ()- 0.5 ) * playerData.maxRockSpeed * 2;
+
+	createRock(rocks,rockLevel,xlaunch,ylaunch,xVelLaunch,yVelLaunch,false)
 }
 
 function addExtraWaves(waves, numExtra)
