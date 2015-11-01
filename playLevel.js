@@ -61,6 +61,7 @@ playLevel.prototype = {
 		game.load.spritesheet('pauseButton','res/pause_button.png',30,20);
 		game.load.spritesheet('confuseButton','res/confuse_button.png',50,50);
 		game.load.spritesheet('stunButton','res/stun_button.png',50,50);
+		game.load.spritesheet('ufoButton','res/ufo_button.png',50,50)
 		game.load.spritesheet('healthbar','res/healthbar.png',10,3);
 		game.load.image('confuse','res/confuse_sprite.png');
 		game.load.image('stun','res/stun_sprite.png');
@@ -68,6 +69,8 @@ playLevel.prototype = {
 		game.load.image('waveIndicator','res/wave_indicator.png');
 		game.load.image('bomb','res/bomb.png');
 		game.load.image('missile','res/missile.png');
+		game.load.image('ufoBullet','res/ufo_bullet.png');
+		game.load.image('ufo','res/ufo.png');
 		game.load.spritesheet('bombExplosion','res/bomb_explosion.png',150,150);
 	},
 
@@ -81,6 +84,7 @@ playLevel.prototype = {
 		maxConverge = playerData.maxConverge;
 		maxConfuse = playerData.maxConfuse;
 		maxStun = playerData.maxStuns;
+		maxUfo = 1;
 		stunTime = playerData.stunTime;
 		numKills = 0;
 		rocksLeft = maxRocks;
@@ -89,6 +93,7 @@ playLevel.prototype = {
 		confuseTime = playerData.confuseTime;
 		rockSplit = playerData.rockSplit;
 		stunLeft = maxStun;
+		ufoLeft = maxUfo;
 
 		//set recharge timers
 		recharge.rocks = {};
@@ -224,6 +229,15 @@ playLevel.prototype = {
     		keyR.onDown.add(stunShips,this);
 		}
 		//TODO: Anchor text and center and add alpha
+
+		if (maxUfo>0)
+		{
+			ufoButton = game.add.button(260,gameHeight-70,'ufoButton',createUfo,this,2,0,1,1);
+			ufoLeftText = game.add.text(275,gameHeight-60,""+ufoLeft,rocksLeftStyle);
+			keyU = game.input.keyboard.addKey(Phaser.Keyboard.U);
+    		keyU.onDown.add(createUfo,this);
+		}
+
 
 		game.rockLoaded = null;
 		game.mouseSprite = null;
@@ -404,6 +418,10 @@ playLevel.prototype = {
 			game.debug.geom(launchLine);
 		}
 	},
+
+}
+
+function createUfo() {
 
 }
 
