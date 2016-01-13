@@ -84,7 +84,7 @@ playLevel.prototype = {
 		maxConverge = playerData.maxConverge;
 		maxConfuse = playerData.maxConfuse;
 		maxStun = playerData.maxStuns;
-		maxUfo = 1;
+		maxUfo = 4;
 		stunTime = playerData.stunTime;
 		numKills = 0;
 		rocksLeft = maxRocks;
@@ -125,6 +125,13 @@ playLevel.prototype = {
 		shipFireMultiplier = 1 + difficultySetting.fireRate.value(difficultyValues.fireRate) * .01;
 		shipSpeedMultiplier = 1 + difficultySetting.shipSpeed.value(difficultyValues.shipSpeed) * .01;
 		safeRadiusFactor = playerData.safeRadius;
+
+		//TODO: fill in with playerdata upgrade values
+		ufoFireRate = 1200;
+		ufoHitPoints = 5;
+		ufoAccuracy = .15;
+		ufoEvasion = 1;
+
 
 		levelScore = 0;
 
@@ -169,6 +176,9 @@ playLevel.prototype = {
 		ships.enableBody = true;
 		ships.allowRotation = true;
 
+		ufos = game.add.group();
+		ufos.enableBody = true;
+
 		explosions = game.add.group();
 		explosion = explosions.create(0,0,'kaboom');
 		explosion.animations.add('kaboom');
@@ -188,6 +198,10 @@ playLevel.prototype = {
 		bullets = game.add.group();
 		bullets.enableBody = true;
 		bullets.allowRotation = true;
+
+		ufoBullets = game.add.group();
+		ufoBullets.enableBody = true;
+		ufoBullets.allowRotation = true;
 
 		var text = getScoreLine();
 		var style = { font: "15px Arial", fill: "#ffffff", align: "left" };
@@ -304,6 +318,25 @@ playLevel.prototype = {
 			}
 		});
 
+		ufos.forEachAlive(function(ship){
+			if (ship.x > gameWidth + wrapThreshold)
+			{
+				ship.x = -wrapThreshold;
+			}
+			if (ship.x < -wrapThreshold)
+			{
+				ship.x = gameWidth + wrapThreshold;
+			}
+			if (ship.y < -wrapThreshold)
+			{
+				ship.y = gameHeight + wrapThreshold;
+			}
+			if (ship.y > gameHeight + wrapThreshold)
+			{
+				ship.y = -wrapThreshold;
+			}
+		});
+
 		bullets.forEach(function(bullet){
 
 			if ( bullet && (bullet.x > gameWidth + wrapThreshold || bullet.x < -wrapThreshold ||
@@ -324,9 +357,22 @@ playLevel.prototype = {
 
 		});
 
+		ufoBullets.forEach(function(bullet){
+			if ( bullet && (bullet.x > gameWidth + wrapThreshold || bullet.x < -wrapThreshold ||
+				bullet.y > gameHeight + wrapThreshold || bullet.y < -wrapThreshold))
+			{
+				ufoBullets.remove(bullet);
+				bullet.kill();
+			}
+		});
+
 		game.physics.arcade.overlap(rocks,ships,shipHit);
 
 		game.physics.arcade.overlap(rocks,bullets,rockHit);
+
+		game.physics.arcade.overlap(ufos,bullets,ufoHit);
+
+		game.physics.arcade.overlap(ufoBullets,ships,shipHit);
 
 		if (gameOver==false)
 		{
@@ -360,6 +406,20 @@ playLevel.prototype = {
 				}
 
 			});
+
+			ufos.forEachAlive(function(ufo){
+
+				if (ufo.shieldBar !== null)
+				{
+					ufo.shieldBar.x = ufo.x;
+					ufo.shieldBar.y = ufo.y - ufo.height/2-2;
+					ufo.shieldBar.width = ufo.hitPoints / ufoHitPoints * ufo.width;
+					ufo.shieldBar.frame = Math.floor((1-ufo.hitPoints/ufoHitPoints)*6);
+				}
+
+				moveUfo(ufo);
+				addUfoBullet(ufo);
+			});
 	
 			scoreText.text = getScoreLine();
 			rocksLeftText.text = ""+rocksLeft;
@@ -375,6 +435,10 @@ playLevel.prototype = {
 			if (maxStun>0)
 			{
 				stunLeftText.text = ""+stunLeft;
+			}
+			if (maxUfo>0)
+			{
+				ufoLeftText.text = ""+ufoLeft;
 			}
 
 			if (rocks.getFirstAlive() == null && rocksLeft == 0 && game.rockLoaded === null)
@@ -423,6 +487,121 @@ playLevel.prototype = {
 
 function createUfo() {
 
+	if (ufoLeft > 0)
+	{
+
+		x = Math.random() > .50 ? Math.random()/8+.05 : 0.95 - Math.random()/8 ;
+		y = Math.random() > .50 ? Math.random()/8+.05 : 0.95 - Math.random()/8 ;
+    	ufo = ufos.create(gameWidth*x,gameHeight*y,'ufo');
+	
+		ufo.anchor.setTo(0.5,0.5);
+		ufo.body.velocity.x = 0;
+		ufo.body.velocity.y = 0;
+		ufo.body.angularVelocity = 0;
+		ufo.fireRate = ufoFireRate;
+		ufo.hitPoints = ufoHitPoints;
+		ufo.bulletTimer = Math.random() * ufoFireRate;
+		ufo.bulletVelocity = 500;
+	
+		ufo.body.drag.x = 5;
+		ufo.body.drag.y = 5;
+
+		ufo.moveDirection = null; 
+		ufo.moveTimer = null; 
+		ufo.accelTimer = null;
+		ufo.accelVal = null;
+	
+		ufo.hitPoints = ufoHitPoints;
+	
+		ufo.shieldBar = null;
+		ufo.body.mass = 1;
+		ufo.body.bounce = 0;
+		ufo.body.maxVelocity = 50;
+
+		var shieldBar = game.add.sprite(ufo.x,ufo.y-ufo.height/2-2,'healthbar');
+		ufo.shieldBar = shieldBar;
+		ufo.shieldBar.anchor.x = 0.5;
+		ufo.shieldBar.height = 2;
+		ufo.shieldBar.width = ufo.width;
+		ufo.shieldBar.alpha = 0.7;
+	
+		ufoLeft--;
+		return ufo;
+	}
+}
+
+function moveUfo(ufo) {
+
+	if (ufo.moveDirection === null || ufo.moveTimer === null || ufo.moveTimer < 0)
+	{
+		ufo.moveDirection = Math.random() * 2 * Math.PI;
+		ufo.moveTimer = (1000 + Math.random() * 1000) / ufoEvasion;
+		ufo.accelTimer = ufo.moveTimer / 4;
+		ufo.accelVal = 450 * (0.4 + Math.random()*0.6) * ufoEvasion;
+	}
+
+	if (ufo.accelTimer > 0)
+	{
+		ufo.body.acceleration.x = ufo.accelVal * Math.sin(ufo.moveDirection);
+		ufo.body.acceleration.y = ufo.accelVal * Math.cos(ufo.moveDirection);
+	}
+	else
+	{
+		ufo.body.velocity.x = ufo.body.velocity.x / 1.5;
+		ufo.body.velocity.y = ufo.body.velocity.y / 1.5;
+	}
+
+	ufo.moveTimer = ufo.moveTimer - game.time.physicsElapsedMS;
+	ufo.accelTimer = ufo.accelTimer - game.time.physicsElapsedMS;
+}
+
+function addUfoBullet(ufo) {
+
+	ufo.bulletTimer = ufo.bulletTimer - game.time.physicsElapsedMS;
+
+	if (ufo.bulletTimer < 0)
+	{
+		ufo.bulletTimer = ufoFireRate;
+
+		var bulletDirection = aimUfo(ufo);
+
+		if (bulletDirection !== null)
+		{
+			var bullet = ufoBullets.create(ufo.position.x, ufo.position.y,'ufoBullet');
+			bullet.body.velocity.y = ufo.bulletVelocity * Math.sin(bulletDirection*Math.PI/180);
+			bullet.body.velocity.x = ufo.bulletVelocity * Math.cos(bulletDirection*Math.PI/180);
+			bullet.body.rotation = bulletDirection;
+			bullet.body.mass = .1;
+			bullet.anchor.x = 0.5;
+			bullet.anchor.y = 0.5;
+		}
+	}
+}
+
+function aimUfo(ufo) {
+	var nShips = ships.countLiving();
+	var targetShipNum = Math.floor(Math.random()*nShips);
+	var targetShip = null;
+
+	ships.forEachAlive(function(ship){
+		if (targetShipNum == 0)
+		{
+			targetShip = ship;
+		}
+		else
+		{
+			targetShipNum--;
+		}
+	});
+
+	if (targetShip !== null)
+	{
+		return (Math.atan2(targetShip.y - ufo.y , targetShip.x - ufo.x) + ((Math.random()-0.5) * ufoAccuracy * 2 )) * 180 / Math.PI ;
+	}
+	else
+	{
+		return null;
+	}
 }
 
 function decrementRechargeTimers() {
@@ -960,6 +1139,11 @@ function getClosestRock(ship)
 		if (threatTime< minThreat && threatTime >0) {minThreat = threatTime; threatRock = rock; threatStore = threat;}
 	});
 
+	ufos.forEachAlive(function(rock){
+		rockDist = Math.pow((rock.x - ship.x),2) + Math.pow((rock.y-ship.y),2);
+		if (rockDist < minDistance) {minDistance = rockDist; closestRock = rock;}
+	});
+
 	if (threatRock != null)
 	{
 		ship.threat = threatStore;
@@ -1011,9 +1195,16 @@ function getThreatTime(ship,rock)
 
 function shipHit(rock,ship)
 {
-
-	var damage = Math.pow(2,rock.level)*10 + 
-	(Math.pow(rock.body.velocity.x,2) + Math.pow(rock.body.velocity.y,2)) * .001;
+	var damage=0;
+	if (rock.level !== undefined)
+	{
+		damage = Math.pow(2,rock.level)*10 + 
+		(Math.pow(rock.body.velocity.x,2) + Math.pow(rock.body.velocity.y,2)) * .001;
+	}
+	else
+	{
+		damage = 100;
+	}
 	ship.shields = ship.shields - damage;
 	var hitAngle = game.physics.arcade.angleBetween(ship,rock);
 	breakRock(rock);
@@ -1053,6 +1244,21 @@ function rockHit(rock,bullet)
 	if (rock && bullet.type !== 'bomb')
 	{
 		breakRock(rock);
+	}
+}
+
+function ufoHit(ufo,bullet)
+{
+	bullet.kill();
+	bullets.remove(bullet);
+
+	ufo.hitPoints--;
+
+	if (ufo.hitPoints == 0)
+	{
+		ufo.shieldBar.kill();
+		ufo.kill();
+		ufos.remove(bullet);
 	}
 }
 
@@ -1304,6 +1510,7 @@ function deadShip(ship,directHit) {
 			
 		}
 	}
+	ship.kill();
 };
 
 function scoreBlip(x,y,points,color)
@@ -1411,6 +1618,14 @@ function targetMissile(missile) {
 	var minAngleDiff = 100;
 	var newTarget = null;
 	rocks.forEachAlive(function(rock){
+		angleDiff = Math.abs(missile.rotation - game.physics.arcade.angleBetween(missile,rock));
+		if (angleDiff && angleDiff < minAngleDiff)
+		{
+			minAngleDiff = angleDiff;
+			newTarget = rock;
+		}
+	});
+	ufos.forEachAlive(function(rock){
 		angleDiff = Math.abs(missile.rotation - game.physics.arcade.angleBetween(missile,rock));
 		if (angleDiff && angleDiff < minAngleDiff)
 		{
