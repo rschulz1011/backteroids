@@ -241,7 +241,126 @@ var upgrades = {
 		description: "Confuse has {}% chance/sec to use warp",
 		maxUpgrade: 4,
 	},
-
+	numUfos : {
+		name: "UFOs",
+		x: 480,
+		y: 280,
+		prereq: [],
+		minLevel: 25,
+		imageFrame: 12,
+		cost: function(level) {
+			return 1;  
+		},
+		value: function(level) {
+			return level;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.numUfos = level;
+		},
+		description: "Start level {} UFOs",
+		maxUpgrade: 9,
+	},
+	ufoShield : {
+		name: "UFO Shield",
+		x: 320,
+		y: 350,
+		prereq: ["numUfos"],
+		minLevel: 25,
+		imageFrame: 13,
+		cost: function(level) {
+			return 1;  
+		},
+		value: function(level) {
+			return level + 1;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.ufoShield = level;
+		},
+		description: "Ufos can take {} hits",
+		maxUpgrade: 7,
+	},
+	ufoFireRate : {
+		name: "UFO Fire Rate",
+		x: 400,
+		y: 350,
+		prereq: ["numUfos"],
+		minLevel: 28,
+		imageFrame: 14,
+		cost: function(level) {
+			return 1;  
+		},
+		value: function(level) {
+			return 2 - level * .2;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.ufoFireRate = level;
+		},
+		description: "Ufos fire every {} seconds",
+		maxUpgrade: 8,
+	},
+	ufoRecharge : {
+		name: "UFO Recharge",
+		x: 480,
+		y: 350,
+		prereq: ["numUfos"],
+		minLevel: 32,
+		imageFrame: 15,
+		cost: function(level) {
+			return 1;  
+		},
+		value: function(level) {
+			return 60 - level*5;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.ufoRecharge = level;
+		},
+		description: "Get a new UFO every {} seconds",
+		maxUpgrade: 8,
+	},
+	ufoAccuracy : {
+		name: "UFO Accuracy",
+		x: 560,
+		y: 350,
+		prereq: ["numUfos"],
+		minLevel: 30,
+		imageFrame: 17,
+		cost: function(level) {
+			return 1;  
+		},
+		value: function(level) {
+			return level;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.ufoAccuracy = level;
+		},
+		description: "UFO accuracy is level {}",
+		maxUpgrade: 10,
+	},
+    ufoEvasion : {
+		name: "UFO Evasion",
+		x: 640,
+		y: 350,
+		prereq: ["numUfos"],
+		minLevel: 30,
+		imageFrame: 16,
+		cost: function(level) {
+			return 1;  
+		},
+		value: function(level) {
+			return level;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.ufoEvasion = level;
+		},
+		description: "UFO evasopm is level {}",
+		maxUpgrade: 4,
+	},
 };
 
 
