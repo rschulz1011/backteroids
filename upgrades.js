@@ -3,7 +3,7 @@ var upgrades = {
 	rockSpeed: {
 		name: "Rock Speed",
 		x: 300,
-		y: 200,
+		y: 50,
 		prereq: [],
 		minLevel: 2,
 		imageFrame: 0,
@@ -22,9 +22,9 @@ var upgrades = {
 	},
 	moreRocks: {
 		name: "More Rocks",
-		x: 400,
-		y: 200,
-		prereq: ["rockSpeed"],
+		x: 230,
+		y: 50,
+		prereq: [],
 		minLevel: 3,
 		imageFrame: 1,
 		cost: function(level) {
@@ -42,8 +42,8 @@ var upgrades = {
 	},
 	numStuns : {
 		name: "Stun Powers",
-		x: 300,
-		y: 275,
+		x: 290,
+		y: 130,
 		prereq: [],
 		minLevel: 4,
 		imageFrame: 2,
@@ -62,8 +62,8 @@ var upgrades = {
 	},
 	stunTime : {
 		name: "StunDuration",
-		x: 375,
-		y: 275,
+		x: 230,
+		y: 200,
 		prereq: ["numStuns"],
 		minLevel: 4,
 		imageFrame: 6,
@@ -81,8 +81,8 @@ var upgrades = {
 	},
 	numConfuse : {
 		name: "Confuse Powers",
-		x: 300,
-		y: 350,
+		x: 480,
+		y: 130,
 		prereq: [],
 		minLevel: 5,
 		imageFrame: 3,
@@ -100,8 +100,8 @@ var upgrades = {
 	},
 	confuseTime : {
 		name: "ConfuseDuration",
-		x: 375,
-		y: 350,
+		x: 420,
+		y: 200,
 		prereq: ["numConfuse"],
 		minLevel: 5,
 		imageFrame: 5,
@@ -119,8 +119,8 @@ var upgrades = {
 	},
 	numConverge : {
 		name: "Converge Powers",
-		x: 300,
-		y: 425,
+		x: 670,
+		y: 130,
 		prereq: [],
 		minLevel: 7,
 		imageFrame: 4,
@@ -138,8 +138,8 @@ var upgrades = {
 	},
 	safeRadius : {
 		name: "Safe Radius",
-		x: 600,
-		y: 120,
+		x: 510,
+		y: 50,
 		prereq: [],
 		minLevel: 15,
 		imageFrame: 7,
@@ -157,8 +157,8 @@ var upgrades = {
 	},
 	rockSplit : {
 		name: "Rock Splitting",
-		x: 520,
-		y: 120,
+		x: 440,
+		y: 50,
 		prereq: [],
 		minLevel: 5,
 		imageFrame: 8,
@@ -176,8 +176,8 @@ var upgrades = {
 	},
 	rockRecharge : {
 		name: "Rock Recharge",
-		x: 420,
-		y: 120,
+		x: 370,
+		y: 50,
 		prereq: [],
 		minLevel: 15,
 		imageFrame: 9,
@@ -199,8 +199,8 @@ var upgrades = {
 	},
 	randomRocks : {
 		name: "Random Rocks",
-		x: 320,
-		y: 120,
+		x: 580,
+		y: 50,
 		prereq: [],
 		minLevel: 10,
 		imageFrame: 10,
@@ -222,8 +222,8 @@ var upgrades = {
 	},
 	confuseWarps : {
 		name: "Confuse Warps",
-		x: 400,
-		y: 425,
+		x: 540,
+		y: 200,
 		prereq: ["numConfuse"],
 		minLevel: 8,
 		imageFrame: 11,
@@ -244,5 +244,15 @@ var upgrades = {
 
 };
 
+
+
+//stunrecharge = 290, 200
+//stunshields = 350,200
+
+//confuse rcharge = 480,200
+
+//converge recharge = 610, 200
+//converge velocity = 670,200
+//converge follow = 730,200
 
 
