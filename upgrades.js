@@ -269,14 +269,14 @@ var upgrades = {
 		minLevel: 25,
 		imageFrame: 13,
 		cost: function(level) {
-			return 1;  
+			return Math.floor(3+level/2);  
 		},
 		value: function(level) {
 			return level + 1;
 		},
 		setUpgrade: function(playerData,level)
 		{
-			playerData.ufoShield = level;
+			playerData.ufoShield = this.value(level);
 		},
 		description: "Ufos can take {} hits",
 		maxUpgrade: 7,

@@ -138,7 +138,7 @@ playLevel.prototype = {
 
 		//TODO: fill in with playerdata upgrade values
 		ufoFireRate = 1200;
-		ufoHitPoints = 5;
+		ufoHitPoints = playerData.ufoShield;
 		ufoAccuracy = .15;
 		ufoEvasion = 1;
 
