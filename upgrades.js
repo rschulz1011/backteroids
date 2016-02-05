@@ -352,16 +352,16 @@ var upgrades = {
 		minLevel: 30,
 		imageFrame: 16,
 		cost: function(level) {
-			return 1;  
+			return 4;  
 		},
 		value: function(level) {
-			return level;
+			return level +1;
 		},
 		setUpgrade: function(playerData,level)
 		{
-			playerData.ufoEvasion = level;
+			playerData.ufoEvasion = this.value(level);
 		},
-		description: "UFO evasopm is level {}",
+		description: "UFO evasion is level {}",
 		maxUpgrade: 4,
 	},
 };

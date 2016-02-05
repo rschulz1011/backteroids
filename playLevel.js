@@ -140,7 +140,7 @@ playLevel.prototype = {
 		ufoFireRate = playerData.ufoFireRate;
 		ufoHitPoints = playerData.ufoShield;
 		ufoAccuracy = .15;
-		ufoEvasion = 1;
+		ufoEvasion = playerData.ufoEvasion;
 
 
 		levelScore = 0;
@@ -549,9 +549,9 @@ function moveUfo(ufo) {
 	if (ufo.moveDirection === null || ufo.moveTimer === null || ufo.moveTimer < 0)
 	{
 		ufo.moveDirection = Math.random() * 2 * Math.PI;
-		ufo.moveTimer = (1000 + Math.random() * 1000) / ufoEvasion;
-		ufo.accelTimer = ufo.moveTimer / 4;
-		ufo.accelVal = 450 * (0.4 + Math.random()*0.6) * ufoEvasion;
+		ufo.moveTimer = (1500 + Math.random() * 1500) / (ufoEvasion/1.5);
+		ufo.accelTimer = ufo.moveTimer / (11-ufoEvasion*1.6);
+		ufo.accelVal = 250 * (0.4 + Math.random()*0.6) * (ufoEvasion/.7);
 	}
 
 	if (ufo.accelTimer > 0)
