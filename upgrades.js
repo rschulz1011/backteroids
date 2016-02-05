@@ -249,7 +249,7 @@ var upgrades = {
 		minLevel: 25,
 		imageFrame: 12,
 		cost: function(level) {
-			return 1;  
+			return 3 + level;  
 		},
 		value: function(level) {
 			return level;
@@ -308,18 +308,21 @@ var upgrades = {
 		prereq: ["numUfos"],
 		minLevel: 32,
 		imageFrame: 15,
-		cost: function(level) {
-			return 1;  
+		cost: function(level) { 
+			var levelCost = [8,4,4,4,5,5,5,5,6,6];
+			return levelCost[level-1];
 		},
 		value: function(level) {
-			return 60 - level*5;
+			
+			var rechargeTime = [null,60,50,45,40,35,30,25,22,20,18];
+			// must be null if level = 0
+			return rechargeTime[level];
 		},
-		setUpgrade: function(playerData,level)
-		{
-			playerData.ufoRecharge = level;
+		setUpgrade: function(playerData,level) {
+			playerData.recharge.ufo = this.value(level)
 		},
 		description: "Get a new UFO every {} seconds",
-		maxUpgrade: 8,
+		maxUpgrade: 10,
 	},
 	ufoAccuracy : {
 		name: "UFO Accuracy",

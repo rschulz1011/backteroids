@@ -76,7 +76,7 @@ playLevel.prototype = {
 
 	create: function() {
 
-		playerData.recharge = {};
+		//playerData.recharge = {};
 		recharge = {};
 
 		setUpgrades(playerData);
@@ -84,7 +84,7 @@ playLevel.prototype = {
 		maxConverge = playerData.maxConverge;
 		maxConfuse = playerData.maxConfuse;
 		maxStun = playerData.maxStuns;
-		maxUfo = 4;
+		maxUfo = playerData.numUfos;
 		stunTime = playerData.stunTime;
 		numKills = 0;
 		rocksLeft = maxRocks;
@@ -115,6 +115,16 @@ playLevel.prototype = {
 		else
 		{
 			recharge.randomRocks.max = null;
+		}
+		recharge.ufo = {};
+		if (playerData.recharge.ufo !== null)
+		{
+			recharge.ufo.max = playerData.recharge.ufo * 1000;
+			recharge.ufo.timer = recharge.ufo.max;
+		}
+		else
+		{
+			recharge.ufo.max = null;
 		}
 
 		
@@ -250,6 +260,10 @@ playLevel.prototype = {
 			ufoLeftText = game.add.text(275,gameHeight-60,""+ufoLeft,rocksLeftStyle);
 			keyU = game.input.keyboard.addKey(Phaser.Keyboard.U);
     		keyU.onDown.add(createUfo,this);
+
+    		recharge.ufo.sprite =  game.add.sprite(260,gameHeight-18,'healthbar');
+			recharge.ufo.sprite.width = 0;
+			recharge.ufo.sprite.height = 5;
 		}
 
 
@@ -457,7 +471,7 @@ playLevel.prototype = {
 				
 			}
 
-			if (rocks.countLiving() > 1 || (rocks.countLiving()===1 && game.rockLoaded === null)) {
+			if (ufos.countLiving() > 0 || rocks.countLiving() > 1 || (rocks.countLiving()===1 && game.rockLoaded === null)) {
 				decrementRechargeTimers();
 			}
 
@@ -625,6 +639,21 @@ function decrementRechargeTimers() {
 	{
 		createRandomRock();
 		recharge.randomRocks.timer = recharge.randomRocks.max;
+	}
+
+	if (recharge.ufo.max !== null && ufoLeft < maxUfo)
+	{
+		recharge.ufo.timer = recharge.ufo.timer - game.time.physicsElapsedMS;
+		if (recharge.ufo.timer < 0)
+		{
+			recharge.ufo.timer = recharge.ufo.max;
+			ufoLeft = Math.min(ufoLeft+1,maxUfo);
+		}
+		recharge.ufo.sprite.width = 50 * (1- recharge.ufo.timer / recharge.ufo.max);
+	}
+	else
+	{
+		recharge.ufo.sprite.width = 0;
 	}
 
 }
