@@ -289,17 +289,17 @@ var upgrades = {
 		minLevel: 28,
 		imageFrame: 14,
 		cost: function(level) {
-			return 1;  
+			return Math.floor(2 + level/3);  
 		},
 		value: function(level) {
-			return 2 - level * .2;
+			return Math.floor(200 * Math.pow(0.9,level)) /100;
 		},
 		setUpgrade: function(playerData,level)
 		{
-			playerData.ufoFireRate = level;
+			playerData.ufoFireRate = this.value(level) * 1000;
 		},
 		description: "Ufos fire every {} seconds",
-		maxUpgrade: 8,
+		maxUpgrade: 12,
 	},
 	ufoRecharge : {
 		name: "UFO Recharge",

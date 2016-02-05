@@ -137,7 +137,7 @@ playLevel.prototype = {
 		safeRadiusFactor = playerData.safeRadius;
 
 		//TODO: fill in with playerdata upgrade values
-		ufoFireRate = 1200;
+		ufoFireRate = playerData.ufoFireRate;
 		ufoHitPoints = playerData.ufoShield;
 		ufoAccuracy = .15;
 		ufoEvasion = 1;
