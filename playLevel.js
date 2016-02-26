@@ -76,7 +76,7 @@ playLevel.prototype = {
 
 	create: function() {
 
-		//playerData.recharge = {};
+		playerData.recharge = {};
 		recharge = {};
 
 		setUpgrades(playerData);
@@ -86,6 +86,7 @@ playLevel.prototype = {
 		maxStun = playerData.maxStuns;
 		maxUfo = playerData.numUfos;
 		stunTime = playerData.stunTime;
+		stunShields = playerData.stunShields;
 		numKills = 0;
 		rocksLeft = maxRocks;
 		convergeLeft = maxConverge;
@@ -126,6 +127,13 @@ playLevel.prototype = {
 		{
 			recharge.ufo.max = null;
 		}
+		recharge.stun = {};
+		if (playerData.recharge.stun != null)
+		{
+			recharge.stun.max = playerData.recharge.stun * 1000;
+			recharge.stun.timer = recharge.stun.max;
+		}
+
 
 		
 		wave = 0;
@@ -139,7 +147,7 @@ playLevel.prototype = {
 		//TODO: fill in with playerdata upgrade values
 		ufoFireRate = playerData.ufoFireRate;
 		ufoHitPoints = playerData.ufoShield;
-		ufoAccuracy = .15;
+		ufoAccuracy = 0.20 - playerData.ufoAccuracy * 0.04;
 		ufoEvasion = playerData.ufoEvasion;
 
 
@@ -251,6 +259,10 @@ playLevel.prototype = {
 			stunLeftText = game.add.text(215,gameHeight-60,""+stunLeft,rocksLeftStyle);
 			keyR = game.input.keyboard.addKey(Phaser.Keyboard.R);
     		keyR.onDown.add(stunShips,this);
+
+    		recharge.stun.sprite = game.add.sprite(200,gameHeight-18,'healthbar');
+    		recharge.stun.sprite.width = 0;
+    		recharge.stun.sprite.height = 5;
 		}
 		//TODO: Anchor text and center and add alpha
 
@@ -265,7 +277,6 @@ playLevel.prototype = {
 			recharge.ufo.sprite.width = 0;
 			recharge.ufo.sprite.height = 5;
 		}
-
 
 		game.rockLoaded = null;
 		game.mouseSprite = null;
@@ -651,9 +662,24 @@ function decrementRechargeTimers() {
 		}
 		recharge.ufo.sprite.width = 50 * (1- recharge.ufo.timer / recharge.ufo.max);
 	}
-	else
+	else if (maxUfo>0)
 	{
 		recharge.ufo.sprite.width = 0;
+	}
+
+	if (recharge.stun.max !== null && stunLeft < maxStun)
+	{
+		recharge.stun.timer = recharge.stun.timer - game.time.physicsElapsedMS;
+		if (recharge.stun.timer < 0)
+		{
+			recharge.stun.timer = recharge.stun.max;
+			stunLeft = Math.min(stunLeft+1,maxStun);
+		}
+		recharge.stun.sprite.width = 50 * (1- recharge.stun.timer / recharge.stun.max);
+	}
+	else if (maxStun>0)
+	{
+		recharge.stun.sprite.width = 0;
 	}
 
 }
@@ -1031,6 +1057,10 @@ function moveShip(ship) {
 		ship.stunned = ship.stunned - game.time.physicsElapsedMS;
 		throttle(ship,0);
 		ship.body.angularVelocity = 0;
+		if (playerData.stunShields > 0 && ship.shields > 0)
+		{
+			ship.shields = ship.shields - (ship.maxShields*(playerData.stunShields/100)*(game.time.physicsElapsedMS/1000));
+		}
 	}
 	else
 	{

@@ -332,14 +332,14 @@ var upgrades = {
 		minLevel: 30,
 		imageFrame: 17,
 		cost: function(level) {
-			return 1;  
+			return 2 + level;  
 		},
 		value: function(level) {
-			return level;
+			return level + 1;
 		},
 		setUpgrade: function(playerData,level)
 		{
-			playerData.ufoAccuracy = level;
+			playerData.ufoAccuracy = this.value(level);
 		},
 		description: "UFO accuracy is level {}",
 		maxUpgrade: 10,
@@ -364,14 +364,52 @@ var upgrades = {
 		description: "UFO evasion is level {}",
 		maxUpgrade: 4,
 	},
+	stunRecharge : {
+		name: "Stun Recharge",
+		x: 290,
+		y: 200,
+		prereq: ["numStuns"],
+		minLevel: 15,
+		imageFrame: 18,
+		cost: function(level) { 
+			var levelCost = [6,3,3,3,4,4,4,6,6,7];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			
+			var rechargeTime = [null,60,50,45,40,35,30,25,22,20,18];
+			// must be null if level = 0
+			return rechargeTime[level];
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.recharge.stun = this.value(level);
+		},
+		description: "Get a new stun power every {} seconds",
+		maxUpgrade: 10,
+	},
+	stunShields : {
+		name: "Stun Shield Drain",
+		x: 350,
+		y: 200,
+		prereq: ["numStuns"],
+		minLevel: 25,
+		imageFrame: 19,
+		cost: function(level) { 
+			return level + 2;
+		},
+		value: function(level) {
+			return level * 2;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.stunShields = this.value(level);
+		},
+		description: "Stun drains {}% of sheids of second",
+		maxUpgrade: 10,
+	},
 };
 
-
-
-//stunrecharge = 290, 200
-//stunshields = 350,200
-
-//confuse rcharge = 480,200
 
 //converge recharge = 610, 200
 //converge velocity = 670,200
