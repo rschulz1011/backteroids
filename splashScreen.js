@@ -10,6 +10,7 @@ splashScreen.prototype = {
 	},
 
 	create: function() {
+
 		addMuteButton(765,30);
 
 		this.game.add.sprite(0,0,'splash');
