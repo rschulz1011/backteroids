@@ -133,6 +133,12 @@ playLevel.prototype = {
 			recharge.stun.max = playerData.recharge.stun * 1000;
 			recharge.stun.timer = recharge.stun.max;
 		}
+		recharge.confuse = {};
+		if (playerData.recharge.confuse != null)
+		{
+			recharge.confuse.max = playerData.recharge.confuse * 1000;
+			recharge.confuse.timer = recharge.confuse.max;
+		}
 
 
 		
@@ -251,6 +257,10 @@ playLevel.prototype = {
 			confuseLeftText = game.add.text(155,gameHeight-60,""+confuseLeft,rocksLeftStyle);
 			keyE = game.input.keyboard.addKey(Phaser.Keyboard.E);
     		keyE.onDown.add(confuseShips,this);
+
+    		recharge.confuse.sprite = game.add.sprite(140,gameHeight-18,'healthbar');
+    		recharge.confuse.sprite.width = 0;
+    		recharge.confuse.sprite.height = 5;
 		}
 
 		if (maxStun>0)
@@ -680,6 +690,21 @@ function decrementRechargeTimers() {
 	else if (maxStun>0)
 	{
 		recharge.stun.sprite.width = 0;
+	}
+
+	if (recharge.confuse.max !== null && confuseLeft < maxConfuse)
+	{
+		recharge.confuse.timer = recharge.confuse.timer - game.time.physicsElapsedMS;
+		if (recharge.confuse.timer < 0)
+		{
+			recharge.confuse.timer = recharge.confuse.max;
+			confuseLeft = Math.min(confuseLeft+1,maxConfuse);
+		}
+		recharge.confuse.sprite.width = 50 * (1- recharge.confuse.timer / recharge.confuse.max);
+	}
+	else if (maxConfuse>0)
+	{
+		recharge.confuse.sprite.width = 0;
 	}
 
 }

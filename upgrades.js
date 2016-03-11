@@ -408,6 +408,30 @@ var upgrades = {
 		description: "Stun drains {}% of sheids of second",
 		maxUpgrade: 10,
 	},
+	confuseRecharge : {
+		name: "Confuse Recharge",
+		x: 480,
+		y: 200,
+		prereq: ["numConfuse"],
+		minLevel: 12,
+		imageFrame: 20,
+		cost: function(level) { 
+			var levelCost = [6,3,3,3,4,4,4,6,6,7];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			
+			var rechargeTime = [null,60,50,45,40,35,30,25,22,20,18];
+			// must be null if level = 0
+			return rechargeTime[level];
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.recharge.confuse = this.value(level);
+		},
+		description: "Get a new confuse power every {} seconds",
+		maxUpgrade: 10,
+	},
 };
 
 
