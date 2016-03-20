@@ -30,6 +30,8 @@ var playLevel = function(game) {
 	detailedScore.quickKillPoints = 0;
 	detailedScore.instantKillPoints = 0;
 	detailedScore.directHitPoints = 0;
+	detailedScore.goodiesCollected = 0;
+	detailedScore.goodieScore = 0;
 
 	difficultyValues = null;
 	difficultyMultiplier = 1.0;
@@ -72,6 +74,7 @@ playLevel.prototype = {
 		game.load.image('ufoBullet','res/ufo_bullet.png');
 		game.load.image('ufo','res/ufo.png');
 		game.load.spritesheet('bombExplosion','res/bomb_explosion.png',150,150);
+		game.load.image('goodie','res/goodie.png');
 	},
 
 	create: function() {
@@ -95,6 +98,8 @@ playLevel.prototype = {
 		rockSplit = playerData.rockSplit;
 		stunLeft = maxStun;
 		ufoLeft = maxUfo;
+		goodieChance = 0.5;
+		goodieValue = 25;
 
 		//set recharge timers
 		recharge.rocks = {};
@@ -168,6 +173,8 @@ playLevel.prototype = {
 		detailedScore.quickKillPoints = 0;
 		detailedScore.instantKillPoints = 0;
 		detailedScore.directHitPoints = 0;
+		detailedScore.goodiesCollected = 0;
+		detailedScore.goodieScore = 0;
 
 		game.add.sprite(0,0,'space');
 
@@ -202,6 +209,10 @@ playLevel.prototype = {
 
 		ufos = game.add.group();
 		ufos.enableBody = true;
+
+		goodies = game.add.group();
+		goodies.enableBody = true;
+		goodies.allowRotation = true;
 
 		explosions = game.add.group();
 		explosion = explosions.create(0,0,'kaboom');
@@ -408,6 +419,18 @@ playLevel.prototype = {
 		game.physics.arcade.overlap(ufos,bullets,ufoHit);
 
 		game.physics.arcade.overlap(ufoBullets,ships,shipHit);
+
+		goodies.forEach(function(goodie){
+			if (goodie !== undefined)
+			{
+				moveGoodie(goodie);
+			}
+			else if (goodie !== undefined && goodie.alpha == 0)
+			{
+				goodies.remove(goodie);
+				goodie.kill();
+			}
+		})
 
 		if (gameOver==false)
 		{
@@ -703,6 +726,7 @@ function decrementRechargeTimers() {
 		recharge.confuse.sprite.width = 50 * (1- recharge.confuse.timer / recharge.confuse.max);
 	}
 	else if (maxConfuse>0)
+		
 	{
 		recharge.confuse.sprite.width = 0;
 	}
@@ -1594,8 +1618,74 @@ function deadShip(ship,directHit) {
 			
 		}
 	}
+
+	var goodieRand = Math.random();
+	if (goodieRand < goodieChance)
+	{
+		createGoodie(ship.x,ship.y);
+	}
+
 	ship.kill();
 };
+
+function createGoodie(x,y)
+{
+	goodie = goodies.create(x,y,'goodie');
+
+	goodie.anchor.x = 0.5;
+	goodie.anchor.y = 0.5;
+	goodie.inputEnabled = true;
+
+	goodie.body.velocity.x = 30*Math.random() - 15;
+	goodie.body.velocity.y = 30*Math.random() - 15;
+
+	goodie.body.angularVelocity = 150*Math.random() - 75;
+
+	game.add.tween(goodie).to({width: 2},800+600*Math.random(),Phaser.Easing.Quadratic.InOut,true,0,-1,true);
+
+	game.add.tween(goodie).to({alpha: 0},3000,"Linear",true,3000);
+}
+
+function goodiePickup(goodie)
+{
+	goodies.remove(goodie);
+	scoreBlip(goodie.x,goodie.y+20,goodieValue,"#ffff00");
+	levelScore = levelScore + goodieValue;
+	detailedScore.goodiesCollected++;
+	detailedScore.goodieScore = detailedScore.goodieScore + goodieValue;
+	goodie.kill();
+}
+
+function moveGoodie(goodie)
+{
+	var mousex = game.input.mousePointer.x;
+	var mousey = game.input.mousePointer.y;
+
+	var vecx = mousex-goodie.x;
+	var vecy = mousey-goodie.y;
+
+	var dist2 = Math.pow(vecx,2) + Math.pow(vecy,2);
+
+	if (dist2 < 200)
+	{
+		goodiePickup(goodie);
+	}
+	else if (dist2< 10000)
+	{
+		var maxAccel = 100;
+		accel = Math.min(maxAccel,100000/dist2);
+		goodie.body.acceleration.x = vecx / Math.sqrt(dist2) * accel;
+		goodie.body.acceleration.y = vecy / Math.sqrt(dist2) * accel;
+	}
+	else
+	{
+		goodie.body.acceleration.x = 0;
+		goodie.body.acceleration.y = 0;
+	}
+
+
+
+}
 
 function scoreBlip(x,y,points,color)
 {

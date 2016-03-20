@@ -39,15 +39,16 @@ levelComplete.prototype = {
 			displayScoreLine(2,"Direct Hits",gameState.performanceData.detailedScore.directHits.toFixed(0),Math.round(gameState.performanceData.detailedScore.directHitPoints).toFixed(0));
 			displayScoreLine(3,"Instant Kills",gameState.performanceData.detailedScore.instantKills.toFixed(0),Math.round(gameState.performanceData.detailedScore.instantKillPoints).toFixed(0));
 			displayScoreLine(4,"Quick Kills",gameState.performanceData.detailedScore.quickKills.toFixed(0),Math.round(gameState.performanceData.detailedScore.quickKillPoints).toFixed(0));
-			displayScoreLine(5,"Kill Points","",gameState.performanceData.score.toFixed(0));
-			displayScoreLine(6,"Difficulty Multiplier","x "+gameState.performanceData.difficultyMultiplier.toFixed(2),"",'multiplier');
-			displayScoreLine(7,"Bonus Multiplier","x "+gameState.performanceData.bonusMultiplier.toFixed(2),"",'multiplier');
+			displayScoreLine(5,"Goodies Collected",gameState.performanceData.detailedScore.goodiesCollected.toFixed(),gameState.performanceData.detailedScore.goodieScore.toFixed(0));
+			displayScoreLine(6,"Kill Points","",gameState.performanceData.score.toFixed(0));
+			displayScoreLine(7,"Difficulty Multiplier","x "+gameState.performanceData.difficultyMultiplier.toFixed(2),"",'multiplier');
+			displayScoreLine(8,"Bonus Multiplier","x "+gameState.performanceData.bonusMultiplier.toFixed(2),"",'multiplier');
 
 			if (gameState.performanceData.success === false)
 			{
 				rowShift = 1;
 				passMultiplier = 0.30;
-				displayScoreLine(8,"Level Failed","x 0.30","","levelFailed");
+				displayScoreLine(9,"Level Failed","x 0.30","","levelFailed");
 			}
 			else
 			{
@@ -57,9 +58,9 @@ levelComplete.prototype = {
 
 			totalScore = Math.round(gameState.performanceData.score*gameState.performanceData.difficultyMultiplier*gameState.performanceData.bonusMultiplier*passMultiplier);
 
-			displayScoreLine(8+rowShift,"Total Score","",totalScore.toFixed(0),"totalScore");
-			displayScoreLine(10+rowShift,"Previous Best","",oldScore.toFixed(0));
-			displayScoreLine(11+rowShift,"New Points Earned","",Math.max(0,totalScore-oldScore).toFixed(0));
+			displayScoreLine(9+rowShift,"Total Score","",totalScore.toFixed(0),"totalScore");
+			displayScoreLine(11+rowShift,"Previous Best","",oldScore.toFixed(0));
+			displayScoreLine(12+rowShift,"New Points Earned","",Math.max(0,totalScore-oldScore).toFixed(0));
 
 			playerData.levelScores[gameState.performanceData.level] = {
 				passed: gameState.performanceData.success,
@@ -82,7 +83,10 @@ levelComplete.prototype = {
 			setTimeout(function(){
 				displayTotalScore();
 				displayPlayerLevel();
-				parent.kongregate.stats.submit("totalScore",playerData.totalScore);
+				if (parent.kongregate !== undefined)
+				{
+					parent.kongregate.stats.submit("totalScore",playerData.totalScore);
+				}
 			},4000);
 
 			savePlayerData();
