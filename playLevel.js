@@ -61,6 +61,7 @@ playLevel.prototype = {
 		game.load.spritesheet('rockButton','res/rock_button.png',50,50);
 		game.load.spritesheet('convergeButton','res/converge_button.png',50,50);
 		game.load.spritesheet('pauseButton','res/pause_button.png',30,20);
+		game.load.spritesheet('exitButton','res/exit_button.png',30,20);
 		game.load.spritesheet('confuseButton','res/confuse_button.png',50,50);
 		game.load.spritesheet('stunButton','res/stun_button.png',50,50);
 		game.load.spritesheet('ufoButton','res/ufo_button.png',50,50)
@@ -250,6 +251,7 @@ playLevel.prototype = {
 
 		pauseButton = game.add.button(gameWidth-35,5,'pauseButton',pauseGame,this,2,0,1,1);
 		addMuteButton(gameWidth-70,5);
+		exitButton = game.add.button(gameWidth-105,5,'exitButton',exitLevel,this,2,0,1,1);
 
 		var rocksLeftStyle = {font: "30px Arial", fill: "#ffffff", align: "center"};
 		rocksLeftText = game.add.text(35,gameHeight-60,""+rocksLeft,rocksLeftStyle);
@@ -308,11 +310,31 @@ playLevel.prototype = {
     	keyP = game.input.keyboard.addKey(Phaser.Keyboard.P);
     	keyP.onDown.add(pauseGame, this);
 
+    	keyEsc = game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+    	keyEsc.onDown.add(exitLevel, this);
+
 		//TODO: Remove world's easiest cheat code before release
     	keyC = game.input.keyboard.addKey(Phaser.Keyboard.C);
     	keyC.onDown.add(function(){maxRocks = 99; rocksLeft = 99;},this)
 
     	game.input.onDown.add(unpauseGame, self);
+
+    	exitLevelTooltip = new tooltip(game,gameWidth/2-150,gameHeight/2-50,300,100,function(group){
+			tooltipInfoTextStyle = {font: "13px Arial", stroke: "bold", fill: "#ffffff",wordWrap: true, wordWrapWidth: 250};
+			var infoText = group.addChild(game.add.text(150,30,"Are you sure you want to exit this level?",tooltipInfoTextStyle));
+			infoText.anchor.x = 0.5;
+			infoText.anchor.y = 0.5;
+
+			var exitButton = group.addChild(game.add.button(20,55,"button_blank",exitLevelClick,this,1,0,1,0));
+			var buttonText = group.addChild(game.add.text(75,73,"EXIT",{font: "18px Arial", stroke: "bold", fill: "#ffffff"}));
+			buttonText.anchor.x = 0.5;
+			buttonText.anchor.y = 0.5;
+
+			var resumeButton = group.addChild(game.add.button(160,55,"button_blank",exitLevelClick,this,1,0,1,0));
+			var buttonText = group.addChild(game.add.text(215,73,"RESUME",{font: "18px Arial", stroke: "bold", fill: "#ffffff"}));
+			buttonText.anchor.x = 0.5;
+			buttonText.anchor.y = 0.5;
+		});
 	},
 
 	update: function() {
@@ -541,6 +563,18 @@ playLevel.prototype = {
 		}
 	},
 
+}
+
+function exitLevel() {
+	if (game.paused==false)
+	{
+		pauseGame();
+	}
+	exitLevelTooltip.showNow();
+}
+
+function exitLevelClick() {
+	console.log('bye');
 }
 
 function createUfo() {
@@ -786,10 +820,37 @@ function addExtraWaves(waves, numExtra)
 
 function unpauseGame()
 {
-	if (game.paused)
+	if (game.paused && exitLevelTooltip.tooltipGroup.alpha == 0)
 	{
 		game.paused = false;
 		pauseButton.frame = 0;
+	}
+	else if (exitLevelTooltip.tooltipGroup.alpha > 0.5)
+	{
+		var mousex = game.input.mousePointer.x;
+		var mousey = game.input.mousePointer.y;
+
+		if (mousex < gameWidth/2 - 150 + 20 + 110 && mousex > gameWidth/2 - 150 + 20 && mousey < gameHeight/2 -50 + 55 + 35 && mousey > gameHeight/2 - 50 + 55)
+		{
+			var performanceData = {};
+			performanceData.kills = numKills;
+			performanceData.success = false;
+			performanceData.level = level;
+			performanceData.score = Math.round(levelScore); 
+			performanceData.detailedScore = detailedScore;
+			performanceData.difficultyMultiplier = difficultyMultiplier;
+			performanceData.bonusMultiplier = bonusMultiplier;
+			this.game.state.start("LevelComplete",true,false,gameData,performanceData);
+			game.paused = false;
+		}
+		else
+		{
+			exitLevelTooltip.hideNow();
+			game.paused = false;
+			pauseButton.frame = 0;
+			exitButton.frame = 0;
+		}
+
 	}
 }
 

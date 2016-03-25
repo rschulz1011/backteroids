@@ -13,10 +13,22 @@ function tooltip(game,x,y,width,height,content)
 	 	this.game.world.bringToTop(this.tooltipGroup);
     };
 
+    this.showNow = function() {
+    	this.tooltipGroup.alpha = 0.95;
+    	graphics.alpha = 0.95;
+    	this.game.world.bringToTop(this.tooltipGroup);
+    }
+
     this.hide = function() {
 	 	this.game.add.tween(graphics).to({alpha:0},700,Phaser.Easing.Quadratic.Out,true);
 	 	this.game.add.tween(this.tooltipGroup).to({alpha:0},700,Phaser.Easing.Quadratic.Out,true);
     };
+
+    this.hideNow = function() {
+    	this.tooltipGroup.alpha = 0;
+    	graphics.alpha = 0;
+    	this.game.world.sendToBack(this.tooltipGroup);
+    }
 
     this.link = function(sprite) {
     	sprite.inputEnabled = true;
