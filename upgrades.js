@@ -432,6 +432,27 @@ var upgrades = {
 		description: "Get a new confuse power every {} seconds",
 		maxUpgrade: 10,
 	},
+	overallMultiplier : {
+		name: "Bonus Multiplier",
+		x: 380,
+		y: 430,
+		prereq: [],
+		minLevel: 10,
+		imageFrame: 21,
+		cost: function(level) { 
+			return 3 + Math.floor(Math.log(level));
+		},
+		value: function(level) {
+			// must be null if level = 0
+			return Math.round((1.02 ** level) * 100) / 100;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.bonusMultiplier = this.value(level);
+		},
+		description: "Total score bonus multiplier of x{}",
+		maxUpgrade: 9999,
+	},
 };
 
 

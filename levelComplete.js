@@ -35,7 +35,7 @@ levelComplete.prototype = {
 			calculatePlayerLevel(gameData);
 			displayPlayerLevel();
 
-						displayScoreLine(1,"Total Kills",gameState.performanceData.detailedScore.totalKills.toFixed(0),gameState.performanceData.detailedScore.basePoints.toFixed(0));
+			displayScoreLine(1,"Total Kills",gameState.performanceData.detailedScore.totalKills.toFixed(0),gameState.performanceData.detailedScore.basePoints.toFixed(0));
 			displayScoreLine(2,"Direct Hits",gameState.performanceData.detailedScore.directHits.toFixed(0),Math.round(gameState.performanceData.detailedScore.directHitPoints).toFixed(0));
 			displayScoreLine(3,"Instant Kills",gameState.performanceData.detailedScore.instantKills.toFixed(0),Math.round(gameState.performanceData.detailedScore.instantKillPoints).toFixed(0));
 			displayScoreLine(4,"Quick Kills",gameState.performanceData.detailedScore.quickKills.toFixed(0),Math.round(gameState.performanceData.detailedScore.quickKillPoints).toFixed(0));

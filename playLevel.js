@@ -156,7 +156,6 @@ playLevel.prototype = {
 		shipSpeedMultiplier = 1 + difficultySetting.shipSpeed.value(difficultyValues.shipSpeed) * .01;
 		safeRadiusFactor = playerData.safeRadius;
 
-		//TODO: fill in with playerdata upgrade values
 		ufoFireRate = playerData.ufoFireRate;
 		ufoHitPoints = playerData.ufoShield;
 		ufoAccuracy = 0.20 - playerData.ufoAccuracy * 0.04;
@@ -195,6 +194,8 @@ playLevel.prototype = {
 		$.each(difficultySetting,function(index,control){
 			difficultyMultiplier = difficultyMultiplier * control.multiplier(difficultyValues[index]);
 		})
+
+		bonusMultiplier = playerData.bonusMultiplier;
 
 		rocks = game.add.group();
 		rocks.enableBody = true;
