@@ -453,6 +453,28 @@ var upgrades = {
 		description: "Total score bonus multiplier of x{}",
 		maxUpgrade: 9999,
 	},
+	convergeSpeedup : {
+		name: "Converge Speedup",
+		x: 670,
+		y: 200,
+		prereq: ["numConverge"],
+		minLevel: 20,
+		imageFrame: 22,
+		cost: function(level) { 
+			var levelCost = [3,4,5,7,8,9];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			// must be null if level = 0
+			return  20 * level;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.convergeSpeedup = 1 + this.value(level) / 100;
+		},
+		description: "Converge speeds up rocks by {}%",
+		maxUpgrade: 6,
+	},
 };
 
 

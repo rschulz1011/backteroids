@@ -94,6 +94,7 @@ playLevel.prototype = {
 		numKills = 0;
 		rocksLeft = maxRocks;
 		convergeLeft = maxConverge;
+		convergeSpeedup = playerData.convergeSpeedup;
 		confuseLeft = maxConfuse;
 		confuseTime = playerData.confuseTime;
 		rockSplit = playerData.rockSplit;
@@ -912,7 +913,7 @@ function convergeRocks()
 			if (closestShip !== null)
 			{
 				var newAngle = game.physics.arcade.angleBetween(rock,closestShip);
-				var currentRockSpeed = Math.sqrt(Math.pow(rock.body.velocity.x,2)+Math.pow(rock.body.velocity.y,2));
+				var currentRockSpeed = Math.sqrt(Math.pow(rock.body.velocity.x,2)+Math.pow(rock.body.velocity.y,2)) * convergeSpeedup;
 				rock.body.velocity.x = Math.cos(newAngle)  * currentRockSpeed;
 				rock.body.velocity.y = Math.sin(newAngle) * currentRockSpeed;
 			}
