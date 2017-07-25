@@ -475,7 +475,7 @@ var upgrades = {
 		description: "Converge speeds up rocks by {}%",
 		maxUpgrade: 6,
 	},
-	convergeSpeedup : {
+	directHitBonus : {
 		name: "Direct Hit Bonus",
 		x: 580,
 		y: 430,
