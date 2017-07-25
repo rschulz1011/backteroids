@@ -497,6 +497,28 @@ var upgrades = {
 		description: "Direct Hit Bonus is {}%",
 		maxUpgrade: 10,
 	},
+	InstantKillBonus : {
+		name: "Instant Kill Bonus",
+		x: 480,
+		y: 430,
+		prereq: [],
+		minLevel: 10,
+		imageFrame: 24,
+		cost: function(level) { 
+			var levelCost = [3,4,5,6,6,7,7,8,8,9,9];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			// must be null if level = 0
+			return  50 + level * 25;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.instantKillBonus = 1 + this.value(level) / 100;
+		},
+		description: "Instant Kill Bonus is {}%. (also effects quick kill)",
+		maxUpgrade: 10,
+	},
 };
 
 

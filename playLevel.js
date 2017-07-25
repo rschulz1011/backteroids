@@ -103,6 +103,7 @@ playLevel.prototype = {
 		goodieChance = 0.5;
 		goodieValue = 25;
 		directHitBonus = playerData.directHitBonus;
+		instantKillBonus = playerData.instantKillBonus;
 
 		//set recharge timers
 		recharge.rocks = {};
@@ -1616,15 +1617,15 @@ function deadShip(ship,directHit) {
 		detailedScore.directHits++;
 	}
 	if (ship.aliveTime<500) {
-		pointsScored = pointsScored * 1.5;
+		pointsScored = pointsScored * instantKillBonus;
 		scoreBlip(ship.x,ship.y,"Instant Kill\n"+Math.round(pointsScored),"#6666ff");
-		detailedScore.instantKillPoints = detailedScore.instantKillPoints + pointsScored*0.5;
+		detailedScore.instantKillPoints = detailedScore.instantKillPoints + pointsScored*(instantKillBonus-1);
 		detailedScore.instantKills++;
 	}
 	else if (ship.aliveTime<1500) {
-		pointsScored = pointsScored * 1.25;
+		pointsScored = pointsScored * (1 + (instantKillBonus-1)/2 );
 		scoreBlip(ship.x,ship.y,"Quick Kill\n"+Math.round(pointsScored),"#00ff00");
-		detailedScore.quickKillPoints = detailedScore.quickKillPoints + pointsScored*0.25;
+		detailedScore.quickKillPoints = detailedScore.quickKillPoints + pointsScored*((instantKillBonus-1)/2);
 		detailedScore.quickKills++;
 	}
 	else if (directHit)
