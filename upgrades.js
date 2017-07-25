@@ -475,6 +475,28 @@ var upgrades = {
 		description: "Converge speeds up rocks by {}%",
 		maxUpgrade: 6,
 	},
+	convergeSpeedup : {
+		name: "Direct Hit Bonus",
+		x: 580,
+		y: 430,
+		prereq: [],
+		minLevel: 10,
+		imageFrame: 23,
+		cost: function(level) { 
+			var levelCost = [3,4,5,6,6,7,7,8,8,9,9];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			// must be null if level = 0
+			return  25 + level * 15;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.directHitBonus = 1 + this.value(level) / 100;
+		},
+		description: "Direct Hit Bonus is {}%",
+		maxUpgrade: 10,
+	},
 };
 
 

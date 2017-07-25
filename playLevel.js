@@ -102,6 +102,7 @@ playLevel.prototype = {
 		ufoLeft = maxUfo;
 		goodieChance = 0.5;
 		goodieValue = 25;
+		directHitBonus = playerData.directHitBonus;
 
 		//set recharge timers
 		recharge.rocks = {};
@@ -1610,8 +1611,8 @@ function deadShip(ship,directHit) {
 	if(directHit)
 	{
 		scoreBlip(ship.x,ship.y-25,"Direct Hit!","#ffff00");
-		pointsScored = pointsScored * 1.25;
-		detailedScore.directHitPoints = detailedScore.directHitPoints + pointsScored*0.25;
+		pointsScored = pointsScored * directHitBonus;
+		detailedScore.directHitPoints = detailedScore.directHitPoints + pointsScored*(directHitBonus-1);
 		detailedScore.directHits++;
 	}
 	if (ship.aliveTime<500) {
