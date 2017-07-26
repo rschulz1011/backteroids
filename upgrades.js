@@ -519,6 +519,29 @@ var upgrades = {
 		description: "Instant Kill Bonus is {}%. (also effects quick kill)",
 		maxUpgrade: 10,
 	},
+	convergeRecharge : {
+		name: "Converge Recharge",
+		x: 610,
+		y: 200,
+		prereq: ["numConverge"],
+		minLevel: 25,
+		imageFrame: 25,
+		cost: function(level) { 
+			var levelCost = [6,3,3,3,4,4,4,6,6,7];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			var rechargeTime = [null,60,50,45,40,35,30,25,22,20,18];
+			// must be null if level = 0
+			return rechargeTime[level];
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.recharge.converge = this.value(level);
+		},
+		description: "Get a new converge power every {} seconds",
+		maxUpgrade: 10,
+	},
 };
 
 

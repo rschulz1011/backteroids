@@ -148,6 +148,12 @@ playLevel.prototype = {
 			recharge.confuse.max = playerData.recharge.confuse * 1000;
 			recharge.confuse.timer = recharge.confuse.max;
 		}
+		recharge.converge = {};
+		if (playerData.recharge.converge != null)
+		{
+			recharge.converge.max = playerData.recharge.converge * 1000;
+			recharge.converge.timer = recharge.converge.max;
+		}
 
 
 		
@@ -266,6 +272,10 @@ playLevel.prototype = {
 			convergeLeftText = game.add.text(95,gameHeight-60,""+convergeLeft,rocksLeftStyle);
 			keyW = game.input.keyboard.addKey(Phaser.Keyboard.W);
     		keyW.onDown.add(convergeRocks,this);
+
+    		recharge.converge.sprite = game.add.sprite(80,gameHeight-18,'healthbar');
+    		recharge.converge.sprite.width = 0;
+    		recharge.converge.sprite.height = 5;
 		}
 
 		if (maxConfuse>0)
@@ -767,6 +777,22 @@ function decrementRechargeTimers() {
 		
 	{
 		recharge.confuse.sprite.width = 0;
+	}
+
+	if (recharge.converge.max !== null && convergeLeft < maxConverge)
+	{
+		recharge.converge.timer = recharge.converge.timer - game.time.physicsElapsedMS;
+		if (recharge.converge.timer < 0)
+		{
+			recharge.converge.timer = recharge.converge.max;
+			convergeLeft = Math.min(convergeLeft+1,maxConverge);
+		}
+		recharge.converge.sprite.width = 50 * (1- recharge.converge.timer / recharge.converge.max);
+	}
+	else if (maxConfuse>0)
+		
+	{
+		recharge.converge.sprite.width = 0;
 	}
 
 }
