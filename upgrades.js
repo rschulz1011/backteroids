@@ -542,6 +542,27 @@ var upgrades = {
 		description: "Get a new converge power every {} seconds",
 		maxUpgrade: 10,
 	},
+	convergeFollow : {
+		name: "Converge Follow",
+		x: 740,
+		y: 200,
+		prereq: ["numConverge"],
+		minLevel: 30,
+		imageFrame: 26,
+		cost: function(level) { 
+			var levelCost = [4,4,4,5,5,5,6,6,6,7];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			return level * 0.3;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.convergeFollow = this.value(level);
+		},
+		description: "Converge will follow ships for {} seconds",
+		maxUpgrade: 10,
+	},
 };
 
 

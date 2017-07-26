@@ -104,6 +104,7 @@ playLevel.prototype = {
 		goodieValue = 25;
 		directHitBonus = playerData.directHitBonus;
 		instantKillBonus = playerData.instantKillBonus;
+		convergeFollow = playerData.convergeFollow;
 
 		//set recharge timers
 		recharge.rocks = {};
@@ -154,6 +155,7 @@ playLevel.prototype = {
 			recharge.converge.max = playerData.recharge.converge * 1000;
 			recharge.converge.timer = recharge.converge.max;
 		}
+		convergeFollowTimer = 0;
 
 
 		
@@ -555,6 +557,8 @@ playLevel.prototype = {
 				decrementRechargeTimers();
 			}
 
+			steerRocks(false);
+
 		}
 	},
 
@@ -925,8 +929,24 @@ function convergeRocks()
 	if (convergeLeft>0 && game.rockLoaded === null && game.paused == false)
 	{
 		convergeLeft--;
-		rocks.forEachAlive(function(rock){
+		convergeFollowTimer = 1 + convergeFollow * 1000;
 
+		steerRocks(true);
+	}
+}
+
+function steerRocks(multiplySpeed)
+{
+	if (convergeFollowTimer > 0)
+	{
+		convergeFollowTimer = convergeFollowTimer - game.time.physicsElapsedMS;
+		speedMultiple = 1;
+		if (multiplySpeed)
+		{
+			speedMultiple = convergeSpeedup;
+		}
+	
+		rocks.forEachAlive(function(rock){
 			minShipDist = 1000000;
 			closestShip = null;
 			ships.forEachAlive(function(ship){
@@ -941,7 +961,7 @@ function convergeRocks()
 			if (closestShip !== null)
 			{
 				var newAngle = game.physics.arcade.angleBetween(rock,closestShip);
-				var currentRockSpeed = Math.sqrt(Math.pow(rock.body.velocity.x,2)+Math.pow(rock.body.velocity.y,2)) * convergeSpeedup;
+				var currentRockSpeed = Math.sqrt(Math.pow(rock.body.velocity.x,2)+Math.pow(rock.body.velocity.y,2)) * speedMultiple;
 				rock.body.velocity.x = Math.cos(newAngle)  * currentRockSpeed;
 				rock.body.velocity.y = Math.sin(newAngle) * currentRockSpeed;
 			}
