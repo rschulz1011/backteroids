@@ -123,6 +123,8 @@ var fillUpgradeInfo = function(id)
 
 var buyUpgradeButtonClick = function()
 {
+	var upgradePurchasedSound = game.add.audio('upgrade_purchased');
+	upgradePurchasedSound.play('',0,0.8,false);
 	playButtonClick();
 	playerData.upgradeLevels[currentUpgrade]++;
 	upgradePointsAvailable = countAvailableUpgradePoints();
