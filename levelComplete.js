@@ -69,6 +69,8 @@ levelComplete.prototype = {
 
 			var prevLevel = playerData.level;
 		
+			playerData.playerStats.kills = playerData.playerStats.kills + gameState.performanceData.kills;
+
 			calculateTotalScore();
 			calculatePlayerLevel(gameData);
 
