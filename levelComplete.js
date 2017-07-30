@@ -162,7 +162,12 @@ function displayScoreLine(index,label,value1,value2,specialType)
 	setTimeout(function(){
 		game.add.tween(value1Text).to({x:xloc+90},800,Phaser.Easing.Quadratic.Out,true);
 		game.add.tween(value2Text).to({x:xloc+180},800,Phaser.Easing.Quadratic.Out,true);
-	},500+200*index);
+	},500+300*index);
+
+	setTimeout(function(){
+		var scoreSwooshSound = game.add.audio('score_swoosh');
+		scoreSwooshSound.play('',4.6,0.2,false);
+	},750+300*index);
 
 }
 
