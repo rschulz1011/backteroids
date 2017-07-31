@@ -563,6 +563,27 @@ var upgrades = {
 		description: "Converge will follow ships for {} seconds",
 		maxUpgrade: 10,
 	},
+	GoodieDropChance : {
+		name: "Goodie Drop",
+		x: 720,
+		y: 50,
+		prereq: [],
+		minLevel: 15,
+		imageFrame: 27,
+		cost: function(level) { 
+			var levelCost = [2,2,3,3,4,4,5,5];
+			return levelCost[level-1];
+		},
+		value: function(level) {
+			return  level * 10;
+		},
+		setUpgrade: function(playerData,level)
+		{
+			playerData.goodieDropChance = this.value(level) / 100;
+		},
+		description: "Ships drop goodies {}% of the time",
+		maxUpgrade: 8,
+	},
 };
 
 
