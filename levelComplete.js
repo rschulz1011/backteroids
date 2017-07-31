@@ -70,6 +70,7 @@ levelComplete.prototype = {
 			var prevLevel = playerData.level;
 		
 			playerData.playerStats.kills = playerData.playerStats.kills + gameState.performanceData.kills;
+			playerData.playerStats.levelsPlayed = playerData.playerStats.levelsPlayed + 1;
 
 			calculateTotalScore();
 			calculatePlayerLevel(gameData);
