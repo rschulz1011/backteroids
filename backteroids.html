@@ -266,7 +266,7 @@
 
 	var countAvailableUpgradePoints = function()
 	{
-		var totalPlayerPoints = (playerData.level-1) * 2;
+		var totalPlayerPoints = (playerData.level-1) * 2 + calculateAchievementPointsEarned();
 		var pointsSpent = 0;
 		$.each(upgrades,function(index,upgrade){
 			for (i=1; i<=playerData.upgradeLevels[index]; i ++)
