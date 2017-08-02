@@ -10,12 +10,16 @@ viewAchievements.prototype = {
 	create: function() {
 		addMuteButton(765,30);
 		createNavigationButtons("ViewAchievements");
-		thisText = game.add.text(400,300,"Coming Soon!",{fill:"#ffffff"});
-		thisText.anchor.x = 0.5;
-		thisText.anchor.y = 0.5;
 
 		displayTotalScore();
 		calculatePlayerLevel(gameData);
 		displayPlayerLevel();
+
+		var ii = 0;
+		$.each(achievements,function(index,achievement){
+			achievement.draw(50,100 + 50*ii,playerData.playerStats);
+			ii++;
+		});
+
 	},
 }
