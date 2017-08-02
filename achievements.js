@@ -91,6 +91,17 @@ function Achievement(nameString,thresholds,upgradePoints,value)
 		return progress;
 	}
 
+	this.upgradePointsEarned = function(playerStats)
+	{
+		var achievementsEarned = this.earned(playerStats);
+		var pointsEarned = 0;
+		for (var i=0; i<achievementsEarned; i++)
+		{
+			pointsEarned = pointsEarned + upgradePoints[i];
+		}
+		return pointsEarned;
+	}
+
 }
 
 var achievements = {

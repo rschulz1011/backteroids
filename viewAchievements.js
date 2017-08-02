@@ -26,9 +26,22 @@ viewAchievements.prototype = {
 			ii++;
 		});
 
-		thisText = game.add.text(400,50,"Achievements Earned: "+totalEarned+"/"+totalAchievements,{fill:"#ffffff"});
+		topText = game.add.text(400,55,"Achievements Earned: "+totalEarned+"/"+totalAchievements,{fill:"#ffffff"});
+		topText.anchor.x = 0.5;
+		topText.anchor.y = 0.5;
+
+		thisText = game.add.text(400,80,"Total Upgrade Points Earned: "+calculateAchievementPointsEarned(),{font: "bold 14px Arial", fill:"#aaaaff"});
 		thisText.anchor.x = 0.5;
 		thisText.anchor.y = 0.5;
 
 	},
+}
+
+var calculateAchievementPointsEarned = function()
+{
+	var totalPoints = 0;
+	$.each(achievements,function(index,achievement){
+		totalPoints = totalPoints + achievement.upgradePointsEarned(playerData.playerStats);
+	});
+	return totalPoints;
 }
