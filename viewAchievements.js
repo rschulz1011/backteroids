@@ -16,10 +16,19 @@ viewAchievements.prototype = {
 		displayPlayerLevel();
 
 		var ii = 0;
+		var totalEarned = 0;
+		var totalAchievements = 0;
+
 		$.each(achievements,function(index,achievement){
 			achievement.draw(50,100 + 50*ii,playerData.playerStats);
+			totalEarned = totalEarned + achievement.earned(playerData.playerStats);
+			totalAchievements = totalAchievements + achievement.thresholds.length;
 			ii++;
 		});
+
+		thisText = game.add.text(400,50,"Achievements Earned: "+totalEarned+"/"+totalAchievements,{fill:"#ffffff"});
+		thisText.anchor.x = 0.5;
+		thisText.anchor.y = 0.5;
 
 	},
 }
