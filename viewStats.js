@@ -47,4 +47,8 @@ statCategories = {
 var playerStats = {
 	kills : 0,
 	levelsPlayed: 0,
+	quickKills: 0,
+	instantKills: 0,
+	directHits: 0,
+	goodiesCollected: 0,
 };

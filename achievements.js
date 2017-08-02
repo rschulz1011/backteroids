@@ -117,4 +117,29 @@ var achievements = {
 		function(playerStats) {
 			return playerStats.levelsPlayed;
 		}),
+	quickKills : new Achievement("{} Quick Kills",
+		[20,100,500,2000,5000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.quickKills;
+		}),
+	instantKills : new Achievement("{} Instant Kills",
+		[10,50,250,1000,2500],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.instantKills;
+		}),
+	directHits : new Achievement("{} Direct Hits",
+		[10,50,250,1000,2500],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.directHits;
+		}),
+	goodiesCollected : new Achievement("{} Goodies Collected",
+		[2,25,100,500,1000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.goodiesCollected;
+		}),
+
 }
