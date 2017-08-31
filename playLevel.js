@@ -166,6 +166,7 @@ playLevel.prototype = {
 		shipFireMultiplier = 1 + difficultySetting.fireRate.value(difficultyValues.fireRate) * .01;
 		shipSpeedMultiplier = 1 + difficultySetting.shipSpeed.value(difficultyValues.shipSpeed) * .01;
 		shipShieldsMultiplier = 1 + difficultySetting.shipStrength.value(difficultyValues.shipStrength) * .01;
+		extraShips = difficultySetting.extraShips.value(difficultyValues.extraShips);
 		safeRadiusFactor = playerData.safeRadius;
 
 		ufoFireRate = playerData.ufoFireRate;
@@ -911,6 +912,13 @@ function setWave(gameData,wave)
 		shipData = gameData.shipTypes[shipParams.type];
 		createShip(shipData,shipParams.x,shipParams.y);
 	});
+
+	for (var i=0; i<extraShips; i++)
+	{
+		shipIndex = Math.floor(Math.random()*waveData.ships.length);
+		shipData = gameData.shipTypes[waveData.ships[shipIndex].type];
+		createShip(shipData,Math.random()*.6+.2,Math.random()*.6+.2);
+	}
 
 }
 

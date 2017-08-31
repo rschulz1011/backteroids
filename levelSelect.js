@@ -403,4 +403,19 @@ var difficultySetting = {
 		},
 		maxLevel: 10,
 	},
+	extraShips: {
+		name: "Extra Ships",
+		value: function(level) {
+			var extraShips=[0,1,2,3,4,5];
+			return extraShips[level];
+		},
+		displayString: function(level) {
+			return "+ "+this.value(level)+" ships";
+		},
+		multiplier: function(level){
+			var multiplier = [1,1.2,1.5,2.0,2.5,3.0];
+			return multiplier[level];
+		},
+		maxLevel: 5,
+	},
 };
