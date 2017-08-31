@@ -105,6 +105,7 @@ playLevel.prototype = {
 		directHitBonus = playerData.directHitBonus;
 		instantKillBonus = playerData.instantKillBonus;
 		convergeFollow = playerData.convergeFollow;
+		rockDamage = playerData.rockDamage;
 
 		//set recharge timers
 		recharge.rocks = {};
@@ -1433,7 +1434,7 @@ function shipHit(rock,ship)
 	{
 		damage = 100;
 	}
-	ship.shields = ship.shields - damage;
+	ship.shields = ship.shields - damage * rockDamage;
 	var hitAngle = game.physics.arcade.angleBetween(ship,rock);
 	breakRock(rock);
 

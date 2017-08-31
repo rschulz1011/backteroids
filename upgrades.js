@@ -584,6 +584,25 @@ var upgrades = {
 		description: "Ships drop goodies {}% of the time",
 		maxUpgrade: 8,
 	},
+	rockDamage : {
+		name: "Rock Damage",
+		x: 650,
+		y: 50,
+		prereq: [],
+		minLevel: 15,
+		imageFrame: 28,
+		cost: function(level) { 
+			return 3 + Math.floor(level/4);
+		},
+		value: function(level) {
+			return 10*level;
+		},
+		setUpgrade: function(playerData,level) {
+			playerData.rockDamage = 1 + this.value(level)/100;
+		},
+		description: "Rocks do {}% more damage",
+		maxUpgrade: 20,
+	},
 };
 
 
