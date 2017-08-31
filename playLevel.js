@@ -165,6 +165,7 @@ playLevel.prototype = {
 		drawLine = false;
 		shipFireMultiplier = 1 + difficultySetting.fireRate.value(difficultyValues.fireRate) * .01;
 		shipSpeedMultiplier = 1 + difficultySetting.shipSpeed.value(difficultyValues.shipSpeed) * .01;
+		shipShieldsMultiplier = 1 + difficultySetting.shipStrength.value(difficultyValues.shipStrength) * .01;
 		safeRadiusFactor = playerData.safeRadius;
 
 		ufoFireRate = playerData.ufoFireRate;
@@ -1034,7 +1035,7 @@ function createShip(shipData,x,y)
 	ship.warpsLeft = shipData.warps;
 	ship.basePoints = shipData.basePoints;
 	ship.maxShields = shipData.maxShields;
-	ship.shields = shipData.maxShields;
+	ship.shields = shipData.maxShields * shipShieldsMultiplier;
 	ship.rechargeRate = shipData.shieldRecharge;
 	ship.shieldBar = null;
 	ship.body.mass = 1;

@@ -389,5 +389,18 @@ var difficultySetting = {
 			return extraWavesMult[level];
 		},
 		maxLevel: 8,
-	}
+	},
+	shipStrength: {
+		name: "Ship Strength",
+		value: function(level) {
+			return level * (25 + level*10);
+		},
+		displayString: function(level) {
+			return "+ "+this.value(level)+"%";
+		},
+		multiplier: function(level){
+			return 1+level/10;
+		},
+		maxLevel: 10,
+	},
 };
