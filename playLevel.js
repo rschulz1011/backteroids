@@ -947,6 +947,7 @@ function convergeRocks()
 		convergeFollowTimer = 1 + convergeFollow * 1000;
 
 		steerRocks(true);
+		playPowersSound();
 	}
 }
 
@@ -992,6 +993,7 @@ function confuseShips()
 		ships.forEachAlive(function(ship){
 			ship.confused = confuseTime;
 		});
+		playPowersSound();
 	}
 }
 
@@ -1003,7 +1005,16 @@ function stunShips()
 		ships.forEachAlive(function(ship){
 			ship.stunned = stunTime;
 		});
+		playPowersSound();
 	}
+}
+
+function playPowersSound() 
+{
+	var powersSound = game.add.audio('powers');
+	powersSound.play('',0,0.7,false);
+	setTimeout(function(){powersSound.fadeOut(1000);},3000);
+	setTimeout(function(){powersSound.destroy()},5000);
 }
 
 function addMouseSprite(level,killIt)
