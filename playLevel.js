@@ -801,7 +801,7 @@ function decrementRechargeTimers() {
 		}
 		recharge.converge.sprite.width = 50 * (1- recharge.converge.timer / recharge.converge.max);
 	}
-	else if (maxConfuse>0)
+	else if (maxConverge>0)
 		
 	{
 		recharge.converge.sprite.width = 0;
