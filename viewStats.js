@@ -11,8 +11,13 @@ viewStats.prototype = {
 		addMuteButton(765,30);
 		createNavigationButtons("ViewStats");
 
-		displayStatLine(200,50,statCategories.totalKills);
 		displayStatLine(200,75,statCategories.levelsPlayed);
+
+		displayStatLine(200,125,statCategories.totalKills);
+		
+		displayStatLine(200,150,statCategories.quickKills);
+		displayStatLine(200,175,statCategories.instantKills);
+		displayStatLine(200,200,statCategories.directHits);
 
 		displayTotalScore();
 		calculatePlayerLevel(gameData);
@@ -36,12 +41,30 @@ statCategories = {
 			return playerStats.kills;
 		}
 	},
+	quickKills: {
+		displayText: "Quick Kills",
+		value: function(playerStats) {
+			return playerStats.quickKills;
+		}
+	},
+	instantKills: {
+		displayText: "Instant Kills",
+		value: function(playerStats) {
+			return playerStats.instantKills;
+		}
+	},
+	directHits: {
+		displayText: "Direct Hits",
+		value: function(playerStats) {
+			return playerStats.directHits;
+		}
+	},
 	levelsPlayed: {
 		displayText: "Levels Played",
 		value: function(playerStats) {
 			return playerStats.levelsPlayed;
 		}
-	}
+	},
 };
 
 var playerStats = {
