@@ -639,6 +639,11 @@ function createUfo() {
 		ufo.shieldBar.alpha = 0.7;
 	
 		ufoLeft--;
+
+		var ufoSound = game.add.audio('ufo');
+		ufoSound.play('',0.5,0.20,false);
+		setTimeout(function(){ufoSound.fadeOut(1300);},1700);
+		setTimeout(function(){ufoSound.destroy()},10000);
 		return ufo;
 	}
 }
