@@ -71,6 +71,7 @@ levelComplete.prototype = {
 		
 			playerData.playerStats.kills = playerData.playerStats.kills + gameState.performanceData.kills;
 			playerData.playerStats.levelsPlayed = playerData.playerStats.levelsPlayed + 1;
+			if (gameState.performanceData.success) {playerData.playerStats.levelsPassed++;}
 			playerData.playerStats.quickKills = playerData.playerStats.quickKills + gameState.performanceData.detailedScore.quickKills;
 			playerData.playerStats.instantKills = playerData.playerStats.instantKills + gameState.performanceData.detailedScore.instantKills;
 			playerData.playerStats.directHits = playerData.playerStats.directHits + gameState.performanceData.detailedScore.directHits;

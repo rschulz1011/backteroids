@@ -12,12 +12,13 @@ viewStats.prototype = {
 		createNavigationButtons("ViewStats");
 
 		displayStatLine(200,75,statCategories.levelsPlayed);
+		displayStatLine(200,100,statCategories.levelsFailed);
+		displayStatLine(200,125,statCategories.levelsPassed);
 
-		displayStatLine(200,125,statCategories.totalKills);
-		
-		displayStatLine(200,150,statCategories.quickKills);
-		displayStatLine(200,175,statCategories.instantKills);
-		displayStatLine(200,200,statCategories.directHits);
+		displayStatLine(200,175,statCategories.totalKills);
+		displayStatLine(200,200,statCategories.quickKills);
+		displayStatLine(200,225,statCategories.instantKills);
+		displayStatLine(200,250,statCategories.directHits);
 
 		displayTotalScore();
 		calculatePlayerLevel(gameData);
@@ -65,6 +66,18 @@ statCategories = {
 			return playerStats.levelsPlayed;
 		}
 	},
+	levelsPassed: {
+		displayText: "Levels Passed",
+		value: function(playerStats) {
+			return playerStats.levelsPassed;
+		}
+	},
+	levelsFailed: {
+		displayText: "Levels Failed",
+		value: function(playerStats) {
+			return playerStats.levelsPlayed - playerStats.levelsPassed;
+		}
+	}
 };
 
 var playerStats = {
@@ -74,4 +87,5 @@ var playerStats = {
 	instantKills: 0,
 	directHits: 0,
 	goodiesCollected: 0,
+	levelsPassed: 0,
 };
