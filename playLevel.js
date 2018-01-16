@@ -1615,6 +1615,10 @@ function addBullet(ship)
 					bullet.body.maxVelocity = 250;
 					bullet.body.rotation = ship.body.rotation;
 					bullet.target = null;
+					var missileSound = game.add.audio('missile');
+					missileSound.play('',0,0.2,false);
+					setTimeout(function(){bulletSound.fadeOut(200);},200);
+					setTimeout(function(){bulletSound.destroy()},1000);
 				}
 				else if (ship.extraWeapons[index].type == 'fighterBay')
 				{
