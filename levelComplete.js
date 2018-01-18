@@ -21,6 +21,8 @@ levelComplete.prototype = {
 		addMuteButton(765,30);
 		$.getJSON( "gameData.json", function( data ) {
 
+			var achievementLevelsPre = calculateAchievementState();
+
 			if (playerData.levelScores[gameState.performanceData.level])
 			{
 				oldScore = playerData.levelScores[gameState.performanceData.level].bestScore;
@@ -88,6 +90,10 @@ levelComplete.prototype = {
 
 			}
 
+			var achievementLevelsPost = calculateAchievementState();
+
+			var achievementsEarnedThisLevel = compareAchievementStates(achievementLevelsPre,achievementLevelsPost);
+
 			setTimeout(function(){
 				displayTotalScore();
 				displayPlayerLevel();
@@ -126,6 +132,29 @@ levelComplete.prototype = {
 
 	},
 
+}
+
+function calculateAchievementState() {
+	var achievementLevel = [];
+	$.each(achievements,function(index,achievement){
+		achievementLevel[index] = achievement.earned(playerData.playerStats);
+	});
+	return achievementLevel;
+}
+
+function compareAchievementStates(pre,post) {
+	
+	var achievementsEarnedThisLevel = [];
+	$.each(achievements,function(index,achievement){
+		if (post[index] > pre[index]) {
+			for (var i=pre[index]; i<post[index]; i++)
+			{
+				var ae = new AchievementEarned(achievements[index].titleText(i),achievements[index].upgradePoints[i],i+1);
+				achievementsEarnedThisLevel.push(ae);
+			}
+		}
+	});
+	return achievementsEarnedThisLevel;
 }
 
 function displayScoreLine(index,label,value1,value2,specialType)
