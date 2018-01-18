@@ -115,6 +115,10 @@ levelComplete.prototype = {
 		var levelResultText = game.add.text(400,80,levelResult,{font:"24px Arial",fill:"#ffffff"});
 		levelResultText.anchor.set(0.5);
 		
+		var achievementsEarned = [];
+		achievementsEarned[0] = new AchievementEarned("test achievement",5,2);
+		achievementsEarned[1] = new AchievementEarned("another achievement",3,3);
+
 		createNavigationButtons();
 
 		menuMusic.fadeIn(4000,true);

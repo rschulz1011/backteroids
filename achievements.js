@@ -143,3 +143,10 @@ var achievements = {
 		}),
 
 }
+
+function AchievementEarned(displayString,upgradePoints,numStars)
+{
+	this.displayString = displayString;
+	this.upgradePoints = upgradePoints;
+	this.numStars = numStars;
+}
