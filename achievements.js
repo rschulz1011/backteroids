@@ -149,4 +149,44 @@ function AchievementEarned(displayString,upgradePoints,numStars)
 	this.displayString = displayString;
 	this.upgradePoints = upgradePoints;
 	this.numStars = numStars;
+
+	this.draw = function(x,y) {
+
+		var achievementWidth = 250;
+		var achievementHeight = 38;
+		var bmd = game.add.bitmapData(achievementWidth,achievementHeight);
+
+    	bmd.ctx.beginPath();
+    	bmd.ctx.rect(0,0,achievementWidth,achievementHeight);
+    	bmd.ctx.fillStyle = '#444444';
+    	bmd.ctx.fill();
+
+    	var background = game.add.sprite(x,y,bmd);
+
+    	var achievementNameStyle = {font: "bold 16px Arial", fill: "#FFFFFF"};
+    	var achievementTitle = game.add.text(0,0,this.displayString,achievementNameStyle);
+    	achievementTitle.anchor.x = 0.5;
+    	achievementTitle.x = achievementWidth/2;
+    	background.addChild(achievementTitle);
+
+    	var rewardStyle = {font: "bold 12px Arial",fill:"#aaaaff"};
+    	var rewardText = game.add.text(achievementWidth/4,20,this.upgradePoints+" UP",{font: "bold 12px Arial",fill:"#aaaaff"});
+    	rewardText.anchor.x = 0.5;
+    	background.addChild(rewardText);
+
+    	game.load.image('star','res/levelStar.png');
+    	var starWidth = numStars*13;
+    	for(var i = 0; i<this.numStars; i++)
+    	{
+    		var star = game.add.sprite(achievementWidth*0.75-starWidth/2+i*13,20,'star');
+    		star.width = 13;
+    		star.height = 13;
+    		star.anchor.x=0;
+    		star.anchor.y=0;
+
+    		background.addChild(star);
+    	}
+    	
+
+	}
 }
