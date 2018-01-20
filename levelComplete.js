@@ -92,15 +92,11 @@ levelComplete.prototype = {
 
 			var achievementLevelsPost = calculateAchievementState();
 
-			//var achievementsEarnedThisLevel = compareAchievementStates(achievementLevelsPre,achievementLevelsPost);
-
-			var achievementsEarnedThisLevel = [];
-			achievementsEarnedThisLevel[0] = new AchievementEarned("test achievement",5,2);
-			achievementsEarnedThisLevel[1] = new AchievementEarned("another achievement",3,3);
+			var achievementsEarnedThisLevel = compareAchievementStates(achievementLevelsPre,achievementLevelsPost);
 
 			var i = 0;
 			$.each(achievementsEarnedThisLevel,function(index,achievement){
-				achievement.draw(485,125 + 43*i);
+				achievement.draw(485,125 + 43*i,4500+600*i);
 				i++
 			});
 

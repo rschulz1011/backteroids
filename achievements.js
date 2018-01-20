@@ -150,7 +150,7 @@ function AchievementEarned(displayString,upgradePoints,numStars)
 	this.upgradePoints = upgradePoints;
 	this.numStars = numStars;
 
-	this.draw = function(x,y) {
+	this.draw = function(xloc,yloc,delay) {
 
 		var achievementWidth = 250;
 		var achievementHeight = 38;
@@ -161,7 +161,7 @@ function AchievementEarned(displayString,upgradePoints,numStars)
     	bmd.ctx.fillStyle = '#444444';
     	bmd.ctx.fill();
 
-    	var background = game.add.sprite(x,y,bmd);
+    	var background = game.add.sprite(xloc,1000,bmd);
 
     	var achievementNameStyle = {font: "bold 16px Arial", fill: "#FFFFFF"};
     	var achievementTitle = game.add.text(0,0,this.displayString,achievementNameStyle);
@@ -187,6 +187,9 @@ function AchievementEarned(displayString,upgradePoints,numStars)
     		background.addChild(star);
     	}
     	
+    	setTimeout(function(){
+			game.add.tween(background).to({y:yloc},800,Phaser.Easing.Quadratic.Out,true);
+		},delay);
 
 	}
 }
