@@ -32,6 +32,7 @@ var playLevel = function(game) {
 	detailedScore.directHitPoints = 0;
 	detailedScore.goodiesCollected = 0;
 	detailedScore.goodieScore = 0;
+	detailedScore.warpsForced = 0;
 
 	difficultyValues = null;
 	difficultyMultiplier = 1.0;
@@ -189,6 +190,7 @@ playLevel.prototype = {
 		detailedScore.directHitPoints = 0;
 		detailedScore.goodiesCollected = 0;
 		detailedScore.goodieScore = 0;
+		detailedScore.warpsForced = 0;
 
 		game.add.sprite(0,0,'space');
 
@@ -1233,6 +1235,7 @@ function moveShip(ship) {
 			throttle(ship,Math.round(Math.random()));
 			if (Math.random() < (game.time.physicsElapsedMS/1000 * playerData.confuseWarps*10))
 			{
+				detailedScore.warpsForced++;
 				warpShip(ship);
 			}
 		}
@@ -1264,6 +1267,7 @@ function moveShip(ship) {
 		}
 		else if (ship.threat != null && action === 'warp' && ship.warpsLeft > 0)
 		{
+			detailedScore.warpsForced++;
 			warpShip(ship);
 		}
 		else

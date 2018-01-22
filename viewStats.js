@@ -20,6 +20,8 @@ viewStats.prototype = {
 		displayStatLine(200,225,statCategories.instantKills);
 		displayStatLine(200,250,statCategories.directHits);
 
+		displayStatLine(400,75,statCategories.warpsForced);
+
 		displayTotalScore();
 		calculatePlayerLevel(gameData);
 		displayPlayerLevel();
@@ -77,6 +79,12 @@ statCategories = {
 		value: function(playerStats) {
 			return playerStats.levelsPlayed - playerStats.levelsPassed;
 		}
+	},
+	warpsForced: {
+		displayText: "Warps Forced",
+		value: function(playerStats) {
+			return playerStats.warpsForced;
+		}
 	}
 };
 
@@ -88,4 +96,5 @@ var playerStats = {
 	directHits: 0,
 	goodiesCollected: 0,
 	levelsPassed: 0,
+	warpsForced: 0,
 };

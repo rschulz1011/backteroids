@@ -78,6 +78,7 @@ levelComplete.prototype = {
 			playerData.playerStats.instantKills = playerData.playerStats.instantKills + gameState.performanceData.detailedScore.instantKills;
 			playerData.playerStats.directHits = playerData.playerStats.directHits + gameState.performanceData.detailedScore.directHits;
 			playerData.playerStats.goodiesCollected = playerData.playerStats.goodiesCollected + gameState.performanceData.detailedScore.goodiesCollected;
+			playerData.playerStats.warpsForced = playerData.playerStats.warpsForced + gameState.performanceData.detailedScore.warpsForced;
 
 			calculateTotalScore();
 			calculatePlayerLevel(gameData);
