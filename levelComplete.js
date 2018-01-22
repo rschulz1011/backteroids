@@ -79,6 +79,7 @@ levelComplete.prototype = {
 			playerData.playerStats.directHits = playerData.playerStats.directHits + gameState.performanceData.detailedScore.directHits;
 			playerData.playerStats.goodiesCollected = playerData.playerStats.goodiesCollected + gameState.performanceData.detailedScore.goodiesCollected;
 			playerData.playerStats.warpsForced = playerData.playerStats.warpsForced + gameState.performanceData.detailedScore.warpsForced;
+			playerData.playerStats.shieldsDepleted = playerData.playerStats.shieldsDepleted + gameState.performanceData.detailedScore.shieldsDepleted;
 
 			calculateTotalScore();
 			calculatePlayerLevel(gameData);

@@ -33,6 +33,7 @@ var playLevel = function(game) {
 	detailedScore.goodiesCollected = 0;
 	detailedScore.goodieScore = 0;
 	detailedScore.warpsForced = 0;
+	detailedScore.shieldsDepleted = 0;
 
 	difficultyValues = null;
 	difficultyMultiplier = 1.0;
@@ -191,6 +192,7 @@ playLevel.prototype = {
 		detailedScore.goodiesCollected = 0;
 		detailedScore.goodieScore = 0;
 		detailedScore.warpsForced = 0;
+		detailedScore.shieldsDepleted = 0;
 
 		game.add.sprite(0,0,'space');
 
@@ -1454,6 +1456,7 @@ function shipHit(rock,ship)
 	{
 		damage = 100;
 	}
+	detailedScore.shieldsDepleted = detailedScore.shieldsDepleted + Math.min(damage*rockDamage,ship.shields);
 	ship.shields = ship.shields - damage * rockDamage;
 	var hitAngle = game.physics.arcade.angleBetween(ship,rock);
 	breakRock(rock);

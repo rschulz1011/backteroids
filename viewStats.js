@@ -21,6 +21,7 @@ viewStats.prototype = {
 		displayStatLine(200,250,statCategories.directHits);
 
 		displayStatLine(450,75,statCategories.warpsForced);
+		displayStatLine(450,100,statCategories.shieldsDepleted);
 
 		displayStatLine(700,75,statCategories.achievementsEarned);
 
@@ -97,6 +98,12 @@ statCategories = {
 			});
 			return totalEarned;
 		}
+	},
+	shieldsDepleted: {
+		displayText: "Shields Depleted",
+		value: function(playerStats) {
+			return playerStats.shieldsDepleted;
+		}
 	}
 };
 
@@ -109,4 +116,5 @@ var playerStats = {
 	goodiesCollected: 0,
 	levelsPassed: 0,
 	warpsForced: 0,
+	shieldsDepleted: 0,
 };
