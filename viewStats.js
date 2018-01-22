@@ -20,7 +20,9 @@ viewStats.prototype = {
 		displayStatLine(200,225,statCategories.instantKills);
 		displayStatLine(200,250,statCategories.directHits);
 
-		displayStatLine(400,75,statCategories.warpsForced);
+		displayStatLine(450,75,statCategories.warpsForced);
+
+		displayStatLine(700,75,statCategories.achievementsEarned);
 
 		displayTotalScore();
 		calculatePlayerLevel(gameData);
@@ -84,6 +86,16 @@ statCategories = {
 		displayText: "Warps Forced",
 		value: function(playerStats) {
 			return playerStats.warpsForced;
+		}
+	},
+	achievementsEarned: {
+		displayText: "Achievements Earned",
+		value: function(playerStats) {
+			var totalEarned = 0;
+			$.each(achievements,function(index,achievement){
+				totalEarned = totalEarned + achievement.earned(playerData.playerStats);
+			});
+			return totalEarned;
 		}
 	}
 };
