@@ -109,7 +109,7 @@ playLevel.prototype = {
 		convergeFollow = playerData.convergeFollow;
 		rockDamage = playerData.rockDamage;
 
-		shipStats = [];
+		shipStats = {};
 
 		//set recharge timers
 		recharge.rocks = {};

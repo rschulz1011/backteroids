@@ -23,6 +23,10 @@ viewStats.prototype = {
 		displayStatLine(450,75,statCategories.warpsForced);
 		displayStatLine(450,100,statCategories.shieldsDepleted);
 
+
+		displayStatLine(450,150,statCategories.shipsDiscovered);
+		displayStatLine(450,175,statCategories.shipsKilled);
+
 		displayStatLine(700,75,statCategories.achievementsEarned);
 
 		displayTotalScore();
@@ -104,7 +108,28 @@ statCategories = {
 		value: function(playerStats) {
 			return playerStats.shieldsDepleted;
 		}
-	}
+	},
+	shipsDiscovered: {
+		displayText: "Ship Types Discovered",
+		value: function(playerStats) {
+			var types=0;
+			$.each(playerStats.shipStats,function(index,shipStats) {
+				if (shipStats.encountered > 0) { types ++;} 
+			});
+			return types;
+		}
+	},
+	shipsKilled: {
+		displayText: "Ship Types Killed",
+		value: function(playerStats) {
+			var types=0;
+			$.each(playerStats.shipStats,function(index,shipStats) {
+				if (shipStats.kills > 0) { types ++;} 
+			});
+			return types;
+		}
+	},
+
 };
 
 var playerStats = {
@@ -117,6 +142,6 @@ var playerStats = {
 	levelsPassed: 0,
 	warpsForced: 0,
 	shieldsDepleted: 0,
-	shipKills: [],
+	shipStats: {},
 };
 

@@ -81,6 +81,13 @@ levelComplete.prototype = {
 			playerData.playerStats.warpsForced = playerData.playerStats.warpsForced + gameState.performanceData.detailedScore.warpsForced;
 			playerData.playerStats.shieldsDepleted = playerData.playerStats.shieldsDepleted + gameState.performanceData.detailedScore.shieldsDepleted;
 
+			var shipStats = gameState.performanceData.shipStats;
+			$.each(shipStats,function(index,shipStat) {
+				playerData.playerStats.shipStats[index].encountered = playerData.playerStats.shipStats[index].encountered + shipStat.encountered;
+				playerData.playerStats.shipStats[index].kills = playerData.playerStats.shipStats[index].kills + shipStat.kills;
+
+			});
+
 			calculateTotalScore();
 			calculatePlayerLevel(gameData);
 
