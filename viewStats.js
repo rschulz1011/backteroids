@@ -117,4 +117,6 @@ var playerStats = {
 	levelsPassed: 0,
 	warpsForced: 0,
 	shieldsDepleted: 0,
+	shipKills: [],
 };
+

@@ -46,17 +46,31 @@
 	game.state.add("Credits",credits);
 
 	$.cookie.json = true;
+	playerData = {};
 	if ($.cookie("playerData")===undefined)
 	{
-		var playerData = {};
-		playerData.levelScores = {};
-		playerData.totalScore = 0;
-		playerData.level = 1;
-		playerData.upgradeLevels = {};
-		$.each(upgrades,function(index,upgrade){
-			playerData.upgradeLevels[index] = 0;
-		});
-		playerData.playerStats = playerStats;
+		var gameData;
+		$.getJSON( "gameData.json", function( data ) {
+   			gameData = data;
+
+			playerData.levelScores = {};
+			playerData.totalScore = 0;
+			playerData.level = 1;
+			playerData.upgradeLevels = {};
+			$.each(upgrades,function(index,upgrade){
+				playerData.upgradeLevels[index] = 0;
+			});
+			playerData.playerStats = playerStats;
+			playerData.playerStats.shipStats = [];
+			$.each(gameData.shipTypes,function(index,ship) {
+				playerData.playerStats.shipStats[index] = {};
+				playerData.playerStats.shipStats[index].kills = 0;
+				playerData.playerStats.shipStats[index].encountered = 0; 
+			});
+
+   		});
+
+
 	}
 	else
 	{

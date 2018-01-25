@@ -109,6 +109,8 @@ playLevel.prototype = {
 		convergeFollow = playerData.convergeFollow;
 		rockDamage = playerData.rockDamage;
 
+		shipStats = [];
+
 		//set recharge timers
 		recharge.rocks = {};
 		if (playerData.recharge.rocks !== null)
@@ -554,6 +556,7 @@ playLevel.prototype = {
 				performanceData.detailedScore = detailedScore;
 				performanceData.difficultyMultiplier = difficultyMultiplier;
 				performanceData.bonusMultiplier = bonusMultiplier;
+				performanceData.shipStats = shipStats;
 				setTimeout(function(){
 					this.game.state.start("LevelComplete",true,false,gameData,performanceData);
 				},1000);
@@ -886,6 +889,7 @@ function unpauseGame()
 			performanceData.detailedScore = detailedScore;
 			performanceData.difficultyMultiplier = difficultyMultiplier;
 			performanceData.bonusMultiplier = bonusMultiplier;
+			performanceData.shipStats = shipStats;
 			this.game.state.start("LevelComplete",true,false,gameData,performanceData);
 			game.paused = false;
 		}
@@ -920,16 +924,40 @@ function setWave(gameData,wave)
 
 	waveData.ships.forEach(function(shipParams,index){
 		shipData = gameData.shipTypes[shipParams.type];
+		shipData.type = shipParams.type;
 		createShip(shipData,shipParams.x,shipParams.y);
+		countShipEncounter(shipParams.type);
 	});
 
 	for (var i=0; i<extraShips; i++)
 	{
 		shipIndex = Math.floor(Math.random()*waveData.ships.length);
 		shipData = gameData.shipTypes[waveData.ships[shipIndex].type];
+		shipData.type = shipParams.type;
 		createShip(shipData,Math.random()*.6+.2,Math.random()*.6+.2);
+		countShipEncounter(waveData.ships[shipIndex].type);
 	}
 
+}
+
+function countShipEncounter(shipType) 
+{
+	if (shipStats[shipType] === undefined) {
+		shipStats[shipType] = {};
+		shipStats[shipType].kills = 0;
+		shipStats[shipType].encountered = 0;
+	}
+	shipStats[shipType].encountered++;
+}
+
+function countShipKill(shipType) 
+{
+	if (shipStats[shipType] === undefined) {
+		shipStats[shipType] = {};
+		shipStats[shipType].kills = 0;
+		shipStats[shipType].encountered = 0;
+	}
+	shipStats[shipType].kills++;
 }
 
 function buttonClick()
@@ -1069,6 +1097,7 @@ function createShip(shipData,x,y)
 	ship.shieldBar = null;
 	ship.body.mass = 1;
 	ship.body.bounce = 0;
+	ship.type = shipData.type;
 
 
 	ship.extraWeaponsRate = [];
@@ -1677,7 +1706,9 @@ function deployFighterBay(ship,bay)
 	var angleOffset = Math.random();
 	for(var index=0; index<bay.shipCount; index ++)
 	{
+		shipData.type = bay.shipType;
 		var ship = createShip(shipData,ship.x/gameWidth,ship.y/gameHeight);
+		countShipEncounter(bay.shipType);
 		var launchAngle = angleOffset + index / bay.shipCount * 2 * Math.PI;
 		ship.body.velocity.x = Math.cos(launchAngle) * 75;
 		ship.body.velocity.y = Math.sin(launchAngle) * 75;
@@ -1759,6 +1790,7 @@ function deadShip(ship,directHit) {
 			performanceData.detailedScore = detailedScore;
 			performanceData.difficultyMultiplier = difficultyMultiplier;
 			performanceData.bonusMultiplier = bonusMultiplier;
+			performanceData.shipStats = shipStats;
 
 			setTimeout(function(){
 				this.game.state.start("LevelComplete",true,false,gameData,performanceData);
@@ -1772,6 +1804,8 @@ function deadShip(ship,directHit) {
 	{
 		createGoodie(ship.x,ship.y);
 	}
+
+	countShipKill(ship.type);
 
 	ship.kill();
 };
