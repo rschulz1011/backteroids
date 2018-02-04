@@ -15,8 +15,6 @@ beastiary.prototype = {
 		topText.anchor.x = 0.5;
 		topText.anchor.y = 0.5;
 
-		drawBeastiaryEntry(165,90,0);
-
 		displayTotalScore();
 		calculatePlayerLevel(gameData);
 		displayPlayerLevel();
@@ -28,7 +26,7 @@ beastiary.prototype = {
 				var tileWidth = 70;
 				xid = shipTypeIndex % 7;
 				yid = Math.floor(shipTypeIndex/7);
-				drawBeastiaryEntry(155+xid*tileWidth,90+yid*tileWidth,shipType);
+				drawBeastiaryEntry(155+xid*tileWidth,90+yid*tileWidth,shipType,index);
 				shipTypeIndex++;
 			});
 		})
@@ -38,7 +36,7 @@ beastiary.prototype = {
 	},
 }
 
-function drawBeastiaryEntry(x,y,ship)
+function drawBeastiaryEntry(x,y,ship,id)
 {
 	var tileWidth = 70;
 	var graphics = game.add.graphics(0, 0);
@@ -47,7 +45,11 @@ function drawBeastiaryEntry(x,y,ship)
 	graphics.beginFill(0x050505, 1);
     graphics.drawRect(x,y,70,70);
 
-    shipTitleText = game.add.text(x+tileWidth/2,y+10,ship.name,{font: "10px Arial",fill:"#ffffff"});
+    shipTitleText = game.add.text(x+tileWidth/2,y+12,ship.name,{font: "10px Arial",fill:"#ffffff"});
     shipTitleText.anchor.x = 0.5;
     shipTitleText.anchor.y = 0.5;
+
+    killsText = game.add.text(x+tileWidth/2,y+tileWidth-4,"Kills: "+playerData.playerStats.shipStats[id].kills,{font: "9px Arial",fill:"#999999"});
+    killsText.anchor.x = 0.5;
+    killsText.anchor.y = 0.5;
 }
