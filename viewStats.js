@@ -114,7 +114,7 @@ statCategories = {
 		value: function(playerStats) {
 			var types=0;
 			$.each(playerStats.shipStats,function(index,shipStats) {
-				if (shipStats.encountered > 0) { types ++;} 
+				if (shipStats.e > 0) { types ++;} 
 			});
 			return types;
 		}
@@ -124,7 +124,7 @@ statCategories = {
 		value: function(playerStats) {
 			var types=0;
 			$.each(playerStats.shipStats,function(index,shipStats) {
-				if (shipStats.kills > 0) { types ++;} 
+				if (shipStats.k > 0) { types ++;} 
 			});
 			return types;
 		}

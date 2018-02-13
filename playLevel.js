@@ -944,20 +944,20 @@ function countShipEncounter(shipType)
 {
 	if (shipStats[shipType] === undefined) {
 		shipStats[shipType] = {};
-		shipStats[shipType].kills = 0;
-		shipStats[shipType].encountered = 0;
+		shipStats[shipType].k = 0;
+		shipStats[shipType].e = 0;
 	}
-	shipStats[shipType].encountered++;
+	shipStats[shipType].e++;
 }
 
 function countShipKill(shipType) 
 {
 	if (shipStats[shipType] === undefined) {
 		shipStats[shipType] = {};
-		shipStats[shipType].kills = 0;
-		shipStats[shipType].encountered = 0;
+		shipStats[shipType].k = 0;
+		shipStats[shipType].e = 0;
 	}
-	shipStats[shipType].kills++;
+	shipStats[shipType].k++;
 }
 
 function buttonClick()

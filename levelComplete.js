@@ -83,8 +83,8 @@ levelComplete.prototype = {
 
 			var shipStats = gameState.performanceData.shipStats;
 			$.each(shipStats,function(index,shipStat) {
-				playerData.playerStats.shipStats[index].encountered = playerData.playerStats.shipStats[index].encountered + shipStat.encountered;
-				playerData.playerStats.shipStats[index].kills = playerData.playerStats.shipStats[index].kills + shipStat.kills;
+				playerData.playerStats.shipStats[index].e = playerData.playerStats.shipStats[index].e + shipStat.e;
+				playerData.playerStats.shipStats[index].k = playerData.playerStats.shipStats[index].k + shipStat.k;
 
 			});
 
