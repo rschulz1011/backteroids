@@ -73,13 +73,24 @@ levelComplete.prototype = {
 		
 			playerData.playerStats.kills = playerData.playerStats.kills + gameState.performanceData.kills;
 			playerData.playerStats.levelsPlayed = playerData.playerStats.levelsPlayed + 1;
-			if (gameState.performanceData.success) {playerData.playerStats.levelsPassed++;}
+			if (gameState.performanceData.success) {
+				playerData.playerStats.levelsPassed++;
+				if (gameState.performanceData.difficultyMultiplier > playerData.playerStats.bestDifficultyMultiplier) {
+					playerData.playerStats.bestDifficultyMultiplier = gameState.performanceData.difficultyMultiplier;
+				}
+			}
 			playerData.playerStats.quickKills = playerData.playerStats.quickKills + gameState.performanceData.detailedScore.quickKills;
 			playerData.playerStats.instantKills = playerData.playerStats.instantKills + gameState.performanceData.detailedScore.instantKills;
 			playerData.playerStats.directHits = playerData.playerStats.directHits + gameState.performanceData.detailedScore.directHits;
 			playerData.playerStats.goodiesCollected = playerData.playerStats.goodiesCollected + gameState.performanceData.detailedScore.goodiesCollected;
 			playerData.playerStats.warpsForced = playerData.playerStats.warpsForced + gameState.performanceData.detailedScore.warpsForced;
 			playerData.playerStats.shieldsDepleted = playerData.playerStats.shieldsDepleted + gameState.performanceData.detailedScore.shieldsDepleted;
+			playerData.playerStats.confuseUsed = playerData.playerStats.confuseUsed + gameState.performanceData.detailedScore.confuseUsed;
+			playerData.playerStats.stunUsed = playerData.playerStats.stunUsed + gameState.performanceData.detailedScore.stunUsed;
+			playerData.playerStats.convergeUsed = playerData.playerStats.convergeUsed + gameState.performanceData.detailedScore.convergeUsed;
+			playerData.playerStats.ufosUsed = playerData.playerStats.ufosUsed + gameState.performanceData.detailedScore.ufosUsed;
+			playerData.playerStats.rocksLaunched = playerData.playerStats.rocksLaunched + gameState.performanceData.detailedScore.rocksLaunched;
+
 
 			var shipStats = gameState.performanceData.shipStats;
 			$.each(shipStats,function(index,shipStat) {

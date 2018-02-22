@@ -20,14 +20,23 @@ viewStats.prototype = {
 		displayStatLine(200,225,statCategories.instantKills);
 		displayStatLine(200,250,statCategories.directHits);
 
+		displayStatLine(200,300,statCategories.rocksLaunched);
+
 		displayStatLine(450,75,statCategories.warpsForced);
 		displayStatLine(450,100,statCategories.shieldsDepleted);
-
 
 		displayStatLine(450,150,statCategories.shipsDiscovered);
 		displayStatLine(450,175,statCategories.shipsKilled);
 
+		displayStatLine(450,225,statCategories.totalPowersUsed);
+		displayStatLine(450,250,statCategories.confuseUsed);
+		displayStatLine(450,275,statCategories.stunUsed);
+		displayStatLine(450,300,statCategories.convergeUsed);
+		displayStatLine(450,325,statCategories.ufosUsed);
+
+
 		displayStatLine(700,75,statCategories.achievementsEarned);
+		displayStatLine(700,125,statCategories.bestDifficultyMultiplier);
 
 		displayTotalScore();
 		calculatePlayerLevel(gameData);
@@ -129,7 +138,48 @@ statCategories = {
 			return types;
 		}
 	},
-
+	totalPowersUsed: {
+		displayText: "Total Powers Used",
+		value: function(playerStats) {
+			return playerStats.stunUsed+playerStats.confuseUsed+playerStats.convergeUsed+playerStats.ufosUsed;
+		}
+	},
+	confuseUsed: {
+		displayText: "Confuse Used",
+		value: function(playerStats) {
+			return playerStats.confuseUsed;
+		}
+	},
+	stunUsed: {
+		displayText: "Stuns Used",
+		value: function(playerStats) {
+			return playerStats.stunUsed;
+		}
+	},
+	convergeUsed: {
+		displayText: "Converges Used",
+		value: function(playerStats) {
+			return playerStats.convergeUsed;
+		}
+	},
+	ufosUsed: {
+		displayText: "UFO's Used",
+		value: function(playerStats) {
+			return playerStats.ufosUsed;
+		}
+	},
+	rocksLaunched: {
+		displayText: "Rocks Launched",
+		value: function(playerStats) {
+			return playerStats.rocksLaunched;
+		}
+	},
+	bestDifficultyMultiplier: {
+		displayText: "Best Difficulty Multiplier",
+		value: function(playerStats) {
+			return playerStats.bestDifficultyMultiplier;
+		}
+	},
 };
 
 var playerStats = {
@@ -142,6 +192,12 @@ var playerStats = {
 	levelsPassed: 0,
 	warpsForced: 0,
 	shieldsDepleted: 0,
+	confuseUsed: 0,
+	stunUsed: 0,
+	convergeUsed: 0,
+	ufosUsed: 0,
+	rocksLaunched: 0,
+	bestDifficultyMultiplier: 0,
 	shipStats: {},
 };
 

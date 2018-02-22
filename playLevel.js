@@ -34,6 +34,11 @@ var playLevel = function(game) {
 	detailedScore.goodieScore = 0;
 	detailedScore.warpsForced = 0;
 	detailedScore.shieldsDepleted = 0;
+	detailedScore.confuseUsed = 0;
+	detailedScore.stunUsed = 0;
+	detailedScore.convergeUsed = 0;
+	detailedScore.ufosUsed = 0;
+	detailedScore.rocksLaunched = 0;
 
 	difficultyValues = null;
 	difficultyMultiplier = 1.0;
@@ -195,6 +200,12 @@ playLevel.prototype = {
 		detailedScore.goodieScore = 0;
 		detailedScore.warpsForced = 0;
 		detailedScore.shieldsDepleted = 0;
+		detailedScore.confuseUsed = 0;
+		detailedScore.stunUsed = 0;
+		detailedScore.convergeUsed = 0;
+		detailedScore.ufosUsed = 0;
+		detailedScore.rocksLaunched = 0;
+
 
 		game.add.sprite(0,0,'space');
 
@@ -647,6 +658,8 @@ function createUfo() {
 	
 		ufoLeft--;
 
+		detailedScore.ufosUsed++;
+
 		var ufoSound = game.add.audio('ufo');
 		ufoSound.play('',0.5,0.20,false);
 		setTimeout(function(){ufoSound.fadeOut(1300);},1700);
@@ -839,6 +852,8 @@ function createRandomRock()
 	var xVelLaunch =  (Math.random() - 0.5 ) * playerData.maxRockSpeed * 2;
 	var yVelLaunch =  (Math.random ()- 0.5 ) * playerData.maxRockSpeed * 2;
 
+	detailedScore.rocksLaunched++;
+
 	createRock(rocks,rockLevel,xlaunch,ylaunch,xVelLaunch,yVelLaunch,false)
 }
 
@@ -980,6 +995,8 @@ function convergeRocks()
 
 		steerRocks(true);
 		playPowersSound();
+
+		detailedScore.convergeUsed++;
 	}
 }
 
@@ -1026,6 +1043,7 @@ function confuseShips()
 			ship.confused = confuseTime;
 		});
 		playPowersSound();
+		detailedScore.confuseUsed++;
 	}
 }
 
@@ -1038,6 +1056,7 @@ function stunShips()
 			ship.stunned = stunTime;
 		});
 		playPowersSound();
+		detailedScore.stunUsed++;
 	}
 }
 
@@ -1939,6 +1958,7 @@ function rockRelease(pointer) {
 			game.mouseSprite.destroy();
 			game.mouseSprite = null;
 			rockButton.frame = 0;
+			detailedScore.rocksLaunched++;
 		}
 		else
 		{
