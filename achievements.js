@@ -105,11 +105,11 @@ function Achievement(nameString,thresholds,upgradePoints,value)
 }
 
 var achievements = {
-	totalKills : new Achievement("{} Total Kills",
-		[50,250,1000,5000,10000],
-		[2,5,10,20,50],
-		function(playerStats) {
-			return playerStats.kills;
+	playerLevel : new Achievement("Player Level {}",
+		[5,20,40,80,150],
+		[5,10,20,50,100],
+		function(playerStats){
+			return playerData.level;
 		}),
 	levelsPlayed : new Achievement("{} Levels Played",
 		[5,15,40,100,200],
@@ -117,6 +117,61 @@ var achievements = {
 		function(playerStats) {
 			return playerStats.levelsPlayed;
 		}),
+	levelsPassed : new Achievement("{} Levels Passed",
+		[5,10,15,20,30],
+		[2,5,10,20,50],
+		function(playerStats) {
+			var levelCount = 0;
+			$.each(playerData.levelScores,function(index,level){
+				if (level.passed) {levelCount++;}
+			});
+			return levelCount;
+		}),
+	highScore : new Achievement("High Score: {}",
+		[100,1000,10000,25000,100000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			var hs = 0;
+			$.each(playerData.levelScores,function(index,level){
+				hs = Math.max(hs,level.bestScore);
+			});
+			return hs;
+		}),
+	difficultyMultiplier : new Achievement("Best Difficulty x: {}",
+		[2,4,6,10,16],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.bestDifficultyMultiplier;
+		}),
+	shipTypes : new Achievement("{} Ship Types Killed",
+		[5,10,20,30,42],
+		[2,5,10,20,50],
+		function(playerStats) {
+			var types=0;
+			$.each(playerStats.shipStats,function(index,ship){
+				if (ship.k>0) {types++;}
+			});
+			return types;
+		}),
+	rocksLaunched : new Achievement("{} Rocks Launched",
+		[50,250,1000,5000,25000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.rocksLaunched;
+		}),
+	powersUsed : new Achievement("{} Powers Used",
+		[25,100,500,1000,2500],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.confuseUsed + playerStats.stunUsed + playerStats.convergeUsed + playerStats.ufosUsed;
+		}),
+	totalKills : new Achievement("{} Total Kills",
+		[50,250,1000,5000,10000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.kills;
+		}),
+
 	quickKills : new Achievement("{} Quick Kills",
 		[20,100,500,2000,5000],
 		[2,5,10,20,50],
@@ -134,6 +189,78 @@ var achievements = {
 		[2,5,10,20,50],
 		function(playerStats) {
 			return playerStats.directHits;
+		}),
+	confuseUsed : new Achievement("{} Confuse Powers Used",
+		[5,25,100,250,500],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.confuseUsed;
+		}),
+	stunUsed : new Achievement("{} Stun Powers Used",
+		[5,25,100,250,500],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.stunUsed;
+		}),
+	convergeUsed : new Achievement("{} Converge Powers Used",
+		[5,25,100,250,500],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.convergeUsed;
+		}),
+	ufosUsed : new Achievement("{} UFO Powers Used",
+		[5,25,100,250,500],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.ufosUsed;
+		}),
+	explorersKilled : new Achievement("{} Explorers Killed",
+		[10,25,100,250,1000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			j = playerStats.shipStats;
+			return j.e1.k + j.e2.k + j.e3.k + j.e4.k + j.e5.k + j.e6.k + j.e7.k;
+		}),
+	cruisersKilled : new Achievement("{} Cruisers Killed",
+		[10,25,100,250,1000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			j = playerStats.shipStats;
+			return j.c1.k + j.c2.k + j.c3.k + j.c4.k + j.c5.k + j.c6.k + j.c7.k;
+		}),
+	reconKilled : new Achievement("{} Recon Ships Killed",
+		[10,25,100,250,1000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			j = playerStats.shipStats;
+			return j.r1.k + j.r2.k + j.r3.k + j.r4.k + j.r5.k + j.r6.k + j.r7.k;
+		}),
+	fightersKilled : new Achievement("{} Fighters Killed",
+		[10,25,100,250,1000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			j = playerStats.shipStats;
+			return j.f1.k + j.f2.k + j.f3.k + j.f4.k + j.f5.k + j.f6.k + j.f7.k;
+		}),
+	battleshipsKilled : new Achievement("{} Battleships Killed",
+		[10,25,100,250,1000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			j = playerStats.shipStats;
+			return j.b1.k + j.b2.k + j.b3.k + j.b4.k + j.b5.k + j.b6.k + j.b7.k;
+		}),
+	mothershipsKilled : new Achievement("{} Motherships Killed",
+		[10,25,100,250,1000],
+		[2,5,10,20,50],
+		function(playerStats) {
+			j = playerStats.shipStats;
+			return j.m1.k + j.m2.k + j.m3.k + j.m4.k + j.m5.k + j.m6.k + j.m7.k;
+		}),
+	warpsForced : new Achievement("{} Warps Forced",
+		[10, 50,100,250,500],
+		[2,5,10,20,50],
+		function(playerStats) {
+			return playerStats.warpsForced;
 		}),
 	goodiesCollected : new Achievement("{} Goodies Collected",
 		[2,25,100,500,1000],

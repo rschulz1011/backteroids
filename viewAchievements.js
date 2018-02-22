@@ -20,7 +20,9 @@ viewAchievements.prototype = {
 		var totalAchievements = 0;
 
 		$.each(achievements,function(index,achievement){
-			achievement.draw(50,100 + 50*ii,playerData.playerStats);
+			var xpos = Math.floor(ii/8);
+			var ypos = ii%8;
+			achievement.draw(16 + xpos*258 , 100 + 50*ypos,playerData.playerStats);
 			totalEarned = totalEarned + achievement.earned(playerData.playerStats);
 			totalAchievements = totalAchievements + achievement.thresholds.length;
 			ii++;
